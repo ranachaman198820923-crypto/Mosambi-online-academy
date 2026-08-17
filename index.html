@@ -41,7 +41,7 @@
             min-height: 100vh;
             transition: 0.3s;
         }
-        /* لاگ ان اسکرین (چمکیلی) */
+        /* لاگ ان اسکرین */
         #loginOverlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -77,10 +77,8 @@
         }
         .login-btn:hover { transform: scale(1.02); }
 
-        /* مین ویب سائٹ */
         #mainWebsite { display: none; max-width: 850px; margin: auto; }
         
-        /* مدرسے کی تصویر اور ہیڈر سیکشن */
         .madrasa-banner {
             width: 100%;
             height: 220px;
@@ -123,7 +121,6 @@
             text-shadow: 0 0 10px rgba(0,230,118,0.3);
         }
         
-        /* ٹاپ ایکشن بار */
         .top-action-bar {
             display: flex;
             gap: 10px;
@@ -170,13 +167,7 @@
             border: 1px solid rgba(255,255,255,0.1);
             font-weight: bold;
         }
-        .namaz-row.active-namaz {
-            background: rgba(0, 230, 118, 0.2);
-            border-color: var(--primary);
-            box-shadow: 0 0 10px rgba(0,230,118,0.3);
-        }
 
-        /* روزانہ کی حدیث باکس */
         .daily-hadith {
             background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(180, 130, 20, 0.3));
             border: 2px dashed var(--accent);
@@ -242,7 +233,6 @@
             box-shadow: 0 0 10px rgba(0,230,118,0.4);
         }
 
-        /* مکمل قرآن سورتیں اوپن کرنے والا فل سکرین ڈبہ */
         #surahViewer {
             display: none;
             position: fixed;
@@ -335,7 +325,7 @@
         <!-- ٹاپ ایکشن بار -->
         <div class="top-action-bar">
             <button class="action-chip" onclick="toggleDarkMode()">🌓 ڈارک / لائٹ موڈ</button>
-            <button class="action-chip" id="installAppBtn" style="display:none;" onclick="installPWAApp()">📲 ایپ انسٹال کریں</button>
+            <button class="action-chip" id="installAppBtn" style="display:inline-block;" onclick="installPWAApp()">📲 ایپ انسٹال کریں</button>
             <button class="action-chip" onclick="copyWebsiteLink()">🔗 لنک کاپی کریں</button>
         </div>
 
@@ -386,7 +376,6 @@
             <h2 class="section-title" id="welcomeTitle">خوش آمدید</h2>
             <p>آپ کیا پڑھنا یا پوچھنا چاہتے ہیں؟ نیچے دی گئی کیٹیگریز میں سے منتخب کریں:</p>
             
-            <!-- واٹس ایپ کے ڈائریکٹ کورسز بٹن -->
             <div class="category-grid">
                 <a href="https://wa.me/923074974713?text=السلام%20عليكم،%20میں%20حفظ%20قرآن%20کرنا%20چاہتا%20ہوں۔" target="_blank" class="cat-btn">📖 حفظ کرنا چاہتے ہیں</a>
                 <a href="https://wa.me/923074974713?text=السلام%20عليكم،%20میں%20ناظرہ%20قرآن%20پڑھنا%20چاہتا%20ہوں۔" target="_blank" class="cat-btn">📗 ناظرہ قرآن پڑھیں</a>
@@ -394,7 +383,6 @@
                 <a href="https://wa.me/923074974713?text=السلام%20عليكم،%20مجھے%20ایک%20مسئلہ%20پوچھنا%20ہے۔" target="_blank" class="cat-btn">❓ کوئی مسئلہ پوچھنا ہے</a>
             </div>
 
-            <!-- اضافی کیٹیگریز -->
             <div class="category-grid" style="margin-top: 15px;">
                 <div class="cat-btn" onclick="openPage('quranPage')">📖 مکمل قرآن مجید</div>
                 <div class="cat-btn" onclick="openPage('tilawatPage')">🎧 مشہور قاری تلاوت</div>
@@ -406,9 +394,7 @@
                 <button class="back-btn" onclick="closePages()">⬅ واپس جائیں</button>
                 <h3 style="color:var(--primary);">📖 مکمل قرآن مجید (114 سورتیں)</h3>
                 <p>سورت کا نام لکھ کر تلاش کریں یا نیچے لسٹ میں سے کلک کریں:</p>
-                
                 <input type="text" id="surahSearchInput" placeholder="سورت کا نام یہاں لکھ کر تلاش کریں..." onkeyup="filterSurahs()">
-                
                 <div id="surahContainer" style="max-height: 400px; overflow-y: auto; padding: 5px; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; margin-top: 10px;">
                     <p style="text-align: center; opacity:0.7;">سورتیں لوڈ ہو رہی ہیں...</p>
                 </div>
@@ -419,14 +405,12 @@
                 <button class="back-btn" onclick="closePages()">⬅ واپس جائیں</button>
                 <h3 style="color:var(--primary);">🎧 مشہور قاری حضرات (آڈیو تلاوت)</h3>
                 <p>تلاوت کی رفتار (Speed) منتخب کریں اور قاری صاحب کی تلاوت سنیں:</p>
-
                 <label style="font-weight: bold; font-size: 0.95rem;">آڈیو اسپیڈ (Speed):</label>
                 <select id="audioSpeed" onchange="changeAudioSpeed()">
                     <option value="1.0" style="background:#1a2238; color:#fff;">عام رفتار (1.0x)</option>
                     <option value="1.25" style="background:#1a2238; color:#fff;">تیز رفتار (1.25x)</option>
                     <option value="1.5" style="background:#1a2238; color:#fff;">مزید تیز (1.5x)</option>
                 </select>
-
                 <div class="list-item" style="margin-top: 10px;">
                     <span>قاری عبد الرحمن السدیس (حرم مکی)</span>
                     <button class="play-audio-btn" onclick="playRecitation('السدیس', 'https://server11.mp3quran.net/sds/001.mp3')">تلاوت سنیں 🔊</button>
@@ -439,11 +423,10 @@
                     <span>قاری عبد الباسط عبد الصمد</span>
                     <button class="play-audio-btn" onclick="playRecitation('عبد الباسط', 'https://server7.mp3quran.net/basit/001.mp3')">تلاوت سنیں 🔊</button>
                 </div>
-
                 <audio id="quranAudio" style="width:100%; margin-top:15px; display:none;" controls></audio>
             </div>
 
-            <!-- 3. فیس اور ادائیگی کا صفحہ -->
+            <!-- 3. فیس اور ادائیگی -->
             <div id="feePage" class="sub-page">
                 <button class="back-btn" onclick="closePages()">⬅ واپس جائیں</button>
                 <div class="easypaisa-box">
@@ -453,13 +436,11 @@
                     <p><strong>ایزی پیسہ نمبر:</strong> 03074974713</p>
                     <p style="font-size: 0.9rem; opacity:0.8;">فیس جمع کروانے کے بعد نیچے اپنی رسید اپلوڈ کریں۔</p>
                 </div>
-
                 <div style="margin-top: 15px;">
                     <h4 style="color:var(--primary);">🧾 فیس رسید اور طالب علم پروفائل</h4>
                     <input type="text" id="stdName" placeholder="اپنا نام یہاں لکھیں">
                     <input type="file" id="fileUpload" accept="image/*">
                     <button class="submit-btn" onclick="saveStudentData()">معلومات محفوظ کریں</button>
-                    
                     <div id="profileBox" style="display:none; margin-top:15px; background:rgba(0,230,118,0.1); padding:15px; border-radius:8px; border:1px solid var(--primary);">
                         <h4 style="color:var(--primary); margin:0 0 5px 0;">👤 طالب علم پروفائل</h4>
                         <p id="displayName" style="font-weight:bold; margin: 5px 0;"></p>
@@ -469,29 +450,22 @@
             </div>
         </div>
 
-        <!-- سورۃ پوری طرح ظاہر ہونے اور سکرول کرنے والا فل سکرین پیج -->
         <div id="surahViewer">
             <button class="back-btn" onclick="closeSurahViewer()" style="background:var(--primary); color:#000; font-size: 1.1rem; padding: 10px 25px;">⬅ سورتوں کی فہرست پر واپس جائیں</button>
-            <h2 id="viewerTitle" style="color:var(--primary); margin-top:15px; font-size: 2rem; text-shadow: 0 0 10px rgba(0,230,118,0.5);"></h2>
+            <h2 id="viewerTitle" style="color:var(--primary); margin-top:15px; font-size: 2rem;"></h2>
             <div id="viewerContent" class="full-surah-text">سورت لوڈ ہو رہی ہے...</div>
             <button class="back-btn" onclick="closeSurahViewer()" style="background:var(--primary); color:#000; font-size: 1.1rem; padding: 10px 25px; margin-bottom: 30px;">⬅ واپس جائیں</button>
         </div>
 
-        <!-- دو واٹس ایپ آپشنز کے ساتھ مسئلہ یا سوال پوچھنے کا سیکشن -->
         <div class="card">
             <h3 style="color:var(--primary); margin-top:0;">❓ اپنا مسئلہ یا سوال پوچھیں</h3>
             <p>اگر آپ کو کوئی دینی مسئلہ پوچھنا ہے تو اپنا مسئلہ نیچے لکھ کر ذیل میں سے کسی بھی استاد سے واٹس ایپ پر رابطہ کریں:</p>
             <div class="question-box">
                 <input type="text" id="askerName" placeholder="اپنا نام یہاں لکھیں...">
                 <textarea id="askerProblem" rows="4" placeholder="اپنا مسئلہ یا سوال یہاں تفصیل سے لکھیں..."></textarea>
-                
                 <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px;">
-                    <button class="submit-btn" style="flex: 1; min-width: 200px;" onclick="sendWhatsApp1()">
-                        📲 واٹس ایپ 1 (افتخار احمد)
-                    </button>
-                    <button class="submit-btn" style="flex: 1; min-width: 200px; background: linear-gradient(45deg, #00b0ff, #7c4dff);" onclick="sendWhatsApp2()">
-                        📲 واٹس ایپ 2 (حافظ عدیل احمد)
-                    </button>
+                    <button class="submit-btn" style="flex: 1; min-width: 200px;" onclick="sendWhatsApp1()">📲 واٹس ایپ 1 (افتخار احمد)</button>
+                    <button class="submit-btn" style="flex: 1; min-width: 200px; background: linear-gradient(45deg, #00b0ff, #7c4dff);" onclick="sendWhatsApp2()">📲 واٹس ایپ 2 (حافظ عدیل احمد)</button>
                 </div>
             </div>
         </div>
@@ -502,7 +476,6 @@
     </div>
 
     <script>
-        // عالمی نماز کے اوقات کا سسٹم (ملک کے حساب سے)
         let currentPrayerData = null;
 
         async function fetchPrayerTimes() {
@@ -523,10 +496,7 @@
                 const data = await response.json();
                 if(data && data.data) {
                     const timings = data.data.timings;
-                    
-                    // اشراق کا وقت فجر کے تقریباً 15-20 منٹ بعد سورج نکلنے پر ہوتا ہے
-                    let fajrTimeStr = timings.Fajr;
-                    let ishragTime = calculateIshraq(fajrTimeStr);
+                    let ishragTime = calculateIshraq(timings.Fajr);
 
                     document.getElementById('tFajr').innerText = format12Hour(timings.Fajr);
                     document.getElementById('tIshraq').innerText = ishragTime;
@@ -537,7 +507,7 @@
 
                     currentPrayerData = {
                         Fajr: timings.Fajr,
-                        Ishraq: ishragTime24(fajrTimeStr),
+                        Ishraq: ishragTime24(timings.Fajr),
                         Dhuhr: timings.Dhuhr,
                         Asr: timings.Asr,
                         Maghrib: timings.Maghrib,
@@ -551,7 +521,6 @@
 
         function calculateIshraq(fajrStr) {
             let [h, m] = fajrStr.split(':').map(Number);
-            // عام طور پر فجر کے 20 سے 25 منٹ بعد اشراق کا وقت شروع ہوتا ہے
             m += 25;
             if(m >= 60) { h += 1; m -= 60; }
             let period = h >= 12 ? "PM" : "AM";
@@ -574,7 +543,6 @@
             return `${h12}:${String(m).padStart(2,'0')} ${period}`;
         }
 
-        // وقت ختم ہونے اور اگلی نماز کی الٹی گنتی چیک کرنے کا فنکشن
         function checkPrayerCountdown() {
             if(!currentPrayerData) return;
             const now = new Date();
@@ -614,7 +582,6 @@
 
         setInterval(checkPrayerCountdown, 1000);
 
-        // PWA انسٹالیشن کا سسٹم
         let deferredPrompt;
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
@@ -631,10 +598,11 @@
                     }
                     deferredPrompt = null;
                 });
+            } else {
+                alert("ایپ پہلے ہی انسٹال ہے یا آپ کا براؤزر ڈائریکٹ انسٹالیشن سپورٹ نہیں کرتا۔ آپ براؤزر مینو (تین نقطے) سے 'Add to Home screen' استعمال کر سکتے ہیں۔");
             }
         }
 
-        // ویب سائٹ کا لنک کاپی کرنے کا فنکشن
         function copyWebsiteLink() {
             const dummy = document.createElement('input');
             document.body.appendChild(dummy);
@@ -645,7 +613,6 @@
             alert("✅ اکیڈمی کا لنک کامیابی کے ساتھ کاپی ہو گیا ہے!");
         }
 
-        // ڈارک / لائٹ موڈ ٹوگل کرنے کا فنکشن
         function toggleDarkMode() {
             const html = document.documentElement;
             if (html.getAttribute('data-theme') === 'light') {
@@ -657,7 +624,6 @@
             }
         }
 
-        // لاگ ان اور سیٹنگ چیک
         window.onload = function() {
             if (localStorage.getItem('theme') === 'light') {
                 document.documentElement.setAttribute('data-theme', 'light');
@@ -807,7 +773,6 @@
             }
         }
 
-        // واٹس ایپ 1 (افتخار احمد: 03074974713)
         function sendWhatsApp1() {
             const name = document.getElementById('askerName').value.trim();
             const problem = document.getElementById('askerProblem').value.trim();
@@ -820,7 +785,6 @@
             }
         }
 
-        // واٹس ایپ 2 (حافظ عدیل احمد: 03077207097)
         function sendWhatsApp2() {
             const name = document.getElementById('askerName').value.trim();
             const problem = document.getElementById('askerProblem').value.trim();
