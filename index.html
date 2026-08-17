@@ -5,53 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مصعب بن عمیر آن لائن اکیڈمی</title>
     <style>
-        :root { --primary: #00e676; --bg: #0f172a; }
-        body { font-family: 'Jameel Noori Nastaleeq', sans-serif; background: var(--bg); color: #e0e6ed; margin: 0; padding: 20px; }
-        
-        /* متحرک لائٹنگ ایفیکٹ */
-        .glowing-box {
-            position: relative; background: #1a2238; padding: 25px; border-radius: 20px;
-            margin-bottom: 25px; border: 2px solid transparent;
-        }
-        .glowing-box::before {
-            content: ''; position: absolute; top: -3px; bottom: -3px; left: -3px; right: -3px;
-            background: linear-gradient(45deg, #00e676, #ffd700, #00e676);
-            border-radius: 22px; z-index: -1; animation: rotate 3s linear infinite;
-        }
-        @keyframes rotate { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
-
-        .book-viewer { height: 500px; overflow-y: scroll; background: #000; padding: 20px; border-radius: 10px; border: 1px solid var(--primary); }
-        .submit-btn { background: var(--primary); color: #000; border: none; padding: 12px; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        :root { --primary: #00e676; --accent: #ffd700; --bg: #0f172a; --card-bg: #1a2238; }
+        body { font-family: 'Jameel Noori Nastaleeq', sans-serif; background: var(--bg); color: #fff; margin: 0; padding: 20px; }
+        .glowing-box { position: relative; background: var(--card-bg); padding: 20px; border-radius: 15px; margin-bottom: 20px; border: 2px solid var(--primary); }
+        .verse-box { background: #000; padding: 15px; border-radius: 10px; margin-bottom: 10px; border-right: 4px solid var(--primary); }
+        .btn { background: var(--primary); color: #000; border: none; padding: 10px; border-radius: 5px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 5px; }
     </style>
 </head>
 <body>
 
-    <!-- 1. چھ کلمے اور نورانی قاعدہ -->
-    <div class="glowing-box">
-        <h2 style="color:var(--primary)">📖 کتب و تعلیمات</h2>
-        <div class="book-viewer">
-            <h3>چھ کلمے</h3>
-            <p>1. کلمہ طیب... 2. کلمہ شہادت... (مزید اسکرول کریں)</p>
-            <hr>
-            <h3>نورانی قاعدہ (مکمل)</h3>
-            <p>تختی نمبر 1: حروف مفردات... <br> (اسکرول کرتے جائیں پورا قاعدہ موجود ہے)</p>
+    <!-- مسجد بینر -->
+    <img src="https://images.unsplash.com/photo-1584551246679-0daf3d275d0f" style="width:100%; border-radius:20px; height:200px; object-fit:cover;">
+
+    <!-- قرآن مجید اسکرول والا سیکشن -->
+    <div class="glowing-box" style="height: 400px; overflow-y: scroll;">
+        <h2 style="color:var(--primary)">📖 مکمل قرآن مجید</h2>
+        <div class="verse-box">
+            <p>بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+            <button class="btn" onclick="this.nextElementSibling.style.display='block'">ترجمہ دیکھیں</button>
+            <div style="display:none; color:var(--accent);">شروع اللہ کے نام سے جو بڑا مہربان نہایت رحم والا ہے۔</div>
+        </div>
+        <!-- یہاں قرآن کی مزید آیات اسکرول میں آتی جائیں گی -->
+    </div>
+
+    <!-- رابطہ سیکشن (دو واٹس ایپ نمبر) -->
+    <div class="glowing-box" style="border-color:var(--accent)">
+        <h2 style="color:var(--accent)">📞 رابطہ برائے انتظامیہ</h2>
+        <div style="background:#25d366; padding:10px; border-radius:10px; margin-bottom:10px;">
+            <p><strong>حافظ عدیل احمد:</strong> 03077209797</p>
+        </div>
+        <div style="background:#00e676; padding:10px; border-radius:10px;">
+            <p><strong>رانا افتخار احمد:</strong> 03074974713</p>
         </div>
     </div>
 
-    <!-- 2. مسائل پوچھنے کا سیکشن -->
+    <!-- فیس ادائیگی (صرف ایزی پیسہ) -->
     <div class="glowing-box">
-        <h2 style="color:var(--primary)">❓ شرعی مسائل پوچھیں</h2>
-        <p>آپ اپنا مسئلہ یہاں لکھ کر ہم سے پوچھ سکتے ہیں:</p>
-        <textarea style="width:100%; height:80px; background:#000; color:#fff; border:1px solid #444; border-radius:8px; padding:10px;"></textarea>
-        <button class="submit-btn" style="margin-top:10px;">واٹس ایپ پر بھیجیں</button>
+        <h2 style="color:var(--primary)">💳 فیس ادائیگی (ایزی پیسہ)</h2>
+        <p><strong>اکاؤنٹ نمبر:</strong> 03074974713</p>
+        <p><strong>نام:</strong> رانا افتخار احمد</p>
     </div>
 
-    <!-- 3. فیس ادائیگی (نام رانا افتخار احمد) -->
+    <!-- ڈیش بورڈ برائے مسائل (وائس ریکارڈنگ کی سہولت کے ساتھ) -->
     <div class="glowing-box">
-        <h2 style="color:var(--primary)">💳 فیس ادائیگی</h2>
-        <p><strong>ایزی پیسہ:</strong> 03074974713<br><strong>نام:</strong> رانا افتخار احمد</p>
-        <input type="file" style="width:100%; margin-bottom:10px;">
-        <button class="submit-btn">اسکرین شاٹ بھیجیں</button>
+        <h2 style="color:var(--primary)">❓ مسائل پوچھیں</h2>
+        <input type="text" placeholder="اپنا نام لکھیں" style="width:100%; padding:10px; margin-bottom:10px;">
+        <textarea placeholder="اپنا مسئلہ لکھیں..." style="width:100%; height:80px;"></textarea>
+        <button class="btn" style="background:var(--accent);">واٹس ایپ پر پیغام بھیجیں</button>
+        <button class="btn" style="background:#ff4444; color:#fff;">🎙️ یا ریکارڈنگ (Voice) بھیجیں</button>
     </div>
 
 </body>
