@@ -248,6 +248,20 @@
             </header>
         </div>
 
+        <!-- نئی خصوصیات اور فیچرز کی گائیڈ سیکشن -->
+        <div class="card" style="border-right-color: var(--accent);">
+            <h3 style="color:var(--accent); margin-top:0;">🌟 اکیڈمی ویب سائٹ کے نمایاں فیچرز</h3>
+            <p style="margin-bottom: 10px; font-size: 0.95rem; opacity: 0.9;">اس پلیٹ فارم پر آپ کو مندرجہ ذیل جدید سہولیات ملتی ہیں:</p>
+            <ul style="margin: 0; padding-right: 20px; line-height: 1.8; font-size: 0.95rem;">
+                <li>📖 <strong>مکمل قرآن مجید:</strong> تمام 114 سورتیں معہ آسان اردو ترجمہ اور سرچ بار۔</li>
+                <li>🎧 <strong>آڈیو تلاوت:</strong> مشہور قاری حضرات (السدیس اور العفاسی) کی تلاوت معہ سپیڈ کنٹرول۔</li>
+                <li>🕌 <strong>لائیو نماز ٹائم ٹیبل:</strong> پاکستان اور دنیا بھر کے مختلف ممالک کے اوقات اور الٹا کاؤنٹ ڈاؤن۔</li>
+                <li>📚 <strong>اسلامک لائبریری:</strong> نورانی قاعدہ، مسنون دعائیں اور فقہی کتب کا مطالعہ۔</li>
+                <li>📝 <strong>آن لائن کوئز سسٹم:</strong> دینی مسائل اور وضو کے ٹیسٹ کا آسان نظام۔</li>
+                <li>💳 <strong>فیس اور ایڈمشن:</strong> ایزی پیسہ تفصیلات اور آن لائن داخلہ فارم کی سہولت۔</li>
+            </ul>
+        </div>
+
         <div class="namaz-timetable-box">
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 12px;">
                 <h3 style="margin:0; color:var(--accent);">🕌 نماز اور اشراق کا ٹائم ٹیبل</h3>
@@ -287,8 +301,8 @@
             <div class="category-grid">
                 <a href="https://wa.me/923074974713?text=السلام%20عليكم،%20میں%20حفظ%20قرآن%20کرنا%20چاہتا%20ہوں۔" target="_blank" class="cat-btn">📖 حفظ کرنا چاہتے ہیں</a>
                 <a href="https://wa.me/923074974713?text=السلام%20عليكم،%20میں%20ناظرہ%20قرآن%20پڑھنا%20چاہتا%20ہوں۔" target="_blank" class="cat-btn">📗 ناظرہ قرآن پڑھیں</a>
-                <a href="https://wa.me/923074974713?text=السلام%20عليكم،%20مجھے%20نماز%20اور%20دعائیں%20سیکھنی%20ہیں۔" target="_blank" class="cat-btn">🤲 نماز اور دعائیں</a>
-                <a href="https://wa.me/923074974713?text=السلام%20عليكم،%20مجھے%20ایک%20مسئلہ%20پوچھنا%20ہے۔" target="_blank" class="cat-btn">❓ کوئی مسئلہ پوچھنا ہے</a>
+                <a href="https://wa.me/923074974713?text=السلام%20عليكم،%20मुझे%20نماز%20اور%20دعائیں%20سیکھنی%20ہیں۔" target="_blank" class="cat-btn">🤲 نماز اور دعائیں</a>
+                <a href="https://wa.me/923074974713?text=السلام%20عليكم،%20मुझे%20ایک%20مسئلہ%20پوچھنا%20ہے۔" target="_blank" class="cat-btn">❓ کوئی مسئلہ پوچھنا ہے</a>
             </div>
 
             <div class="category-grid" style="margin-top: 15px;">
@@ -393,11 +407,27 @@
             <div id="viewerContent" class="full-surah-text">سورت لوڈ ہو رہی ہے...</div>
         </div>
 
+        <!-- نیا آن لائن ایڈمشن اور رجسٹریشن فارم سیکشن -->
+        <div class="card">
+            <h3 style="color:var(--primary); margin-top:0;">📋 آن لائن داخلہ / رجسٹریشن فارم</h3>
+            <div class="question-box">
+                <input type="text" id="admName" placeholder="طالب علم کا پورا نام...">
+                <input type="text" id="admCity" placeholder="اپنا شہر یا علاقہ...">
+                <select id="admCourse" style="background:var(--card-bg); color:var(--text-dark);">
+                    <option value="حفظ قرآن کورس">حفظ قرآن کورس</option>
+                    <option value="ناظرہ قرآن کورس">ناظرہ قرآن کورس</option>
+                    <option value="نماز اور بنیادی دعائیں">نماز اور بنیادی دعائیں</option>
+                    <option value="نورانی قاعدہ">نورانی قاعدہ</option>
+                </select>
+                <button class="submit-btn" onclick="sendAdmissionWhatsApp()">📲 واٹس ایپ پر داخلہ بھیجیں</button>
+            </div>
+        </div>
+
         <div class="card">
             <h3 style="color:var(--primary); margin-top:0;">❓ اپنا مسئلہ یا سوال پوچھیں</h3>
             <div class="question-box">
                 <input type="text" id="askerName" placeholder="اپنا نام یہاں لکھیں...">
-                <textarea id="askerProblem" rows="4" placeholder="اپنا مسئلہ یا سوال یہاں تفصیل سے لکھیں..."></textarea>
+                <textarea id="askerProblem" rows="4" placeholder="अपना مسئلہ یا سوال یہاں تفصیل سے لکھیں..."></textarea>
                 <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px;">
                     <button class="submit-btn" style="flex: 1; min-width: 200px;" onclick="sendWhatsApp1()">📲 واٹس ایپ 1 (افتخار احمد)</button>
                     <button class="submit-btn" style="flex: 1; min-width: 200px; background: linear-gradient(45deg, #00b0ff, #7c4dff);" onclick="sendWhatsApp2()">📲 واٹس ایپ 2 (عدیل احمد)</button>
@@ -560,11 +590,13 @@
         }
 
         window.onload = function() {
-            if (localStorage.getItem('theme') === 'light') {
-                document.documentElement.setAttribute('data-theme', 'light');
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                document.documentElement.setAttribute('data-theme', savedTheme);
             } else {
                 document.documentElement.setAttribute('data-theme', 'dark');
             }
+
             const savedUser = localStorage.getItem('academy_username');
             if (savedUser) {
                 activateUser(savedUser);
@@ -586,6 +618,7 @@
             document.getElementById('welcomeTitle').innerText = "خوش آمدید، " + name;
             document.getElementById('stdName').value = name;
             document.getElementById('askerName').value = name;
+            document.getElementById('admName').value = name;
             document.getElementById('loginOverlay').style.display = 'none';
             document.getElementById('mainWebsite').style.display = 'block';
             loadSurahList();
@@ -611,7 +644,7 @@
         async function loadSurahList() {
             if (isLoaded) return;
             try {
-                const res = ails = await fetch('https://api.alquran.cloud/v1/surah');
+                const res = await fetch('https://api.alquran.cloud/v1/surah');
                 const data = await res.json();
                 allSurahsData = data.data;
                 displaySurahs(allSurahsData);
@@ -643,7 +676,6 @@
             displaySurahs(filtered);
         }
 
-        let currentSurahTranslations = [];
         async function openFullSurah(number, name) {
             document.getElementById('viewerTitle').innerText = name;
             document.getElementById('viewerContent').innerText = "سورت اور ترجمہ لوڈ ہو رہا ہے...";
@@ -723,6 +755,18 @@
             if(q2 && q2.value === 'correct') score++;
 
             document.getElementById('quizResultText').innerText = `🎉 آپ کا ٹیسٹ مکمل ہو گیا! آپ کے درست جوابات: ${score} میں سے 2`;
+        }
+
+        function sendAdmissionWhatsApp() {
+            const name = document.getElementById('admName').value.trim();
+            const city = document.getElementById('admCity').value.trim();
+            const course = document.getElementById('admCourse').value;
+            if(name && city) {
+                const message = `السلام علیکم! میں مصعب بن عمیر آن لائن اکیڈمی میں داخلہ لینا چاہتا ہوں۔\nنام: ${name}\nشہر: ${city}\nمنتخب کورس: ${course}`;
+                window.open(`https://wa.me/923074974713?text=${encodeURIComponent(message)}`, '_blank');
+            } else {
+                alert("براہ کرم اپنا نام اور شہر کا نام درج کریں۔");
+            }
         }
 
         function sendWhatsApp1() {
