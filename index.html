@@ -145,16 +145,27 @@
             overflow-y: auto; padding: 25px; box-sizing: border-box; text-align: center;
         }
         .book-content-box {
-            font-size: 1.4rem; line-height: 2.4; max-width: 800px; margin: 20px auto;
-            text-align: justify; background: var(--card-bg); color: var(--text-dark);
+            font-size: 1.3rem; line-height: 2.2; max-width: 800px; margin: 20px auto;
+            text-align: right; background: var(--card-bg); color: var(--text-dark);
             padding: 35px; border-radius: 15px; border: 2px solid var(--accent);
             box-shadow: var(--accent-glow);
+            max-height: 60vh; overflow-y: auto;
         }
         .back-btn {
             background: var(--primary); color: #000; border: none; padding: 10px 25px; border-radius: 8px;
             cursor: pointer; margin-bottom: 15px; font-weight: bold; font-size: 1.1rem;
         }
         
+        input[type="text"], textarea {
+            width: 100%; padding: 12px; margin: 8px 0; border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px; font-size: 1rem; box-sizing: border-box; text-align: right;
+            font-family: inherit; background: rgba(255,255,255,0.05); color: var(--text-dark);
+        }
+        .submit-btn {
+            background: linear-gradient(45deg, #00e676, #00b0ff); color: #000; border: none;
+            padding: 12px; width: 100%; border-radius: 8px; font-size: 1rem; font-weight: bold;
+            cursor: pointer; margin-top: 10px; box-shadow: 0 0 15px rgba(0,230,118,0.4);
+        }
         footer {
             text-align: center; padding: 20px; background: rgba(0,0,0,0.5); color: #fff;
             border-radius: 12px; margin-top: 30px; font-size: 0.9rem;
@@ -166,6 +177,9 @@
     <div class="sticky-menu-bar">
         <button class="action-chip" onclick="toggleDarkMode()">🌓 ڈارک / لائٹ موڈ</button>
         <button class="action-chip" onclick="openInternalLibrary()">📚 جامع اسلامی لائبریری</button>
+        <button class="action-chip" onclick="copySiteLink()">🔗 لنک کاپی کریں</button>
+        <button class="action-chip" onclick="installApp()">📱 ایپ انسٹال کریں</button>
+        <button class="action-chip" onclick="openOnlineTest()">📝 آن لائن ٹیسٹ</button>
     </div>
 
     <div id="loginOverlay">
@@ -187,16 +201,33 @@
             </header>
         </div>
 
-        <div class="card">
-            <h2 class="section-title">📖 جامع اسلامی لائبریری (ان-অ্যাপ ریڈر)</h2>
-            <p>یہاں آپ کسی بھی کتاب یا مسئلے پر کلک کریں گے تو وہ **براہ راست اسی ایپ کے اندر** کھلے گی:</p>
+        <div class="card" id="librarySection">
+            <h2 class="section-title">📖 جامع اسلامی لائبریری (کتب و قواعد)</h2>
+            <p>یہاں آپ دینی کتب، مسنون دعائیں، یا مسلم مسائل کے قاعدے براہ راست پڑھ سکتے ہیں:</p>
             
             <div class="category-grid">
-                <div class="cat-btn" onclick="openBookContent('نورانی قاعدہ', 'نورانی قاعدہ مکمل بچوں کے لیے', 'بچوں اور ابتدائی طلباء کے لیے نورانی قاعدہ کا مکمل متن یہاں درج ہے...\n\n۱. مفردات (حروفِ تہجی)\n۲. مرکبات\n۳. حركات (زبر، زیر، پیش)\n۴. تنوین اور مدة.')">📖 نورانی قاعدہ</div>
-                <div class="cat-btn" onclick="openBookContent('مسائلِ نماز و طہارت', 'فقہی احکام اور مسائلِ نماز', 'وضو اور نماز کے اہم مسائل:\n\n۱. وضو کا طریقہ اور اس کے 4 فرائض۔\n۲. غسل کے فرائض اور سنتیں。\n۳. نماز کی شرطیں اور ارکان۔\n۴. سجدہ سہو کا مسنون طریقہ۔')">📜 مسائلِ نماز و طہارت</div>
-                <div class="cat-btn" onclick="openBookContent('حصن المسلم', 'مقبول مسنون دعائیں اور اوراد', 'روزمرہ کی مسنون دعائیں:\n\n- صبح و شام کے اذکار\n- گھر سے نکلنے اور داخل ہونے کی دعا\n- کھانے سے پہلے اور بعد کی دعا\n- سفر کی دعا')">🤲 حصن المسلم (دعائیں)</div>
-                <div class="cat-btn" onclick="openBookContent('اربعین نبوی', 'احادیث مبارکہ کا مجموعہ', 'امام نووی رحمہ اللہ کی چالیس مبارک احادیث:\n\n۱. انما الاعمال بالنیات (تمام اعمال کا دارومدار نیتوں پر ہے)\n۲. اسلام، ایمان اور احسان کی تعریف\n۳. دین خیر خواہی کا نام ہے۔')">✨ اربعین نبوی (احادیث)</div>
+                <div class="cat-btn" onclick="openBook('qaidah')">📖 نورانی قاعدہ (مکمل بچوں کے لیے)</div>
+                <div class="cat-btn" onclick="openBook('namaz')">📜 مسائلِ نماز و طہارت (فقہی احکام)</div>
+                <div class="cat-btn" onclick="openBook('dua')">🤲 حصن المسلم (مقبول مسنون دعائیں)</div>
+                <div class="cat-btn" onclick="openBook('hadith')">✨ اربعین نبوی (احادیث مبارکہ)</div>
             </div>
+        </div>
+
+        <div class="card">
+            <h2 class="section-title">📝 آن لائن داخلہ / رجسٹریشن فارم</h2>
+            <form onsubmit="handleFormSubmit(event)">
+                <input type="text" id="studentName" placeholder="पूرا نام / پورا نام لکھیں" required>
+                <input type="text" id="studentFather" placeholder="والد کا نام" required>
+                <input type="text" id="studentPhone" placeholder="رابطہ نمبر / فون نمبر" required>
+                <textarea id="studentAddress" placeholder="مکمل پتہ لکھیں" rows="3" required></textarea>
+                <button type="submit" class="submit-btn">داخلہ فارم جمع کروائیں</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2 class="section-title">💳 فیس و ادائیگی</h2>
+            <p>اکیڈمی کی ماہانہ فیس جمع کروانے کے لیے نیچے دیے گئے اکاؤنٹ پر منتقل کریں:</p>
+            <p><strong>جاز کیش / ایزی پیسہ:</strong> 0300-1234567<br><strong>اکاؤنٹ ہولڈر:</strong> مصعب بن عمیر اکیڈمی</p>
         </div>
 
         <footer>
@@ -211,7 +242,6 @@
     </div>
 
     <script>
-        // صفحہ لوڈ ہوتے ہی چیک کریں کہ کیا پہلے سے نام محفوظ ہے
         window.onload = function() {
             const savedTheme = localStorage.getItem('theme');
             if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
@@ -249,11 +279,98 @@
             }
         }
 
-        function openBookContent(title, subtitle, content) {
-            document.getElementById('viewerBookTitle').innerText = title + " - " + subtitle;
-            document.getElementById('viewerBookBody').innerText = content;
-            document.getElementById('internalBookViewer').style.display = 'block';
-            window.scrollTo(0, 0);
+        function copySiteLink() {
+            navigator.clipboard.writeText(window.location.href);
+            alert("ویب سائٹ کا لنک کاپی ہو گیا ہے!");
+        }
+
+        function installApp() {
+            alert("ایپ انسٹالیشن فیچر: اپنے براؤزر کے مینو (تین نقطے) سے 'Add to Home Screen' پر کلک کریں۔");
+        }
+
+        function openOnlineTest() {
+            alert("آن لائن ٹیسٹ کا پورٹل جلد فعال کیا جائے گا۔");
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            alert("مبارک ہو! آپ کا رجسٹریشن فارم کامیابی کے ساتھ جمع ہو گیا ہے۔");
+            e.target.reset();
+        }
+
+        /* کتابوں اور مسائل کا ڈیٹا جو ایپ کے اندر سکرول ہو کر دکھے گا */
+        const booksData = {
+            'qaidah': {
+                title: 'نورانی قاعدہ (مکمل بچوں کے لیے)',
+                content: `
+                    <h3>سبق نمبر ۱: مفردات (حروفِ تہجی)</h3>
+                    <p>ا، ب، ت، ث، ج، ح، خ، د، ذ، ر، ز، س، ش، ص، ض، ط، ظ، ع، غ، ف، ق، ک، ل، م، ن، و، ہ، ء، ی۔</p>
+                    <hr>
+                    <h3>سبق نمبر ۲: مرکبات</h3>
+                    <p>لا، با، تا، ثا، یا، نون الف، حا، خا، جیم وغیرہ کی ملی ہوئی شکلیں...</p>
+                    <hr>
+                    <h3>سبق نمبر ۳: حركات (زبر، زیر، پیش)</h3>
+                    <p>زبر اوپر ہوتی ہے (أ)، زیر نیچے ہوتی ہے (إ)، اور پیش واؤ کی طرح ہوتی ہے (ؤ)۔ حرکات کو بغیر کھینچے جلدی پڑھیں۔</p>
+                    <hr>
+                    <h3>سبق نمبر ۴: تنوین (دو زبر، دو زیر، دو پیش)</h3>
+                    <p>تنوین نون ساکن کی آواز دیتی ہے۔ جیسے: بً بٍ بٌ۔</p>
+                `
+            },
+            'namaz': {
+                title: 'مسائلِ نماز و طہارت (فقہی احکام)',
+                content: `
+                    <h3>مسئلہ ۱: وضو کا طریقہ اور فرائض</h3>
+                    <p>وضو میں چار فرض ہیں: 1. چہرہ دھونا، 2. دونوں بازو کہنیوں سمیت دھونا، 3. چوتھائی سر کا مسح کرنا، 4. دونوں پاؤں ٹخنوں سمیت دھونا۔</p>
+                    <hr>
+                    <h3>مسئلہ ۲: غسل کے فرائض</h3>
+                    <p>غسل میں تین فرض ہیں: 1. کلی کرنا، 2. ناک میں نرم ہڈی تک پانی چڑھانا، 3. پورے جسم پر اس طرح پانی بہانا کہ بال برابر بھی جگہ سوکھی نہ رہے۔</p>
+                    <hr>
+                    <h3>مسئلہ ۳: نماز کی شرطیں</h3>
+                    <p>نماز کے لیے طہارت، ستر کا چھپانا، قبلہ رخ ہونا، وقت کا داخل ہونا اور نیت شرط ہے۔</p>
+                    <hr>
+                    <h3>مسئلہ ۴: سجدہ سہو کا طریقہ</h3>
+                    <p>اگر نماز میں کوئی واجب بھول جائے تو آخری قعدہ میں التحیات پڑھ کر ایک طرف سلام پھیر کر دو سجدے کیے جائیں اور پھر التحیات، درود و دعا پڑھ کر سلام پھیرا جائے۔</p>
+                `
+            },
+            'dua': {
+                title: 'حصن المسلم (مقبول مسنون دعائیں)',
+                content: `
+                    <h3>صبح و شام کی دعا:</h3>
+                    <p>أَصْبَحْنَا وَأَصْبَحَ المُلْكُ لِلَّهِ، وَالحَمْدُ لِلَّهِ... (ہم نے اور تمام ملک نے اللہ کے لیے صبح کی)</p>
+                    <hr>
+                    <h3>گھر سے نکلنے کی دعا:</h3>
+                    <p>بِسْمِ اللَّهِ تَوَكَّلْتُ عَلَى اللَّهِ، وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ۔</p>
+                    <hr>
+                    <h3>کھانے سے پہلے کی دعا:</h3>
+                    <p>بِسْمِ اللَّهِ وَعَلَى بَرَكَةِ اللَّهِ۔</p>
+                    <hr>
+                    <h3>سفر کی دعا:</h3>
+                    <p>سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ وَإِنَّا إِلَى رَبِّنَا لَمُنقَلِبُونَ۔</p>
+                `
+            },
+            'hadith': {
+                title: 'اربعین نبوی (احادیث مبارکہ)',
+                content: `
+                    <h3>حديث نمبر ۱: نیت کا دارومدار</h3>
+                    <p>عن أمير المؤمنين أبي حفص عمر بن الخطاب رضي الله عنه قال: سمعت رسول الله صلى الله عليه وسلم يقول: "إنما الأعمال بالنيات، وإنما لكل امرئ ما نوى..."</p>
+                    <hr>
+                    <h3>حديث نمبر ۲: اسلام، ایمان اور احسان</h3>
+                    <p>عن عمر رضي الله عنه أيضاً قال: بينما نحن جلوس عند رسول الله ذات يوم إذ طلع علينا رجل شديد بياض الثياب... حتى سأل عن الإسلام والإيمان والإاحسان.</p>
+                    <hr>
+                    <h3>حديث نمبر ۳: دین خیرخواهی ہے</h3>
+                    <p>عن تميم الداري رضي الله عنه أن النبي صلى الله عليه وسلم قال: "الدين النصيحة". قلنا: لمن؟ قال: "لله ولكتابه ولرسوله ولأئمة المسلمين وعامتهم".</p>
+                `
+            }
+        };
+
+        function openBook(bookKey) {
+            const book = booksData[bookKey];
+            if(book) {
+                document.getElementById('viewerBookTitle').innerText = book.title;
+                document.getElementById('viewerBookBody').innerHTML = book.content;
+                document.getElementById('internalBookViewer').style.display = 'block';
+                window.scrollTo(0, 0);
+            }
         }
 
         function closeInternalBook() {
