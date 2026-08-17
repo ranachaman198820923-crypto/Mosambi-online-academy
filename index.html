@@ -167,12 +167,12 @@
         .list-item {
             background: rgba(255,255,255,0.03); color: var(--text-dark); padding: 12px 15px; margin: 8px 0;
             border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); display: flex;
-            justify-content: space-between; align-items: center; font-weight: bold; cursor: pointer;
+            justify-content: space-between; align-items: center; font-weight: bold;
         }
         .list-item:hover { background: rgba(0,230,118,0.1); border-color: var(--primary); }
         .play-audio-btn {
             background: var(--primary); color: #000; border: none; padding: 6px 14px;
-            border-radius: 5px; cursor: pointer; font-weight: bold;
+            border-radius: 5px; cursor: pointer; font-weight: bold; text-decoration: none; display: inline-block;
         }
         #surahViewer {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -248,7 +248,6 @@
             </header>
         </div>
 
-        <!-- نئی خصوصیات اور فیچرز کی گائیڈ سیکشن -->
         <div class="card" style="border-right-color: var(--accent);">
             <h3 style="color:var(--accent); margin-top:0;">🌟 اکیڈمی ویب سائٹ کے نمایاں فیچرز</h3>
             <p style="margin-bottom: 10px; font-size: 0.95rem; opacity: 0.9;">اس پلیٹ فارم پر آپ کو مندرجہ ذیل جدید سہولیات ملتی ہیں:</p>
@@ -301,7 +300,7 @@
             <div class="category-grid">
                 <a href="https://wa.me/923074974713?text=السلام%20عليكم،%20میں%20حفظ%20قرآن%20کرنا%20چاہتا%20ہوں۔" target="_blank" class="cat-btn">📖 حفظ کرنا چاہتے ہیں</a>
                 <a href="https://wa.me/923074974713?text=السلام%20عليكم،%20میں%20ناظرہ%20قرآن%20پڑھنا%20چاہتا%20ہوں۔" target="_blank" class="cat-btn">📗 ناظرہ قرآن پڑھیں</a>
-                <a href="https://wa.me/923074974713?text=السلام%20عليكم،%20मुझे%20نماز%20اور%20دعائیں%20سیکھنی%20ہیں۔" target="_blank" class="cat-btn">🤲 نماز اور دعائیں</a>
+                <a href="https://wa.me/923074974713?text=السلام%20عليكم،%20मुझे%20نماز%20और%20دعائیں%20سیکھنی%20ہیں۔" target="_blank" class="cat-btn">🤲 نماز اور دعائیں</a>
                 <a href="https://wa.me/923074974713?text=السلام%20عليكم،%20मुझे%20ایک%20مسئلہ%20پوچھنا%20ہے۔" target="_blank" class="cat-btn">❓ کوئی مسئلہ پوچھنا ہے</a>
             </div>
 
@@ -366,14 +365,28 @@
                 </div>
             </div>
 
+            <!-- درست کردہ اسلامک لائبریری سیکشن -->
             <div id="libraryPage" class="sub-page">
                 <button class="back-btn" onclick="closePages()">⬅ واپس جائیں</button>
                 <h3 style="color:var(--primary);">📚 جامع اسلامک لائبریری (کتب و قاعدے)</h3>
                 <p>یہاں آپ دینی کتب، مسنون دعائیں، اور مسلم مسائل کے قاعدے آن لائن پڑھ سکتے ہیں:</p>
-                <div class="list-item"><span>📖 نورانی قاعدہ (مکمل بچوں کے لیے)</span> <button class="play-audio-btn" onclick="alert('نورانی قاعدہ جلد اپ ڈیٹ ہوگا')">مطالعہ کریں</button></div>
-                <div class="list-item"><span>📗 مسائلِ نماز و طہارت (فقہی احکام)</span> <button class="play-audio-btn" onclick="alert('مسائل کی کتاب کھولی جا رہی ہے')">مطالعہ کریں</button></div>
-                <div class="list-item"><span>📘 حصن المسلم (مقبول مسنون دعائیں)</span> <button class="play-audio-btn" onclick="alert('دعاؤں کا مجموعہ کھلا')">مطالعہ کریں</button></div>
-                <div class="list-item"><span>📙 اربعین نبوی (احادیثِ مبارکہ)</span> <button class="play-audio-btn" onclick="alert('احادیث سیکشن')">مطالعہ کریں</button></div>
+                
+                <div class="list-item">
+                    <span>📖 نورانی قاعدہ (مکمل بچوں کے لیے)</span> 
+                    <a href="https://archive.org/download/NooraniQaida_201603/NooraniQaida.pdf" target="_blank" class="play-audio-btn">مطالعہ کریں</a>
+                </div>
+                <div class="list-item">
+                    <span>📗 مسائلِ نماز و طہارت (فقہی احکام)</span> 
+                    <a href="https://archive.org/details/NamazSehihUrdu" target="_blank" class="play-audio-btn">مطالعہ کریں</a>
+                </div>
+                <div class="list-item">
+                    <span>📘 حصن المسلم (مقبول مسنون دعائیں)</span> 
+                    <a href="https://archive.org/download/HisnAlMuslimUrdu/Hisn-ul-Muslim-Urdu.pdf" target="_blank" class="play-audio-btn">مطالعہ کریں</a>
+                </div>
+                <div class="list-item">
+                    <span>📙 اربعین نبوی (احادیثِ مبارکہ)</span> 
+                    <a href="https://archive.org/download/ArbaonNawawiUrdu/Al-Arbaun-An-Nawawiyyah-Urdu.pdf" target="_blank" class="play-audio-btn">مطالعہ کریں</a>
+                </div>
             </div>
 
             <div id="quizPage" class="sub-page">
@@ -407,7 +420,6 @@
             <div id="viewerContent" class="full-surah-text">سورت لوڈ ہو رہی ہے...</div>
         </div>
 
-        <!-- نیا آن لائن ایڈمشن اور رجسٹریشن فارم سیکشن -->
         <div class="card">
             <h3 style="color:var(--primary); margin-top:0;">📋 آن لائن داخلہ / رجسٹریشن فارم</h3>
             <div class="question-box">
