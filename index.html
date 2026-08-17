@@ -149,28 +149,31 @@
             box-shadow: 0 0 20px rgba(0,230,118,0.7);
         }
 
-        /* لائیو کلاس اور کاؤنٹ ڈاؤن ٹائمر کا باکس */
-        .live-class-box {
-            background: linear-gradient(135deg, rgba(13, 71, 161, 0.4), rgba(21, 101, 192, 0.6));
-            border: 2px solid #00b0ff;
-            padding: 15px 20px;
-            border-radius: 12px;
+        /* نمازوں کا ٹائم ٹیبل باکس */
+        .namaz-timetable-box {
+            background: linear-gradient(135deg, rgba(13, 71, 161, 0.3), rgba(26, 34, 56, 0.9));
+            border: 2px solid var(--accent);
+            padding: 20px;
+            border-radius: 15px;
             margin-bottom: 20px;
-            color: #fff;
-            text-align: center;
-            box-shadow: 0 0 20px rgba(0,176,255,0.3);
+            color: var(--text-dark);
+            box-shadow: var(--accent-glow);
         }
-        .timer-display {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: #ff5252;
-            background: rgba(0,0,0,0.4);
-            padding: 5px 15px;
+        .namaz-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255,255,255,0.04);
+            padding: 10px 15px;
+            margin: 6px 0;
             border-radius: 8px;
-            display: inline-block;
-            margin-top: 8px;
-            border: 1px solid #ff5252;
-            box-shadow: 0 0 10px rgba(255,82,82,0.4);
+            border: 1px solid rgba(255,255,255,0.1);
+            font-weight: bold;
+        }
+        .namaz-row.active-namaz {
+            background: rgba(0, 230, 118, 0.2);
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(0,230,118,0.3);
         }
 
         /* روزانہ کی حدیث باکس */
@@ -336,14 +339,32 @@
             <button class="action-chip" onclick="copyWebsiteLink()">🔗 لنک کاپی کریں</button>
         </div>
 
-        <!-- لائیو کلاس شیڈول اور الٹی گنتی -->
-        <div class="live-class-box">
-            <h4 style="margin:0 0 5px 0;">🔴 اگلی لائیو کلاس کا وقت</h4>
-            <p style="margin:0; font-size: 1rem;">اگلی آن لائن کلاس شروع ہونے میں باقی وقت:</p>
-            <div class="timer-display" id="classCountdown">لوڈ ہو رہا ہے...</div>
-            <div style="margin-top: 10px;">
-                <a href="https://wa.me/923074974713?text=السلام%20عليكم،%20میں%20لائیو%20کلاس%20میں%20شامل%20होना%20چاہتا%20ہوں۔" target="_blank" style="background:#00e676; color:#000; padding:8px 20px; border-radius:6px; text-decoration:none; font-weight:bold; display:inline-block; box-shadow:0 0 10px rgba(0,230,118,0.5);">لائیو کلاس جوائن کریں ➔</a>
+        <!-- نمازوں کا ٹائم ٹیبل (خودکار اور ملک/شہر کے حساب سے) -->
+        <div class="namaz-timetable-box">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 12px;">
+                <h3 style="margin:0; color:var(--accent);">🕌 نماز اور اشراق کا ٹائم ٹیبل</h3>
+                <div>
+                    <select id="countrySelect" onchange="fetchPrayerTimes()" style="padding: 6px 12px; border-radius: 6px; font-size: 0.9rem; background: var(--card-bg); color: var(--text-dark); border: 1px solid var(--primary);">
+                        <option value="PK" selected>پاکستان (Pakistan)</option>
+                        <option value="SA">سعودی عرب (Saudi Arabia)</option>
+                        <option value="AE">متحدہ عرب امارات (UAE)</option>
+                        <option value="IN">بھارت (India)</option>
+                        <option value="GB">برطانیہ (UK)</option>
+                        <option value="US">امریکہ (USA)</option>
+                    </select>
+                </div>
             </div>
+            <p id="locationStatus" style="margin: 0 0 10px 0; font-size: 0.9rem; opacity: 0.8;">آج کے اوقات (خودکار اپ ڈیٹ):</p>
+            
+            <div id="namazListContainer">
+                <div class="namaz-row"><span>فجر (Fajr)</span> <span id="tFajr">--:--</span></div>
+                <div class="namaz-row"><span>اشراق (Ishraq)</span> <span id="tIshraq">--:--</span></div>
+                <div class="namaz-row"><span>ظہر (Dhuhr)</span> <span id="tDhuhr">--:--</span></div>
+                <div class="namaz-row"><span>عصر (Asr)</span> <span id="tAsr">--:--</span></div>
+                <div class="namaz-row"><span>مغرب (Maghrib)</span> <span id="tMaghrib">--:--</span></div>
+                <div class="namaz-row"><span>عشاء (Isha)</span> <span id="tIsha">--:--</span></div>
+            </div>
+            <div id="timeRemainingText" style="margin-top: 10px; text-align: center; font-size: 0.95rem; color: var(--primary); font-weight: bold;"></div>
         </div>
 
         <!-- روزانہ کی حدیث مبارکہ -->
@@ -369,8 +390,8 @@
             <div class="category-grid">
                 <a href="https://wa.me/923074974713?text=السلام%20عليكم،%20میں%20حفظ%20قرآن%20کرنا%20چاہتا%20ہوں۔" target="_blank" class="cat-btn">📖 حفظ کرنا چاہتے ہیں</a>
                 <a href="https://wa.me/923074974713?text=السلام%20عليكم،%20میں%20ناظرہ%20قرآن%20پڑھنا%20چاہتا%20ہوں۔" target="_blank" class="cat-btn">📗 ناظرہ قرآن پڑھیں</a>
-                <a href="https://wa.me/923074974713?text=السلام%20عليكم،%20مجھے%20نماز%20और%20دعائیں%20سیکھنی%20हیں۔" target="_blank" class="cat-btn">🤲 نماز اور دعائیں</a>
-                <a href="https://wa.me/923074974713?text=السلام%20عليكم،%20मुझे%20ایک%20مسئله%20پوچھنا%20ہے۔" target="_blank" class="cat-btn">❓ کوئی مسئلہ پوچھنا ہے</a>
+                <a href="https://wa.me/923074974713?text=السلام%20عليكم،%20مجھے%20نماز%20اور%20دعائیں%20سیکھنی%20ہیںـ" target="_blank" class="cat-btn">🤲 نماز اور دعائیں</a>
+                <a href="https://wa.me/923074974713?text=السلام%20عليكم،%20مجھے%20ایک%20مسئلہ%20پوچھنا%20ہے۔" target="_blank" class="cat-btn">❓ کوئی مسئلہ پوچھنا ہے</a>
             </div>
 
             <!-- اضافی کیٹیگریز -->
@@ -481,26 +502,117 @@
     </div>
 
     <script>
-        // لائیو کلاس کا کاؤنٹ ڈاؤن ٹائمر
-        function updateCountdown() {
-            const now = new Date();
-            let target = new Date();
-            target.setHours(20, 0, 0, 0); // روزانہ رات 8 بجے کا ٹائم
+        // عالمی نماز کے اوقات کا سسٹم (ملک کے حساب سے)
+        let currentPrayerData = null;
 
-            if (now > target) {
-                target.setDate(target.getDate() + 1);
+        async function fetchPrayerTimes() {
+            const country = document.getElementById('countrySelect').value;
+            let city = "Lahore";
+            let countryName = "Pakistan";
+            
+            if(country === "SA") { city = "Riyadh"; countryName = "Saudi Arabia"; }
+            else if(country === "AE") { city = "Dubai"; countryName = "UAE"; }
+            else if(country === "IN") { city = "Delhi"; countryName = "India"; }
+            else if(country === "GB") { city = "London"; countryName = "UK"; }
+            else if(country === "US") { city = "New York"; countryName = "USA"; }
+
+            document.getElementById('locationStatus').innerText = `${countryName} (${city}) کے مطابق آج کے اوقات:`;
+
+            try {
+                const response = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${city}&country=${countryName}&method=1`);
+                const data = await response.json();
+                if(data && data.data) {
+                    const timings = data.data.timings;
+                    
+                    // اشراق کا وقت فجر کے تقریباً 15-20 منٹ بعد سورج نکلنے پر ہوتا ہے
+                    let fajrTimeStr = timings.Fajr;
+                    let ishragTime = calculateIshraq(fajrTimeStr);
+
+                    document.getElementById('tFajr').innerText = format12Hour(timings.Fajr);
+                    document.getElementById('tIshraq').innerText = ishragTime;
+                    document.getElementById('tDhuhr').innerText = format12Hour(timings.Dhuhr);
+                    document.getElementById('tAsr').innerText = format12Hour(timings.Asr);
+                    document.getElementById('tMaghrib').innerText = format12Hour(timings.Maghrib);
+                    document.getElementById('tIsha').innerText = format12Hour(timings.Isha);
+
+                    currentPrayerData = {
+                        Fajr: timings.Fajr,
+                        Ishraq: ishragTime24(fajrTimeStr),
+                        Dhuhr: timings.Dhuhr,
+                        Asr: timings.Asr,
+                        Maghrib: timings.Maghrib,
+                        Isha: timings.Isha
+                    };
+                }
+            } catch (e) {
+                console.log("Error fetching prayer times");
+            }
+        }
+
+        function calculateIshraq(fajrStr) {
+            let [h, m] = fajrStr.split(':').map(Number);
+            // عام طور پر فجر کے 20 سے 25 منٹ بعد اشراق کا وقت شروع ہوتا ہے
+            m += 25;
+            if(m >= 60) { h += 1; m -= 60; }
+            let period = h >= 12 ? "PM" : "AM";
+            let h12 = h % 12 || 12;
+            return `${h12}:${m < 10 ? '0':''}${m} ${period}`;
+        }
+
+        function ishragTime24(fajrStr) {
+            let [h, m] = fajrStr.split(':').map(Number);
+            m += 25;
+            if(m >= 60) { h += 1; m -= 60; }
+            return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`;
+        }
+
+        function format12Hour(time24) {
+            if(!time24) return "--:--";
+            let [h, m] = time24.split(':').map(Number);
+            let period = h >= 12 ? "PM" : "AM";
+            let h12 = h % 12 || 12;
+            return `${h12}:${String(m).padStart(2,'0')} ${period}`;
+        }
+
+        // وقت ختم ہونے اور اگلی نماز کی الٹی گنتی چیک کرنے کا فنکشن
+        function checkPrayerCountdown() {
+            if(!currentPrayerData) return;
+            const now = new Date();
+            const currentH = now.getHours();
+            const currentM = now.getMinutes();
+            const currentS = now.getSeconds();
+            const currentTotalSec = currentH * 3600 + currentM * 60 + currentS;
+
+            let prayers = [
+                {name: "فجر (Fajr)", time: currentPrayerData.Fajr},
+                {name: "اشراق (Ishraq)", time: currentPrayerData.Ishraq},
+                {name: "ظہر (Dhuhr)", time: currentPrayerData.Dhuhr},
+                {name: "عصر (Asr)", time: currentPrayerData.Asr},
+                {name: "مغرب (Maghrib)", time: currentPrayerData.Maghrib},
+                {name: "عشاء (Isha)", time: currentPrayerData.Isha}
+            ];
+
+            let nextPrayer = null;
+            for(let p of prayers) {
+                let [ph, pm] = p.time.split(':').map(Number);
+                let pTotalSec = ph * 3600 + pm * 60;
+                if(pTotalSec > currentTotalSec) {
+                    nextPrayer = {name: p.name, diff: pTotalSec - currentTotalSec};
+                    break;
+                }
             }
 
-            const diff = target - now;
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-            document.getElementById('classCountdown').innerText = 
-                hours + " گھنٹے, " + minutes + " منٹ, " + seconds + " سیکنڈ باقی";
+            if(nextPrayer) {
+                let h = Math.floor(nextPrayer.diff / 3600);
+                let m = Math.floor((nextPrayer.diff % 3600) / 60);
+                let s = nextPrayer.diff % 60;
+                document.getElementById('timeRemainingText').innerText = `⏳ اگلی نماز (${nextPrayer.name}) کا وقت شروع ہونے میں باقی ہیں: ${h} گھنٹے, ${m} منٹ, ${s} سیکنڈ`;
+            } else {
+                document.getElementById('timeRemainingText').innerText = `🌙 آج کی تمام نمازوں کے اوقات گزر چکے ہیں، کل فجر کا انتظار ہے۔`;
+            }
         }
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
+
+        setInterval(checkPrayerCountdown, 1000);
 
         // PWA انسٹالیشن کا سسٹم
         let deferredPrompt;
@@ -556,6 +668,7 @@
             if (savedUser) {
                 activateUser(savedUser);
             }
+            fetchPrayerTimes();
         }
 
         function manualLogin() {
