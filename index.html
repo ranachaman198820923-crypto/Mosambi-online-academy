@@ -2,10 +2,10 @@
 <html lang="ur" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>مصعب بن عمیر اکیڈمی - ڈیش بورڈ</title>
+    <title>مصعب بن عمیر آن لائن اکیڈمی</title>
     <style>
-        :root { --primary: #00e676; --accent: #ffd700; }
-        body { background: #0f172a; color: #fff; font-family: 'Jameel Noori Nastaleeq', sans-serif; padding: 20px; }
+        :root { --primary: #00e676; --accent: #ffd700; --bg: #0f172a; }
+        body { background: var(--bg); color: #fff; font-family: 'Jameel Noori Nastaleeq', sans-serif; margin: 0; padding: 20px; }
 
         /* متحرک لائٹنگ بارڈر */
         .glowing-box {
@@ -28,37 +28,62 @@
         }
         @keyframes rotate { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
 
-        .fee-input { width: 100%; padding: 10px; margin-top: 10px; background: #000; color: #fff; border: 1px solid var(--primary); }
-        .search-dashboard { background: #1e293b; padding: 20px; border-radius: 15px; text-align: center; }
+        .book-container { height: 70vh; overflow-y: auto; background: #000; padding: 20px; border-radius: 10px; border: 1px solid var(--primary); }
+        .audio-item { margin: 10px 0; padding: 10px; background: #222; border-radius: 5px; }
+        input, button { width: 100%; padding: 12px; margin-top: 10px; border-radius: 5px; border: none; }
     </style>
 </head>
 <body>
 
-    <!-- فیس ادائیگی اور اسکرین شاٹ سیکشن -->
+    <!-- فیس ادائیگی سیکشن -->
     <div class="glowing-box">
-        <h2 style="color:var(--primary)">💳 فیس ادائیگی اور تصدیق</h2>
-        <p>اپنی فیس درج ذیل نمبر پر بھیجیں اور اسکرین شاٹ نیچے اپ لوڈ کریں:</p>
-        <div style="background:#000; padding:15px; border-radius:10px;">
-            <p><strong>ایزی پیسہ / جاز کیش:</strong> 03074974713 (رانا چمن)</p>
-        </div>
-        <br>
+        <h2 style="color:var(--primary)">💳 فیس ادائیگی</h2>
+        <p><strong>ایزی پیسہ:</strong> 03074974713</p>
+        <p><strong>نام:</strong> رانا افتخار احمد</p>
         <label>📸 ادائیگی کا اسکرین شاٹ اپ لوڈ کریں:</label>
-        <input type="file" class="fee-input" accept="image/*">
-        <button style="background:var(--primary); width:100%; padding:10px; margin-top:10px; border:none; border-radius:5px;">تصدیق کے لیے بھیجیں</button>
+        <input type="file" accept="image/*">
+        <button style="background:var(--primary); font-weight:bold;">تصدیق کے لیے بھیجیں</button>
     </div>
 
     <!-- لائبریری ڈیش بورڈ -->
-    <div class="glowing-box search-dashboard">
-        <h2 style="color:var(--accent)">📚 لائبریری سرچ ڈیش بورڈ</h2>
-        <p>آپ کون سی کتاب یا سورت پڑھنا چاہتے ہیں؟</p>
-        <input type="text" id="libSearch" class="fee-input" placeholder="کتاب کا نام لکھیں (مثلاً: سورۃ البقرہ، قاعدہ)">
-        <button onclick="searchAction()" style="background:var(--accent); padding:10px 30px; margin-top:10px; border:none; border-radius:5px; font-weight:bold;">تلاش شروع کریں</button>
+    <div class="glowing-box">
+        <h2 style="color:var(--accent)">📚 لائبریری ڈیش بورڈ</h2>
+        <input type="text" id="searchInput" placeholder="کتاب، سورت یا حدیث تلاش کریں (مثلاً: سورۃ البقرہ، صحیح بخاری)..." onkeyup="filterBooks()">
+        
+        <div id="bookViewer" class="book-container" style="margin-top:20px;">
+            <h3>آپ کی مطلوبہ کتاب یہاں مکمل اسکرول کے ساتھ نظر آئے گی...</h3>
+            <p id="bookContent">براہ کرم اوپر تلاش کریں تاکہ پوری کتاب لوڈ ہو سکے۔</p>
+        </div>
+    </div>
+
+    <!-- قاریوں کی آڈیو سیکشن -->
+    <div class="glowing-box">
+        <h2 style="color:var(--primary)">🎧 مشہور قاریوں کی تلاوت</h2>
+        <div class="audio-item">
+            <p>قاری عبد الرحمن السدیس</p>
+            <audio controls style="width:100%"><source src="https://download.quranicaudio.com/quran/abdurrahmaan_as-sudais/001.mp3" type="audio/mpeg"></audio>
+        </div>
+        <div class="audio-item">
+            <p>قاری مشاری راشد العفاسی</p>
+            <audio controls style="width:100%"><source src="https://download.quranicaudio.com/quran/mishary_rashid_alafasy/001.mp3" type="audio/mpeg"></audio>
+        </div>
     </div>
 
     <script>
-        function searchAction() {
-            let val = document.getElementById('libSearch').value;
-            if(val) { alert("تلاش کیا جا رہا ہے: " + val); }
+        const books = {
+            "قرآن": "یہاں قرآن مجید کا پورا متن ہے... (اسکرول کریں) <br><br> آیت 1: بسم اللہ... <br><br> آیت 2: الحمد للہ...",
+            "صحیح بخاری": "یہاں صحیح بخاری کی پوری کتاب کا متن ہے... (مزید نیچے اسکرول کریں) <br><br> کتاب الایمان... <br><br> باب 1...",
+            "قاعدہ": "یہاں نورانی قاعدہ کی تمام 17 تختیاں موجود ہیں... (نیچے اسکرول کریں) <br><br> تختی نمبر 1: حروف مفردات..."
+        };
+
+        function filterBooks() {
+            let input = document.getElementById('searchInput').value;
+            let content = document.getElementById('bookContent');
+            if(books[input]) {
+                content.innerHTML = books[input];
+            } else {
+                content.innerHTML = "تلاش جاری ہے... (مکمل کتاب جلد لوڈ ہو جائے گی)";
+            }
         }
     </script>
 </body>
