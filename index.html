@@ -62,7 +62,7 @@
         #loginOverlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(15, 23, 42, 0.95);
+            background: rgba(15, 23, 42, 0.98);
             backdrop-filter: blur(10px);
             display: flex; justify-content: center; align-items: center;
             z-index: 10000;
@@ -92,6 +92,7 @@
             transition: 0.3s; margin-bottom: 15px;
             box-shadow: 0 0 15px rgba(0,230,118,0.5);
         }
+        
         #mainWebsite { display: none; max-width: 850px; margin: auto; }
         
         .madrasa-banner {
@@ -138,23 +139,6 @@
         .cat-btn:hover { background: var(--primary); color: #000; transform: translateY(-3px); }
 
         /* ان-অ্যাপ ریڈر ڈیش بورڈ */
-        .sub-page {
-            display: none; background: var(--card-bg); color: var(--text-dark); padding: 25px;
-            border-radius: 15px; margin-top: 15px; border: 2px solid var(--primary);
-            box-shadow: 0 0 25px rgba(0,230,118,0.3);
-        }
-        .back-btn {
-            background: #444; color: white; border: none; padding: 10px 20px; border-radius: 8px;
-            cursor: pointer; margin-bottom: 15px; font-weight: bold; font-size: 1rem;
-        }
-        .list-item {
-            background: rgba(255,255,255,0.04); color: var(--text-dark); padding: 15px; margin: 10px 0;
-            border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); font-weight: bold;
-            cursor: pointer; transition: 0.2s;
-        }
-        .list-item:hover { background: rgba(0,230,118,0.15); border-color: var(--primary); }
-
-        /* مکمل کتاب ریڈر جو ایپ کے اندر ہی खुले گا */
         #internalBookViewer {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: var(--bg-gradient); color: var(--text-dark); z-index: 20000;
@@ -166,17 +150,11 @@
             padding: 35px; border-radius: 15px; border: 2px solid var(--accent);
             box-shadow: var(--accent-glow);
         }
+        .back-btn {
+            background: var(--primary); color: #000; border: none; padding: 10px 25px; border-radius: 8px;
+            cursor: pointer; margin-bottom: 15px; font-weight: bold; font-size: 1.1rem;
+        }
         
-        input[type="text"], textarea {
-            width: 100%; padding: 12px; margin: 8px 0; border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 8px; font-size: 1rem; box-sizing: border-box; text-align: right;
-            font-family: inherit; background: rgba(255,255,255,0.05); color: var(--text-dark);
-        }
-        .submit-btn {
-            background: linear-gradient(45deg, #00e676, #00b0ff); color: #000; border: none;
-            padding: 12px; width: 100%; border-radius: 8px; font-size: 1rem; font-weight: bold;
-            cursor: pointer; margin-top: 10px; box-shadow: 0 0 15px rgba(0,230,118,0.4);
-        }
         footer {
             text-align: center; padding: 20px; background: rgba(0,0,0,0.5); color: #fff;
             border-radius: 12px; margin-top: 30px; font-size: 0.9rem;
@@ -205,13 +183,13 @@
             <img src="https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=1200&q=80" alt="مدرسہ" class="madrasa-banner">
             <header style="border-radius: 0; box-shadow: none; margin-bottom: 0; border: none;">
                 <h1>مصعب بن عمیر آن لائن اکیڈمی</h1>
-                <p>دینی کتب، مسائل اور مسنون دعاؤں کا اندرونی ڈیجیٹل مرکز</p>
+                <p id="welcomeUserText">دینی کتب، مسائل اور مسنون دعاؤں کا اندرونی ڈیجیٹل مرکز</p>
             </header>
         </div>
 
         <div class="card">
             <h2 class="section-title">📖 جامع اسلامی لائبریری (ان-অ্যাপ ریڈر)</h2>
-            <p>یہاں آپ کسی بھی کتاب یا مسئلے پر کلک کریں گے تو وہ **براہ راست اسی ایپ کے اندر** کھلے گی، گوگل کروم پر جانے کی کوئی ضرورت نہیں:</p>
+            <p>یہاں آپ کسی بھی کتاب یا مسئلے پر کلک کریں گے تو وہ **براہ راست اسی ایپ کے اندر** کھلے گی:</p>
             
             <div class="category-grid">
                 <div class="cat-btn" onclick="openBookContent('نورانی قاعدہ', 'نورانی قاعدہ مکمل بچوں کے لیے', 'بچوں اور ابتدائی طلباء کے لیے نورانی قاعدہ کا مکمل متن یہاں درج ہے...\n\n۱. مفردات (حروفِ تہجی)\n۲. مرکبات\n۳. حركات (زبر، زیر، پیش)\n۴. تنوین اور مدة.')">📖 نورانی قاعدہ</div>
@@ -221,28 +199,32 @@
             </div>
         </div>
 
-        <div id="internalBookViewer">
-            <button class="back-btn" onclick="closeInternalBook()" style="background:var(--primary); color:#000; font-size: 1.1rem; padding: 10px 25px;">⬅ کتاب بند کریں / واپس جائیں</button>
-            <h2 id="viewerBookTitle" style="color:var(--primary); margin-top:15px; font-size: 2rem;">کتاب کا نام</h2>
-            <div id="viewerBookBody" class="book-content-box">مشمولات یہاں لوڈ ہو رہے ہیں...</div>
-        </div>
-
         <footer>
             <p>&copy; 2026 مصعب بن عمیر آن لائن اکیڈمی | تمام حقوق محفوظ ہیں</p>
         </footer>
     </div>
 
+    <div id="internalBookViewer">
+        <button class="back-btn" onclick="closeInternalBook()">⬅ کتاب بند کریں / واپس جائیں</button>
+        <h2 id="viewerBookTitle" style="color:var(--primary); margin-top:15px; font-size: 2rem;">کتاب کا نام</h2>
+        <div id="viewerBookBody" class="book-content-box">مشمولات یہاں لوڈ ہو رہے ہیں...</div>
+    </div>
+
     <script>
+        // صفحہ لوڈ ہوتے ہی چیک کریں کہ کیا پہلے سے نام محفوظ ہے
         window.onload = function() {
             const savedTheme = localStorage.getItem('theme');
             if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+            
             const savedUser = localStorage.getItem('academy_username');
-            if (savedUser) activateUser(savedUser);
+            if (savedUser) {
+                activateUser(savedUser);
+            }
         }
 
         function manualLogin() {
             const name = document.getElementById('userNameInput').value.trim();
-            if(name) {
+            if(name !== "") {
                 localStorage.setItem('academy_username', name);
                 activateUser(name);
             } else {
@@ -253,6 +235,7 @@
         function activateUser(name) {
             document.getElementById('loginOverlay').style.display = 'none';
             document.getElementById('mainWebsite').style.display = 'block';
+            document.getElementById('welcomeUserText').innerText = "خوش آمدید، " + name + " | دینی کتب اور مسائل کا مرکز";
         }
 
         function toggleDarkMode() {
@@ -266,7 +249,6 @@
             }
         }
 
-        /* یہ فنکشن کسی بھی کتاب یا مسئلے کو براہ راست اسی ایپ کے اندر کھولتا ہے */
         function openBookContent(title, subtitle, content) {
             document.getElementById('viewerBookTitle').innerText = title + " - " + subtitle;
             document.getElementById('viewerBookBody').innerText = content;
@@ -279,7 +261,7 @@
         }
 
         function openInternalLibrary() {
-            window.scrollTo({top: 400, behavior: 'smooth'});
+            window.scrollTo({top: 300, behavior: 'smooth'});
         }
     </script>
 </body>
