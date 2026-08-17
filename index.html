@@ -225,7 +225,6 @@
         <button class="action-chip" onclick="toggleDarkMode()">🌓 ڈارک / لائٹ موڈ</button>
         <button class="action-chip" id="installAppBtn" style="display:inline-block;" onclick="installPWAApp()">📲 ایپ انسٹال کریں</button>
         <button class="action-chip" onclick="copyWebsiteLink()">🔗 لنک کاپی کریں</button>
-        <button class="action-chip" onclick="openPage('libraryPage')">📚 اسلامک لائبریری</button>
         <button class="action-chip" onclick="openPage('quizPage')">📝 آن لائن ٹیسٹ</button>
     </div>
 
@@ -250,14 +249,13 @@
 
         <div class="card" style="border-right-color: var(--accent);">
             <h3 style="color:var(--accent); margin-top:0;">🌟 اکیڈمی ویب سائٹ کے نمایاں فیچرز</h3>
-            <p style="margin-bottom: 10px; font-size: 0.95rem; opacity: 0.9;">اس پلیٹ فارم پر آپ کو مندرجہ ذیل جدید سہولیات ملتی ہیں:</p>
+            <p style="margin-bottom: 10px; font-size: 0.95rem; opacity: 0.9);">اس پلیٹ فارم پر آپ کو مندرجہ ذیل جدید سہولیات ملتی ہیں:</p>
             <ul style="margin: 0; padding-right: 20px; line-height: 1.8; font-size: 0.95rem;">
                 <li>📖 <strong>مکمل قرآن مجید:</strong> تمام 114 سورتیں معہ آسان اردو ترجمہ اور سرچ بار۔</li>
-                <li>🎧 <strong>آڈیو تلاوت:</strong> مشہور قاری حضرات (السدیس اور العفاسی) کی تلاوت معہ سپیڈ کنٹرول۔</li>
-                <li>🕌 <strong>لائیو نماز ٹائم ٹیبل:</strong> پاکستان اور دنیا بھر کے مختلف ممالک کے اوقات اور الٹا کاؤنٹ ڈاؤن۔</li>
-                <li>📚 <strong>اسلامک لائبریری:</strong> نورانی قاعدہ، مسنون دعائیں اور فقہی کتب کا مطالعہ۔</li>
+                <li>📚 <strong>درسِ نظامی کتب:</strong> اب ایپ کے اندر ہی درسِ نظامی اور عربی کتب پڑھنے کی سہولت۔</li>
+                <li>🎧 <strong>آڈیو تلاوت:</strong> مشہور قاری حضرات کی تلاوت معہ سپیڈ کنٹرول۔</li>
+                <li>🕌 <strong>لائیو نماز ٹائم ٹیبل:</strong> پاکستان اور دنیا بھر کے اوقات اور الٹا کاؤنٹ ڈاؤن۔</li>
                 <li>📝 <strong>آن لائن کوئز سسٹم:</strong> دینی مسائل اور وضو کے ٹیسٹ کا آسان نظام۔</li>
-                <li>💳 <strong>فیس اور ایڈمشن:</strong> ایزی پیسہ تفصیلات اور آن لائن داخلہ فارم کی سہولت۔</li>
             </ul>
         </div>
 
@@ -306,6 +304,7 @@
 
             <div class="category-grid" style="margin-top: 15px;">
                 <div class="cat-btn" onclick="openPage('quranPage')">📖 مکمل قرآن مجید</div>
+                <div class="cat-btn" onclick="openPage('darsNizamiPage')" style="border-color: var(--accent); color: var(--accent);">📚 درسِ نظامی کتب</div>
                 <div class="cat-btn" onclick="openPage('tilawatPage')">🎧 مشہور قاری تلاوت</div>
                 <div class="cat-btn" onclick="openPage('feePage')">💳 فیس و ادائیگی</div>
             </div>
@@ -321,6 +320,28 @@
                 <input type="text" id="surahSearchInput" placeholder="سورت کا نام یہاں لکھ کر تلاش کریں..." onkeyup="filterSurahs()" style="margin-top: 15px;">
                 <div id="surahContainer" style="max-height: 400px; overflow-y: auto; padding: 5px; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; margin-top: 10px;">
                     <p style="text-align: center; opacity:0.7;">سورتیں لوڈ ہو رہی ہیں...</p>
+                </div>
+            </div>
+
+            <!-- درسِ نظامی کتب کا ان-অ্যাপ سیکشن -->
+            <div id="darsNizamiPage" class="sub-page">
+                <button class="back-btn" onclick="closePages()">⬅ واپس جائیں</button>
+                <h3 style="color:var(--accent);">📚 درسِ نظامی اور اسلامی کتب (ان-অ্যাপ ریڈر)</h3>
+                <p style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 15px;">یہ کتب براہ راست ایپ کے اندر کھلتی ہیں، آپ کو کروم پر جانے کی ضرورت نہیں:</p>
+                
+                <div class="category-grid">
+                    <div class="cat-btn" onclick="openInternalBook('درسِ نظامی بنیادی کتب', 'https://archive.org/embed/dars-e-nizami-collection')">📖 بنیادی کتب کلیکشن</div>
+                    <div class="cat-btn" onclick="openInternalBook('فقہ و اصول فقہ', 'https://archive.org/embed/FiqhCollectionUrdu')">📜 فقہ و فتاویٰ کتب</div>
+                    <div class="cat-btn" onclick="openInternalBook('صحیح بخاری و احادیث', 'https://archive.org/embed/SahihBukhariUrduSharh')">✨ احادیث مبارکہ</div>
+                    <div class="cat-btn" onclick="openInternalBook('عربی لغت و صرف و نحو', 'https://archive.org/embed/ArabicGrammarDarsENizami')">✍️ صرف و نحو کتب</div>
+                </div>
+
+                <div id="bookViewerContainer" style="display:none; margin-top:20px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                        <h4 id="bookViewerTitle" style="color:var(--primary); margin:0;">کتاب کا نام</h4>
+                        <button class="back-btn" style="margin-bottom:0; background:var(--primary); color:#000;" onclick="closeInternalBook()">کتاب بند کریں ✕</button>
+                    </div>
+                    <iframe id="bookIframe" src="" style="width:100%; height:500px; border:2px solid var(--accent); border-radius:12px; background:#fff;" allowfullscreen></iframe>
                 </div>
             </div>
 
@@ -362,30 +383,6 @@
                         <p id="displayName" style="font-weight:bold; margin: 5px 0;"></p>
                         <p style="color: var(--primary); margin:0;">✅ آپ کی رسید محفوظ ہو گئی ہے!</p>
                     </div>
-                </div>
-            </div>
-
-            <!-- 100% ورکنگ ڈائریکٹ لنکس والا لائبریری سیکشن (آرکائیو کا مسئلہ ہمیشہ کے لیے ختم) -->
-            <div id="libraryPage" class="sub-page">
-                <button class="back-btn" onclick="closePages()">⬅ واپس جائیں</button>
-                <h3 style="color:var(--primary);">📚 جامع اسلامک لائبریری (کتب و قاعدے)</h3>
-                <p>یہاں آپ دینی کتب، مسنون دعائیں، اور مسلم مسائل کے قاعدے براہ راست پڑھ سکتے ہیں:</p>
-                
-                <div class="list-item">
-                    <span>📖 نورانی قاعدہ (مکمل بچوں کے لیے)</span> 
-                    <a href="https://www.iqbalkalmati.com/2015/07/Noorani-Qaida-Urdu.html" target="_blank" rel="noopener noreferrer" class="play-audio-btn">مطالعہ کریں</a>
-                </div>
-                <div class="list-item">
-                    <span>📗 مسائلِ نماز و طہارت (فقہی احکام)</span> 
-                    <a href="https://muftimenk.com" target="_blank" rel="noopener noreferrer" class="play-audio-btn">مطالعہ کریں</a>
-                </div>
-                <div class="list-item">
-                    <span>📘 حصن المسلم (مقبول مسنون دعائیں)</span> 
-                    <a href="https://archive.org" target="_blank" rel="noopener noreferrer" class="play-audio-btn">مطالعہ کریں</a>
-                </div>
-                <div class="list-item">
-                    <span>📙 اسلامی دعائیں اور اوراد</span> 
-                    <a href="https://quran.com" target="_blank" rel="noopener noreferrer" class="play-audio-btn">مطالعہ کریں</a>
                 </div>
             </div>
 
@@ -642,13 +639,25 @@
         }
 
         function closePages() {
-            const pages = ['quranPage', 'tilawatPage', 'feePage', 'libraryPage', 'quizPage'];
+            const pages = ['quranPage', 'darsNizamiPage', 'tilawatPage', 'feePage', 'quizPage'];
             pages.forEach(id => {
                 document.getElementById(id).style.display = 'none';
             });
             const audio = document.getElementById('quranAudio');
             audio.pause();
             audio.style.display = 'none';
+        }
+
+        /* ان-অ্যাপ کتاب کھولنے کا نیا فنکشن */
+        function openInternalBook(title, url) {
+            document.getElementById('bookViewerTitle').innerText = title;
+            document.getElementById('bookIframe').src = url;
+            document.getElementById('bookViewerContainer').style.display = 'block';
+        }
+
+        function closeInternalBook() {
+            document.getElementById('bookIframe').src = '';
+            document.getElementById('bookViewerContainer').style.display = 'none';
         }
 
         let allSurahsData = [];
@@ -771,7 +780,7 @@
 
         function sendAdmissionWhatsApp() {
             const name = document.getElementById('admName').value.trim();
-            const city = document.getElementById('admCity').value.trim();
+            const city = document.getElementById('admCity5'] || document.getElementById('admCity').value.trim();
             const course = document.getElementById('admCourse').value;
             if(name && city) {
                 const message = `السلام علیکم! میں مصعب بن عمیر آن لائن اکیڈمی میں داخلہ لینا چاہتا ہوں۔\nنام: ${name}\nشہر: ${city}\nمنتخب کورس: ${course}`;
