@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مسلم بن عمیر آن لائن اکیڈمی</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Jameel Noori Nastaliq', 'Segoe UI', Tahoma, sans-serif; transition: 0.3s; }
+        :root { --bg-color: #f8f9fa; --text-color: #333; --card-bg: #ffffff; }
+        .dark-mode { --bg-color: #121212; --text-color: #f1f1f1; --card-bg: #1e1e1e; }
+        
+        body { background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; }
+        header { background: linear-gradient(135deg, #0a5c36, #053b22); color: white; text-align: center; padding: 40px 20px; position: relative; }
+        header h1 { font-size: 2.5rem; color: #f4c430; margin-bottom: 5px; }
+        
+        nav { background: #053b22; display: flex; justify-content: space-around; align-items: center; padding: 12px 20px; flex-wrap: wrap; }
+        nav a, nav button { color: white; text-decoration: none; font-weight: bold; background: none; border: none; cursor: pointer; font-size: 1rem; }
+        nav button:hover, nav a:hover { color: #f4c430; }
+        
+        .container { width: 90%; max-width: 1200px; margin: auto; padding: 30px 0; }
+        .hero { text-align: center; padding: 40px 20px; background: var(--card-bg); border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 30px; border: 1px solid #0a5c36; }
+        
+        .btn-whatsapp { display: inline-flex; align-items: center; gap: 10px; background: #25D366; color: white; padding: 14px 28px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 1.2rem; box-shadow: 0 4px 10px rgba(37,211,102,0.3); margin-top: 15px; }
+        .btn-whatsapp:hover { background: #1ebc57; transform: translateY(-2px); }
+        
+        .section-title { text-align: center; margin: 30px 0 20px; color: #0a5c36; font-size: 2rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+        .card { background: var(--card-bg); padding: 25px; border-radius: 10px; border-top: 4px solid #0a5c36; box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: center; }
+        
+        .player-box { background: var(--card-bg); padding: 20px; border-radius: 10px; text-align: center; margin-bottom: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        audio { width: 100%; max-width: 400px; margin-top: 10px; }
+
+        .fee-table { width: 100%; border-collapse: collapse; background: var(--card-bg); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .fee-table th, .fee-table td { padding: 15px; border: 1px solid #ddd; text-align: center; }
+        .fee-table th { background: #0a5c36; color: white; }
+        
+        .user-status { color: #f4c430; font-weight: bold; }
+        footer { background: #053b22; color: white; text-align: center; padding: 25px; margin-top: 40px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>مسلم بن عمیر آن لائن اکیڈمی</h1>
+        <p>گھر بیٹھے معیاری، تجوید کے ساتھ اور مستند دینی تعلیم حاصل کریں</p>
+    </header>
+
+    <nav>
+        <a href="#courses">کورسز</a>
+        <a href="#features">خصوصیات</a>
+        <a href="#fees">فیس کاؤنٹر</a>
+        <button onclick="toggleDarkMode()">🌓 نائٹ موڈ</button>
+        <div id="auth-section">
+            <button id="login-btn" onclick="login()">🔑 لاگ ان</button>
+            <span id="user-display" class="user-status" style="display:none;"></span>
+            <button id="logout-btn" onclick="logout()" style="display:none; margin-right: 10px;">🚪 لاگ آؤٹ</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero">
+            <h2>3 دن کی مفت ٹرائل کلاس حاصل کریں!</h2>
+            <p>تجربہ کار اور سند یافتہ اساتذہ سے آن لائن تعلیم حاصل کریں۔ اب بھی داخلہ لیں!</p>
+            <a href="https://wa.me/923074974713?text=السلام%20علیکم!%20مجھے%20مسلم%20بن%20عمیر%20آن%20لائن%20اکیڈمی%20میں%20داخلہ%20لینا%20ہے۔" target="_blank" class="btn-whatsapp">
+                💬 واٹس ایپ پر رابطہ کریں (03074974713)
+            </a>
+        </div>
+
+        <!-- Audio Player Section -->
+        <div class="player-box">
+            <h3>تلاوتِ قرآنِ پاک سنیں</h3>
+            <p>سورة الفاتحة - قاری عبد الباسط</p>
+            <audio controls>
+                <source src="https://server7.mp3quran.net/basit/001.mp3" type="audio/mp3">
+                آپ کا براؤزر آڈیو پلیئر کو سپورٹ نہیں کرتا۔
+            </audio>
+        </div>
+
+        <!-- Courses Section -->
+        <h2 class="section-title" id="courses">ہمارے کورسز</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>حفظ القرآن الكريم</h3>
+                <p>مکمل تجوید، روزانہ کے سبق اور دہرائی کے خاص نظام کے ساتھ۔</p>
+            </div>
+            <div class="card">
+                <h3>ناظرہ و بنیادی قاعدہ</h3>
+                <p>بچوں اور بڑوں کے لیے صحیح مخارج کے ساتھ بنیادی تعلیم۔</p>
+            </div>
+            <div class="card">
+                <h3>مسائل و دینی تعلیم</h3>
+                <p>نماز، مسنون دعائیں، غسل و طہارت اور روزمرہ کے مسائل۔</p>
+            </div>
+            <div class="card">
+                <h3>ترجمہ و تفسیر</h3>
+                <p>قرآن پاک کا آسان با محاورہ ترجمہ و مختصر تفسیر۔</p>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <h2 class="section-title" id="features">اکیڈمی کی خصوصیات</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>مرد و خواتین اساتذہ</h3>
+                <p>بااعتماد، تجربہ کار اور سند یافتہ قاری و قاریہ۔</p>
+            </div>
+            <div class="card">
+                <h3>24/7 فلیکسیبل ٹائمنگز</h3>
+                <p>بیرونِ ملک اور مقامی طلبہ کے لیے اپنی مرضی کا وقت۔</p>
+            </div>
+            <div class="card">
+                <h3>وان آن وان (1-on-1) کلاسز</h3>
+                <p>ہر بچے پر انفرادی توجہ اور لائیو زوم/اسکائپ کلاسز۔</p>
+            </div>
+            <div class="card">
+                <h3>ماہانہ پیشرفت رپورٹ</h3>
+                <p>والدین کے لیے بچے کی کارکردگی اور حاضری کا باقاعدہ نظام۔</p>
+            </div>
+        </div>
+
+        <!-- Fee Section -->
+        <h2 class="section-title" id="fees">فیس کاؤنٹر</h2>
+        <table class="fee-table">
+            <thead>
+                <tr>
+                    <th>کورس</th>
+                    <th>کلاسز (ہفتہ وار)</th>
+                    <th>ماہانہ فیس</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>ناظرہ و قاعدہ</td>
+                    <td>5 دن</td>
+                    <td>مناسب / حسبِ توفیق</td>
+                </tr>
+                <tr>
+                    <td>حفظِ قرآن</td>
+                    <td>5 دن</td>
+                    <td>مناسب / حسبِ توفیق</td>
+                </tr>
+                <tr>
+                    <td>دینی تعلیم و مسائل</td>
+                    <td>3 دن</td>
+                    <td>مناسب / حسبِ توفیق</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <footer>
+        <p>مسلم بن عمیر آن لائن اکیڈمی © 2026 | تمام حقوق محفوظ ہیں</p>
+        <p>رابطہ/واٹس ایپ: 03074974713</p>
+    </footer>
+
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+
+        function login() {
+            let userName = prompt("براہ کرم اپنا نام درج کریں:");
+            if (userName) {
+                localStorage.setItem("academyUser", userName);
+                updateAuthUI();
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem("academyUser");
+            updateAuthUI();
+            alert("آپ لاگ آؤٹ ہو چکے ہیں۔");
+        }
+
+        function updateAuthUI() {
+            let savedUser = localStorage.getItem("academyUser");
+            if (savedUser) {
+                document.getElementById("login-btn").style.display = "none";
+                document.getElementById("user-display").style.display = "inline";
+                document.getElementById("user-display").innerText = "خوش آمدید، " + savedUser;
+                document.getElementById("logout-btn").style.display = "inline";
+            } else {
+                document.getElementById("login-btn").style.display = "inline";
+                document.getElementById("user-display").style.display = "none";
+                document.getElementById("logout-btn").style.display = "none";
+            }
+        }
+
+        updateAuthUI();
+    </script>
+</body>
+</html>
