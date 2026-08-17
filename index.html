@@ -5,54 +5,204 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مصعب بن عمیر آن لائن اکیڈمی</title>
     <style>
-        :root { --primary: #00e676; --accent: #ffd700; --bg: #0f172a; --card-bg: #1a2238; }
-        body { font-family: 'Jameel Noori Nastaleeq', sans-serif; background: var(--bg); color: #fff; margin: 0; padding: 20px; }
-        .glowing-box { position: relative; background: var(--card-bg); padding: 20px; border-radius: 15px; margin-bottom: 20px; border: 2px solid var(--primary); }
-        .verse-box { background: #000; padding: 15px; border-radius: 10px; margin-bottom: 10px; border-right: 4px solid var(--primary); }
-        .btn { background: var(--primary); color: #000; border: none; padding: 10px; border-radius: 5px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 5px; }
+        :root { 
+            --primary: #00e676; 
+            --accent: #ffd700; 
+            --bg: #090d16; 
+            --card-bg: #111827; 
+            --border-glow: #3b82f6;
+        }
+        body { 
+            font-family: 'Jameel Noori Nastaleeq', sans-serif; 
+            background: var(--bg); 
+            color: #fff; 
+            margin: 0; 
+            padding: 15px; 
+        }
+
+        /* تصویر والے ڈیزائن کے مطابق نیلا چمکدار بارڈر */
+        .blue-glowing-box {
+            position: relative;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            border: 2px solid var(--border-glow);
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+            text-align: center;
+        }
+
+        /* پیلا ڈاٹ والا بارڈر (آج کا فرمان کے لیے) */
+        .yellow-dashed-box {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            border: 2px dashed var(--accent);
+            text-align: center;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+        }
+
+        /* سبز چمکدار بارڈر */
+        .green-glowing-box {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 15px rgba(0, 230, 118, 0.3);
+        }
+
+        /* مسجد کا بینر */
+        .banner-container {
+            border-radius: 20px;
+            overflow: hidden;
+            border: 2px solid var(--accent);
+            margin-bottom: 20px;
+            background: var(--card-bg);
+            text-align: center;
+        }
+        .madrasa-banner {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+        }
+        .banner-title {
+            color: var(--primary);
+            font-size: 2rem;
+            margin: 15px 0 5px 0;
+            text-shadow: 0 0 10px rgba(0,230,118,0.5);
+        }
+        .banner-sub {
+            color: var(--accent);
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+
+        /* کاؤন্টڈاؤن اور بٹن */
+        .timer-box {
+            background: #000;
+            border: 1px solid #ff4444;
+            padding: 10px;
+            border-radius: 12px;
+            color: #ff5252;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 15px 0;
+            box-shadow: inset 0 0 10px rgba(255,0,0,0.2);
+        }
+        .live-btn {
+            background: var(--primary);
+            color: #000;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            width: 100%;
+            box-shadow: 0 0 15px rgba(0,230,118,0.5);
+        }
+
+        /* قرآن اسکرول سیکشن */
+        .verse-box {
+            background: #000;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border-right: 4px solid var(--primary);
+            text-align: right;
+        }
+        .btn {
+            background: var(--primary);
+            color: #000;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 12px;
+            background: #000;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+            border-radius: 8px;
+            box-sizing: border-box;
+            text-align: right;
+            font-family: inherit;
+        }
     </style>
 </head>
 <body>
 
-    <!-- مسجد بینر -->
-    <img src="https://images.unsplash.com/photo-1584551246679-0daf3d275d0f" style="width:100%; border-radius:20px; height:200px; object-fit:cover;">
+    <!-- 1. اگلی لائیو کلاس کا وقت (تصویر والا ہو بہو ڈیزائن) -->
+    <div class="blue-glowing-box">
+        <p style="color: #ff5252; font-weight: bold; font-size: 1.1rem; margin:0;">🔴 اگلی لائیو کلاس کا وقت</p>
+        <p style="margin: 5px 0; font-size: 0.95rem;">اگلی آن لائن کلاس شروع ہونے میں باقی وقت:</p>
+        <div class="timer-box">22 گھنٹے، 19 منٹ، 15 سیکنڈ باقی</div>
+        <button class="live-btn" onclick="alert('لائیو کلاس جلد شروع ہوگی۔')">لائیو کلاس جوائن کریں ➔</button>
+    </div>
 
-    <!-- قرآن مجید اسکرول والا سیکشن -->
-    <div class="glowing-box" style="height: 400px; overflow-y: scroll;">
-        <h2 style="color:var(--primary)">📖 مکمل قرآن مجید</h2>
+    <!-- 2. آج کا فرمان / حدیث مبارکہ (پیلا ڈاٹڈ بارڈر) -->
+    <div class="yellow-dashed-box">
+        <p style="color: var(--accent); font-weight: bold; margin-top: 0;">✨ آج کا فرمان / حدیث مبارکہ</p>
+        <p style="font-size: 1.1rem; margin-bottom: 0;">"تم میں سے بہترین وہ ہے جو قرآن سیکھے اور سکھائے۔"<br><span style="font-size: 0.9rem; color: #aaa;">(صحیح بخاری)</span></p>
+    </div>
+
+    <!-- 3. مسجد کا بینر اور اکیڈمی کا نام -->
+    <div class="banner-container">
+        <img src="https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=1200&q=80" alt="مسجد" class="madrasa-banner">
+        <h1 class="banner-title">مصعب بن عمیر آن لائن اکیڈمی</h1>
+        <p class="banner-sub">قرآن پاک اور دینی تعلیم کا پریمیم و جدید مرکز</p>
+    </div>
+
+    <!-- 4. مکمل قرآن مجید (اسکرول اور ترجمہ والا فنکشن) -->
+    <div class="green-glowing-box" style="height: 350px; overflow-y: scroll;">
+        <h2 style="color:var(--primary); margin-top:0;">📖 مکمل قرآن مجید (اسکرول کریں)</h2>
         <div class="verse-box">
-            <p>بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
-            <button class="btn" onclick="this.nextElementSibling.style.display='block'">ترجمہ دیکھیں</button>
-            <div style="display:none; color:var(--accent);">شروع اللہ کے نام سے جو بڑا مہربان نہایت رحم والا ہے۔</div>
+            <p style="font-size: 1.3rem; color: var(--accent);">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+            <button class="btn" onclick="let t = this.nextElementSibling; t.style.display = t.style.display === 'block' ? 'none' : 'block'; this.innerText = t.style.display === 'block' ? 'ترجمہ چھپائیں' : 'ترجمہ دیکھیں';">ترجمہ دیکھیں</button>
+            <div style="display:none; color:var(--primary); margin-top:8px;">شروع اللہ کے نام سے جو بڑا مہربان نہایت رحم والا ہے۔</div>
         </div>
-        <!-- یہاں قرآن کی مزید آیات اسکرول میں آتی جائیں گی -->
+        <div class="verse-box">
+            <p style="font-size: 1.3rem; color: var(--accent);">الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ</p>
+            <button class="btn" onclick="let t = this.nextElementSibling; t.style.display = t.style.display === 'block' ? 'none' : 'block'; this.innerText = t.style.display === 'block' ? 'ترجمہ چھپائیں' : 'ترجمہ دیکھیں';">ترجمہ دیکھیں</button>
+            <div style="display:none; color:var(--primary); margin-top:8px;">تمام تعریفیں اللہ کے لیے ہیں جو تمام جہانوں کا پالنے والا ہے۔</div>
+        </div>
+        <!-- قرآن کی مزید آیات یہاں اسکرول میں آتی جائیں گی -->
     </div>
 
-    <!-- رابطہ سیکشن (دو واٹس ایپ نمبر) -->
-    <div class="glowing-box" style="border-color:var(--accent)">
-        <h2 style="color:var(--accent)">📞 رابطہ برائے انتظامیہ</h2>
-        <div style="background:#25d366; padding:10px; border-radius:10px; margin-bottom:10px;">
-            <p><strong>حافظ عدیل احمد:</strong> 03077209797</p>
+    <!-- 5. انتظامیہ سے رابطہ (دو واٹس ایپ نمبرز) -->
+    <div class="blue-glowing-box">
+        <h2 style="color:var(--accent); margin-top:0;">📞 رابطہ برائے انتظامیہ</h2>
+        <div style="background:#25d366; padding:12px; border-radius:10px; margin-bottom:10px; color:#000; font-weight:bold;">
+            <p style="margin:0;">حافظ عدیل احمد: 03077209797</p>
         </div>
-        <div style="background:#00e676; padding:10px; border-radius:10px;">
-            <p><strong>رانا افتخار احمد:</strong> 03074974713</p>
+        <div style="background:var(--primary); padding:12px; border-radius:10px; color:#000; font-weight:bold;">
+            <p style="margin:0;">رانا افتخار احمد: 03074974713</p>
         </div>
     </div>
 
-    <!-- فیس ادائیگی (صرف ایزی پیسہ) -->
-    <div class="glowing-box">
-        <h2 style="color:var(--primary)">💳 فیس ادائیگی (ایزی پیسہ)</h2>
-        <p><strong>اکاؤنٹ نمبر:</strong> 03074974713</p>
-        <p><strong>نام:</strong> رانا افتخار احمد</p>
+    <!-- 6. فیس ادائیگی (صرف ایزی پیسہ، نام: رانا افتخار احمد) -->
+    <div class="green-glowing-box text-center">
+        <h2 style="color:var(--primary); margin-top:0;">💳 فیس ادائیگی (ایزی پیسہ)</h2>
+        <p style="font-size: 1.1rem; margin: 5px 0;"><strong>اکاؤنٹ نمبر:</strong> 03074974713</p>
+        <p style="font-size: 1.1rem; margin: 5px 0;"><strong>نام:</strong> رانا افتخار احمد</p>
     </div>
 
-    <!-- ڈیش بورڈ برائے مسائل (وائس ریکارڈنگ کی سہولت کے ساتھ) -->
-    <div class="glowing-box">
-        <h2 style="color:var(--primary)">❓ مسائل پوچھیں</h2>
-        <input type="text" placeholder="اپنا نام لکھیں" style="width:100%; padding:10px; margin-bottom:10px;">
-        <textarea placeholder="اپنا مسئلہ لکھیں..." style="width:100%; height:80px;"></textarea>
-        <button class="btn" style="background:var(--accent);">واٹس ایپ پر پیغام بھیجیں</button>
-        <button class="btn" style="background:#ff4444; color:#fff;">🎙️ یا ریکارڈنگ (Voice) بھیجیں</button>
+    <!-- 7. مسائل پوچھنے کا ڈیش بورڈ (لکھنے اور وائس ریکارڈنگ کی سہولت) -->
+    <div class="blue-glowing-box" style="text-align: right;">
+        <h2 style="color:var(--accent); margin-top:0;">❓ شرعی مسائل / سوالات پوچھیں</h2>
+        <input type="text" placeholder="اپنا نام یہاں لکھیں...">
+        <textarea placeholder="اپنا مسئلہ تفصیل سے یہاں لکھیں..." rows="3"></textarea>
+        <button class="live-btn" style="margin-bottom: 10px;">واٹس ایپ پر پیغام بھیجیں 💬</button>
+        <button class="live-btn" style="background: #ff4444; color: #fff; box-shadow: 0 0 15px rgba(255,68,68,0.4);" onclick="alert('وائس ریکارڈنگ کا فنکشن فعال ہے، بول کر مسئلہ ریکارڈ کریں۔')">🎙️ یا بول کر ریکارڈنگ بھیجیں</button>
     </div>
 
 </body>
