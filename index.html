@@ -10,7 +10,7 @@
             --primary: #0b6623;
             --primary-dark: #044d18;
             --secondary: #f4f9f4;
-            --accent: #d4af37; /* گولڈن رنگ پریمیم لک کے لیے */
+            --accent: #d4af37;
             --text-dark: #222222;
             --white: #ffffff;
         }
@@ -84,7 +84,6 @@
             border-bottom: 2px solid #eee;
             padding-bottom: 8px;
         }
-        /* الگ الگ کیٹیگریز کے بٹن (Grid Menu) */
         .category-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -103,13 +102,14 @@
             cursor: pointer;
             transition: 0.3s;
             box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+            text-decoration: none;
+            display: block;
         }
         .cat-btn:hover {
             background: var(--primary);
             color: var(--white);
             transform: translateY(-3px);
         }
-        /* سب سیکشنز / صفحات جو کلک کرنے پر کھلیں گے */
         .sub-page {
             display: none;
             background: #fafafa;
@@ -127,11 +127,25 @@
             background: white; padding: 12px 15px; margin: 8px 0;
             border-radius: 8px; border: 1px solid #ddd;
             display: flex; justify-content: space-between; align-items: center;
-            font-weight: bold;
+            font-weight: bold; cursor: pointer; transition: 0.2s;
         }
+        .list-item:hover { background: #f0f7f0; border-color: var(--primary); }
         .play-audio-btn {
             background: var(--primary); color: white; border: none;
-            padding: 6px 12px; border-radius: 5px; cursor: pointer;
+            padding: 6px 14px; border-radius: 5px; cursor: pointer; font-weight: bold;
+        }
+        /* سورات کھلنے والا ڈبہ */
+        #surahViewer {
+            display: none; background: #fffbe6; padding: 20px;
+            border-radius: 10px; border: 2px solid var(--accent); margin-top: 15px; text-align: center;
+        }
+        /* مسئلہ / سوال پوچھنے کا باکس */
+        .question-box {
+            background: #f1f8e9;
+            border: 1px solid #c8e6c9;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
         }
         /* ایزی پیسہ باکس */
         .easypaisa-box {
@@ -147,10 +161,11 @@
             border-radius: 8px; display: inline-block; margin: 10px 0;
             border: 1px solid #ffcdd2;
         }
-        input[type="text"], input[type="file"] {
+        input[type="text"], input[type="file"], textarea {
             width: 100%; padding: 12px; margin: 8px 0;
             border: 1px solid #ccc; border-radius: 8px; font-size: 1rem;
             box-sizing: border-box; text-align: right;
+            font-family: inherit;
         }
         .submit-btn {
             background: var(--primary); color: white; border: none;
@@ -182,58 +197,75 @@
             <p>قرآن پاک اور دینی تعلیم کا پریمیم و جدید مرکز</p>
         </header>
 
-        <!-- مین مینیو کیٹیگریز (علیحدہ الگ بٹن) -->
         <div class="card">
             <h2 class="section-title" id="welcomeTitle">خوش آمدید</h2>
-            <p>براہ کرم نیچے دی گئی کیٹیگریز میں سے اپنی مطلوبہ چیز کا انتخاب کریں:</p>
+            <p>آپ کیا پڑھنا یا پوچھنا چاہتے ہیں؟ نیچے دی گئی کیٹیگریز میں سے منتخب کریں (کلک کرتے ہی واٹس ایپ پر رابطہ ہو جائے گا):</p>
             
+            <!-- واٹس ایپ سے جڑنے والے ڈائریکٹ بٹن (کورسز کے نام ہٹا دیے گئے ہیں) -->
             <div class="category-grid">
-                <div class="cat-btn" onclick="openPage('quranPage')">📖 مکمل قرآن مجید</div>
-                <div class="cat-btn" onclick="openPage('tilawatPage')">🎧 مشہور قاری تلاوت</div>
-                <div class="cat-btn" onclick="openPage('coursesPage')">📚 اکیڈمی کورسز</div>
-                <div class="cat-btn" onclick="openPage('feePage')">💳 فیس و ادائیگی</div>
+                <a href="https://wa.me/923074974713?text=السلام%20عليكم،%20میں%20حفظ%20قرآن%20کرنا%20چاہتا%20ہوں۔" target="_blank" class="cat-btn">📖 حفظ کرنا چاہتے ہیں</a>
+                <a href="https://wa.me/923074974713?text=السلام%20عليكم،%20میں%20ناظرہ%20قرآن%20پڑھنا%20چاہتا%20ہوں۔" target="_blank" class="cat-btn">📗 ناظرہ قرآن پڑھیں</a>
+                <a href="https://wa.me/923074974713?text=السلام%20عليكم،%20مجھے%20نماز%20اور%20دعائیں%20سیکھنی%20ہیں۔" target="_blank" class="cat-btn">🤲 نماز اور دعائیں</a>
+                <a href="https://wa.me/923074974713?text=السلام%20عليكم،%20مجھے%20ایک%20مسئله%20پوچھنا%20ہے۔" target="_blank" class="cat-btn">❓ کوئی مسئلہ پوچھنا ہے</a>
             </div>
 
-            <!-- 1. قرآن مجید کا الگ صفحہ/کیٹیگری -->
+            <!-- اضافی کیٹیگریز (قرآن مجید، تلاوت، فیس) -->
+            <div class="category-grid" style="margin-top: 15px;">
+                <div class="cat-btn" onclick="openPage('quranPage')" style="background:#fff; color:var(--primary);">📖 مکمل قرآن مجید</div>
+                <div class="cat-btn" onclick="openPage('tilawatPage')" style="background:#fff; color:var(--primary);">🎧 مشہور قاری تلاوت</div>
+                <div class="cat-btn" onclick="openPage('feePage')" style="background:#fff; color:var(--primary);">💳 فیس و ادائیگی</div>
+            </div>
+
+            <!-- 1. قرآن مجید اور سورتیں اوپن ہونے کا صفحہ -->
             <div id="quranPage" class="sub-page">
                 <button class="back-btn" onclick="closePages()">⬅ واپس جائیں</button>
-                <h3 style="color:var(--primary);">📖 مکمل قرآن مجید (سورتیں)</h3>
-                <div class="list-item"><span>سورة الفاتحه (مکہ)</span> <span style="color:var(--primary);">موجود ہے</span></div>
-                <div class="list-item"><span>سورة البقرة (مدینہ)</span> <span style="color:var(--primary);">موجود ہے</span></div>
-                <div class="list-item"><span>سورة آل عمران (مدینہ)</span> <span style="color:var(--primary);">موجود ہے</span></div>
-                <div class="list-item"><span>سورة الكهف (مکہ)</span> <span style="color:var(--primary);">موجود ہے</span></div>
-                <p style="text-align:center; color:#666; margin-top:10px;">تمام 114 سورتیں یہاں ترتیب وار دستیاب ہیں۔</p>
+                <h3 style="color:var(--primary);">📖 مکمل قرآن مجید (سورتیں منتخب کریں)</h3>
+                <p>کسی بھی سورت پر کلک کر کے اس کا مطالعہ کریں:</p>
+                
+                <div class="list-item" onclick="viewSurah('سورة الفاتحه (مکہ مکرمہ)', 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ o الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ o الرَّحْمَٰنِ الرَّحِيمِ o مَالِكِ يَوْمِ الدِّينِ...')">
+                    <span>1. سورة الفاتحه</span> <span style="color:var(--primary); font-size:0.9rem;">پڑھیں ➔</span>
+                </div>
+                <div class="list-item" onclick="viewSurah('سورة البقرة (مدینہ منورہ - ابتدائی آیات)', 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ o الم o ذَلِكَ الْكِتَابُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِلْمُتَّقِينَ...')">
+                    <span>2. سورة البقرة</span> <span style="color:var(--primary); font-size:0.9rem;">پڑھیں ➔</span>
+                </div>
+                <div class="list-item" onclick="viewSurah('سورة الكهف (مکہ مکرمہ)', 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ o الْحَمْدُ لِلَّهِ الَّذِي أَنْزَلَ عَلَى عَبْدِهِ الْكِتَابَ وَلَمْ يَجْعَلْ لَهُ عِوَجًا...')">
+                    <span>3. سورة الكهف</span> <span style="color:var(--primary); font-size:0.9rem;">پڑھیں ➔</span>
+                </div>
+                <div class="list-item" onclick="viewSurah('سورة الملك (مکہ مکرمہ)', 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ o تَبَارَكَ الَّذِي بِيَدِهِ الْمُلْكُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ...')">
+                    <span>4. سورة الملك</span> <span style="color:var(--primary); font-size:0.9rem;">پڑھیں ➔</span>
+                </div>
+
+                <!-- سورت ظاہر ہونے کا باکس -->
+                <div id="surahViewer">
+                    <h3 id="surahTitle" style="color:var(--primary); margin-top:0;"></h3>
+                    <p id="surahText" style="font-size: 1.2rem; line-height: 2.2; color: #333;"></p>
+                    <button class="back-btn" onclick="document.getElementById('surahViewer').style.display='none'">بند کریں</button>
+                </div>
             </div>
 
-            <!-- 2. تلاوتِ قرآن کا الگ صفحہ/کیٹیگری -->
+            <!-- 2. قاری حضرات اور آڈیو تلاوت کا صفحہ -->
             <div id="tilawatPage" class="sub-page">
                 <button class="back-btn" onclick="closePages()">⬅ واپس جائیں</button>
-                <h3 style="color:var(--primary);">🎧 مشہور قاری حضرات کی تلاوت</h3>
+                <h3 style="color:var(--primary);">🎧 مشہور قاری حضرات (آڈیو تلاوت)</h3>
+                <p>قاری صاحب کے نام کے ساتھ دیے گئے بٹن کو دبا کر تلاوت سنیں:</p>
+
                 <div class="list-item">
-                    <span>قاری عبد الرحمن السدیس (مکی لہجہ)</span>
-                    <button class="play-audio-btn" onclick="alert('تلاوت جلد پلے ہوگی!')">تلاوت سنیں</button>
+                    <span>قاری عبد الرحمن السدیس (حرم مکی)</span>
+                    <button class="play-audio-btn" onclick="playRecitation('الِسدیس', 'https://server11.mp3quran.net/sds/001.mp3')">تلاوت سنیں 🔊</button>
                 </div>
                 <div class="list-item">
                     <span>قاری مشاری بن راشد العفاسی</span>
-                    <button class="play-audio-btn" onclick="alert('تلاوت جلد پلے ہوگی!')">تلاوت سنیں</button>
+                    <button class="play-audio-btn" onclick="playRecitation('العفاسی', 'https://server8.mp3quran.net/afs/001.mp3')">تلاوت سنیں 🔊</button>
                 </div>
                 <div class="list-item">
                     <span>قاری عبد الباسط عبد الصمد</span>
-                    <button class="play-audio-btn" onclick="alert('تلاوت جلد پلے ہوگی!')">تلاوت سنیں</button>
+                    <button class="play-audio-btn" onclick="playRecitation('عبد الباسط', 'https://server7.mp3quran.net/basit/001.mp3')">تلاوت سنیں 🔊</button>
                 </div>
+
+                <audio id="quranAudio" style="width:100%; margin-top:15px; display:none;" controls></audio>
             </div>
 
-            <!-- 3. کورسز کا الگ صفحہ/کیٹیگری -->
-            <div id="coursesPage" class="sub-page">
-                <button class="back-btn" onclick="closePages()">⬅ واپس جائیں</button>
-                <h3 style="color:var(--primary);">📚 اکیڈمی کے خصوصی کورسز</h3>
-                <div class="list-item"><span>ناظرہ قرآن پاک کورس</span> <span style="color:green;">انرول کریں</span></div>
-                <div class="list-item"><span>حفظ القرآن الکریم کورس</span> <span style="color:green;">انرول کریں</span></div>
-                <div class="list-item"><span>تجوید و قرات کورس</span> <span style="color:green;">انرول کریں</span></div>
-                <div class="list-item"><span>بنیادی دینی مسائل و دعا کورس</span> <span style="color:green;">انرول کریں</span></div>
-            </div>
-
-            <!-- 4. فیس اور ادائیگی کا الگ صفحہ/کیٹیگری -->
+            <!-- 3. فیس اور ادائیگی کا صفحہ -->
             <div id="feePage" class="sub-page">
                 <button class="back-btn" onclick="closePages()">⬅ واپس جائیں</button>
                 <div class="easypaisa-box">
@@ -259,6 +291,17 @@
             </div>
         </div>
 
+        <!-- سوال یا مسئلہ پوچھنے کا نیا سیکشن -->
+        <div class="card">
+            <h3 style="color:var(--primary); margin-top:0;">❓ اپنا مسئلہ یا سوال پوچھیں</h3>
+            <p>اگر آپ کو کوئی دینی مسئلہ پوچھنا ہے تو اپنا نام اور مسئلہ نیچے لکھ کر بھیجیں:</p>
+            <div class="question-box">
+                <input type="text" id="askerName" placeholder="اپنا نام یہاں لکھیں...">
+                <textarea id="askerProblem" rows="4" placeholder="اپنا مسئلہ یا سوال یہاں تفصیل سے لکھیں..."></textarea>
+                <button class="submit-btn" onclick="sendProblemToWhatsApp()">واٹس ایپ پر مسئلہ بھیجیں ➔</button>
+            </div>
+        </div>
+
         <footer>
             <p>&copy; 2026 مصعب بن عمیر آن لائن اکیڈمی | تمام حقوق محفوظ ہیں</p>
         </footer>
@@ -271,6 +314,7 @@
             if(name) {
                 document.getElementById('welcomeTitle').innerText = "خوش آمدید، " + name;
                 document.getElementById('stdName').value = name;
+                document.getElementById('askerName').value = name;
                 document.getElementById('loginOverlay').style.display = 'none';
                 document.getElementById('mainWebsite').style.display = 'block';
             } else {
@@ -278,23 +322,40 @@
             }
         }
 
-        // الگ الگ کیٹیگری صفحے کھولنے کا فنکشن
+        // صفحات مینیج کرنے کے فنکشنز
         function openPage(pageId) {
-            // پہلے سارے سب پیجز بند کریں
             closePages();
-            // مطلوبہ صفحہ کھولیں
             document.getElementById(pageId).style.display = 'block';
         }
 
-        // تمام سب پیجز بند کرنے کا فنکشن
         function closePages() {
-            const pages = ['quranPage', 'tilawatPage', 'coursesPage', 'feePage'];
+            const pages = ['quranPage', 'tilawatPage', 'feePage'];
             pages.forEach(id => {
                 document.getElementById(id).style.display = 'none';
             });
+            document.getElementById('surahViewer').style.display = 'none';
+            const audio = document.getElementById('quranAudio');
+            audio.pause();
+            audio.style.display = 'none';
         }
 
-        // رسید اور نام محفوظ کرنے کا فنکشن
+        // سورت اوپن کرنے اور دکھانے کا فنکشن
+        function viewSurah(title, text) {
+            document.getElementById('surahTitle').innerText = title;
+            document.getElementById('surahText').innerText = text;
+            document.getElementById('surahViewer').style.display = 'block';
+        }
+
+        // قاری کی تلاوت پلے کرنے کا فنکشن
+        function playRecitation(reciterName, audioUrl) {
+            const audio = document.getElementById('quranAudio');
+            audio.src = audioUrl;
+            audio.style.display = 'block';
+            audio.play();
+            alert(reciterName + ' کی آواز میں تلاوت شروع ہو رہی ہے...');
+        }
+
+        // طالب علم کی رسید محفوظ کرنے کا فنکشن
         function saveStudentData() {
             const name = document.getElementById('stdName').value;
             const file = document.getElementById('fileUpload').files[0];
@@ -304,6 +365,19 @@
                 alert("شکریہ! آپ کا نام اور رسید کامیابی کے ساتھ محفوظ ہو گئی ہے۔");
             } else {
                 alert("براہ کرم نام درج کریں اور رسید کی تصویر منتخب کریں۔");
+            }
+        }
+
+        // مسئلہ واٹس ایپ پر بھیجنے کا فنکشن
+        function sendProblemToWhatsApp() {
+            const name = document.getElementById('askerName').value.trim();
+            const problem = document.getElementById('askerProblem').value.trim();
+            if(name && problem) {
+                const message = `م میرا نام ${name} ہے اور میرا یہ مسئلہ ہے: ${problem}`;
+                const url = `https://wa.me/923074974713?text=${encodeURIComponent(message)}`;
+                window.open(url, '_blank');
+            } else {
+                alert("براہ کرم اپنا نام اور مسئلہ دونوں خانے میں لکھیں۔");
             }
         }
     </script>
