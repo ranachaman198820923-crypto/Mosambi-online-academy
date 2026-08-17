@@ -36,12 +36,11 @@
             color: var(--text-dark);
             margin: 0;
             padding: 15px;
-            padding-top: 85px; /* اسٹکی مینو کے لیے جگہ */
+            padding-top: 85px;
             min-height: 100vh;
             transition: 0.3s;
         }
 
-        /* اسٹکی مینو بار (ہمیشہ اوپر موجود رہے گا) */
         .sticky-menu-bar {
             position: fixed;
             top: 0;
@@ -110,7 +109,6 @@
         header h1 { margin: 0; font-size: 2.4rem; color: var(--primary); text-shadow: 0 0 15px rgba(0,230,118,0.6); }
         header p { font-size: 1.1rem; opacity: 0.95; margin-top: 5px; color: var(--accent); }
 
-        /* کارڈز پر ہاور ایفیکٹ (ماؤس لے جانے پر ہلکا سا بڑا ہونا) */
         .card {
             background: var(--card-bg); backdrop-filter: blur(10px);
             color: var(--text-dark); padding: 25px; border-radius: 15px;
@@ -209,7 +207,6 @@
             padding: 12px; width: 100%; border-radius: 8px; font-size: 1rem; font-weight: bold;
             cursor: pointer; margin-top: 10px; box-shadow: 0 0 15px rgba(0,230,118,0.4);
         }
-        /* ریڈنگ موڈ / ترجمہ ٹوگل اسٹائل */
         .translation-toggle-box {
             background: rgba(255,215,0,0.05); border: 1px dashed var(--accent);
             padding: 15px; border-radius: 10px; margin-top: 15px; text-align: right;
@@ -224,7 +221,6 @@
 </head>
 <body>
 
-    <!-- اسٹکی مینو بار (ہمیشہ اوپر موجود رہے گا) -->
     <div class="sticky-menu-bar">
         <button class="action-chip" onclick="toggleDarkMode()">🌓 ڈارک / لائٹ موڈ</button>
         <button class="action-chip" id="installAppBtn" style="display:inline-block;" onclick="installPWAApp()">📲 ایپ انسٹال کریں</button>
@@ -233,7 +229,6 @@
         <button class="action-chip" onclick="openPage('quizPage')">📝 آن لائن ٹیسٹ</button>
     </div>
 
-    <!-- لاگ ان اسکرین (سب سے پہلے ظاہر ہوگی) -->
     <div id="loginOverlay">
         <div class="login-box">
             <h2>خوش آمدید!</h2>
@@ -243,10 +238,8 @@
         </div>
     </div>
 
-    <!-- اصل ویب سائٹ (لاگ ان کے بعد کھلے گی) -->
     <div id="mainWebsite">
         
-        <!-- سب سے اوپر: مدرسے کی تصویر اور نام -->
         <div style="background: var(--card-bg); border-radius: 20px; box-shadow: var(--glow-shadow); margin-bottom: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
             <img src="https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=1200&q=80" alt="مدرسہ اور جامع مسجد" class="madrasa-banner">
             <header style="border-radius: 0; box-shadow: none; margin-bottom: 0; border: none;">
@@ -255,7 +248,6 @@
             </header>
         </div>
 
-        <!-- نمازوں کا ٹائم ٹیبل -->
         <div class="namaz-timetable-box">
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 12px;">
                 <h3 style="margin:0; color:var(--accent);">🕌 نماز اور اشراق کا ٹائم ٹیبل</h3>
@@ -283,7 +275,6 @@
             <div id="timeRemainingText" style="margin-top: 10px; text-align: center; font-size: 0.95rem; color: var(--primary); font-weight: bold;"></div>
         </div>
 
-        <!-- روزانہ کی حدیث مبارکہ -->
         <div class="daily-hadith">
             <h4 style="margin:0 0 5px 0; color:var(--accent);">✨ آج کا فرمان / حدیث مبارکہ</h4>
             <p style="margin:0; font-size: 1.05rem;">"تم میں سے بہترین وہ ہے جو قرآن سیکھے اور سکھائے۔" (صحیح بخاری)</p>
@@ -296,8 +287,8 @@
             <div class="category-grid">
                 <a href="https://wa.me/923074974713?text=السلام%20عليكم،%20میں%20حفظ%20قرآن%20کرنا%20چاہتا%20ہوں۔" target="_blank" class="cat-btn">📖 حفظ کرنا چاہتے ہیں</a>
                 <a href="https://wa.me/923074974713?text=السلام%20عليكم،%20میں%20ناظرہ%20قرآن%20پڑھنا%20چاہتا%20ہوں۔" target="_blank" class="cat-btn">📗 ناظرہ قرآن پڑھیں</a>
-                <a href="https://wa.me/923074974713?text=السلام%20عليكم،%20مجھے%20نماز%20اور%20دعائیں%20سیکھنی%20ہیںـ" target="_blank" class="cat-btn">🤲 نماز اور دعائیں</a>
-                <a href="https://wa.me/923074974713?text=السلام%20عليكم،%20मुझे%20ایک%20مسئلہ%20پوچھنا%20ہے۔" target="_blank" class="cat-btn">❓ کوئی مسئلہ پوچھنا ہے</a>
+                <a href="https://wa.me/923074974713?text=السلام%20عليكم،%20مجھے%20نماز%20اور%20دعائیں%20سیکھنی%20ہیں۔" target="_blank" class="cat-btn">🤲 نماز اور دعائیں</a>
+                <a href="https://wa.me/923074974713?text=السلام%20عليكم،%20مجھے%20ایک%20مسئلہ%20پوچھنا%20ہے۔" target="_blank" class="cat-btn">❓ کوئی مسئلہ پوچھنا ہے</a>
             </div>
 
             <div class="category-grid" style="margin-top: 15px;">
@@ -306,12 +297,10 @@
                 <div class="cat-btn" onclick="openPage('feePage')">💳 فیس و ادائیگی</div>
             </div>
 
-            <!-- مکمل قرآن مجید -->
             <div id="quranPage" class="sub-page">
                 <button class="back-btn" onclick="closePages()">⬅ واپس جائیں</button>
                 <h3 style="color:var(--primary);">📖 مکمل قرآن مجید (114 سورتیں)</h3>
                 
-                <!-- نیا ریڈنگ فیچر: ترجمہ ظاہر/چھپانے کا بٹن -->
                 <div class="translation-toggle-box">
                     <button class="submit-btn" style="margin-top:0; padding:8px;" onclick="toggleAllTranslations()">ترجمہ ظاہر / مخفی کریں (Toggle Translation)</button>
                 </div>
@@ -322,7 +311,6 @@
                 </div>
             </div>
 
-            <!-- قاری حضرات اور آڈیو تلاوت -->
             <div id="tilawatPage" class="sub-page">
                 <button class="back-btn" onclick="closePages()">⬅ واپس جائیں</button>
                 <h3 style="color:var(--primary);">🎧 مشہور قاری حضرات (آڈیو تلاوت)</h3>
@@ -343,7 +331,6 @@
                 <audio id="quranAudio" style="width:100%; margin-top:15px; display:none;" controls></audio>
             </div>
 
-            <!-- فیس اور ادائیگی -->
             <div id="feePage" class="sub-page">
                 <button class="back-btn" onclick="closePages()">⬅ واپس جائیں</button>
                 <div class="easypaisa-box">
@@ -365,7 +352,6 @@
                 </div>
             </div>
 
-            <!-- نئی اسلامک لائبریری کا صفحہ -->
             <div id="libraryPage" class="sub-page">
                 <button class="back-btn" onclick="closePages()">⬅ واپس جائیں</button>
                 <h3 style="color:var(--primary);">📚 جامع اسلامک لائبریری (کتب و قاعدے)</h3>
@@ -376,7 +362,6 @@
                 <div class="list-item"><span>📙 اربعین نبوی (احادیثِ مبارکہ)</span> <button class="play-audio-btn" onclick="alert('احادیث سیکشن')">مطالعہ کریں</button></div>
             </div>
 
-            <!-- نیا آن لائن ٹیسٹ اور کوئز کا صفحہ -->
             <div id="quizPage" class="sub-page">
                 <button class="back-btn" onclick="closePages()">⬅ واپس جائیں</button>
                 <h3 style="color:var(--primary);">📝 آن لائن ٹیسٹ اور کوئز سسٹم</h3>
@@ -401,7 +386,6 @@
             <button class="back-btn" onclick="closeSurahViewer()" style="background:var(--primary); color:#000; font-size: 1.1rem; padding: 10px 25px;">⬅ واپس جائیں</button>
             <h2 id="viewerTitle" style="color:var(--primary); margin-top:15px; font-size: 2rem;"></h2>
             
-            <!-- سورہ کے اندر بھی ترجمہ ٹوگل کا بٹن -->
             <div style="margin: 10px auto; max-width: 800px; text-align: center;">
                 <button class="action-chip" onclick="toggleSurahTranslation()">ترجمہ دکھائیں / چھپائیں</button>
             </div>
@@ -627,7 +611,7 @@
         async function loadSurahList() {
             if (isLoaded) return;
             try {
-                const res = await fetch('https://api.alquran.cloud/v1/surah');
+                const res = ails = await fetch('https://api.alquran.cloud/v1/surah');
                 const data = await res.json();
                 allSurahsData = data.data;
                 displaySurahs(allSurahsData);
@@ -667,7 +651,6 @@
             window.scrollTo(0, 0);
 
             try {
-                // عربی متن اور اردو ترجمہ ایک ساتھ لوڈ کرنا
                 const resText = await fetch(`https://api.alquran.cloud/v1/surah/${number}`);
                 const dataText = await resText.json();
                 
