@@ -56,17 +56,25 @@
 
         /* مین ویب سائٹ */
         #mainWebsite { display: none; max-width: 850px; margin: auto; }
+        
+        /* مدرسے کی تصویر اور ہیڈر سیکشن */
+        .madrasa-banner {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 20px 20px 0 0;
+            border-bottom: 4px solid var(--accent);
+        }
         header {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: var(--white);
             text-align: center;
-            padding: 35px 20px;
-            border-radius: 20px;
+            padding: 25px 20px;
+            border-radius: 0 0 20px 20px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-            border-bottom: 4px solid var(--accent);
             margin-bottom: 20px;
         }
-        header h1 { margin: 0; font-size: 2.4rem; color: var(--white); }
+        header h1 { margin: 0; font-size: 2.4rem; color: var(--white); text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
         header p { font-size: 1.1rem; opacity: 0.95; margin-top: 5px; }
 
         .card {
@@ -192,16 +200,20 @@
 
     <!-- اصل ویب سائٹ -->
     <div id="mainWebsite">
-        <header>
-            <h1>مصعب بن عمیر آن لائن اکیڈمی</h1>
-            <p>قرآن پاک اور دینی تعلیم کا پریمیم و جدید مرکز</p>
-        </header>
+        <!-- مدرسے کی خوبصورت تصویر اور ہیڈر -->
+        <div style="background: white; border-radius: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); margin-bottom: 20px; overflow: hidden;">
+            <img src="https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=1200&q=80" alt="مدرسہ اور جامع مسجد" class="madrasa-banner">
+            <header style="border-radius: 0; box-shadow: none; margin-bottom: 0;">
+                <h1>مصعب بن عمیر آن لائن اکیڈمی</h1>
+                <p>قرآن پاک اور دینی تعلیم کا پریمیم و جدید مرکز</p>
+            </header>
+        </div>
 
         <div class="card">
             <h2 class="section-title" id="welcomeTitle">خوش آمدید</h2>
-            <p>آپ کیا پڑھنا یا پوچھنا چاہتے ہیں؟ نیچے دی گئی کیٹیگریز میں سے منتخب کریں (کلک کرتے ہی واٹس ایپ پر رابطہ ہو جائے گا):</p>
+            <p>آپ کیا پڑھنا یا پوچھنا چاہتے ہیں؟ نیچے دی گئی کیٹیگریز میں سے منتخب کریں:</p>
             
-            <!-- واٹس ایپ سے جڑنے والے ڈائریکٹ بٹن (کورسز کے نام ہٹا دیے گئے ہیں) -->
+            <!-- واٹس ایپ سے جڑنے والے ڈائریکٹ بٹن -->
             <div class="category-grid">
                 <a href="https://wa.me/923074974713?text=السلام%20عليكم،%20میں%20حفظ%20قرآن%20کرنا%20چاہتا%20ہوں۔" target="_blank" class="cat-btn">📖 حفظ کرنا چاہتے ہیں</a>
                 <a href="https://wa.me/923074974713?text=السلام%20عليكم،%20میں%20ناظرہ%20قرآن%20پڑھنا%20چاہتا%20ہوں۔" target="_blank" class="cat-btn">📗 ناظرہ قرآن پڑھیں</a>
@@ -209,7 +221,7 @@
                 <a href="https://wa.me/923074974713?text=السلام%20عليكم،%20مجھے%20ایک%20مسئله%20پوچھنا%20ہے۔" target="_blank" class="cat-btn">❓ کوئی مسئلہ پوچھنا ہے</a>
             </div>
 
-            <!-- اضافی کیٹیگریز (قرآن مجید، تلاوت، فیس) -->
+            <!-- اضافی کیٹیگریز (علیحدہ صفحات کھلنے والے بٹن) -->
             <div class="category-grid" style="margin-top: 15px;">
                 <div class="cat-btn" onclick="openPage('quranPage')" style="background:#fff; color:var(--primary);">📖 مکمل قرآن مجید</div>
                 <div class="cat-btn" onclick="openPage('tilawatPage')" style="background:#fff; color:var(--primary);">🎧 مشہور قاری تلاوت</div>
@@ -251,7 +263,7 @@
 
                 <div class="list-item">
                     <span>قاری عبد الرحمن السدیس (حرم مکی)</span>
-                    <button class="play-audio-btn" onclick="playRecitation('الِسدیس', 'https://server11.mp3quran.net/sds/001.mp3')">تلاوت سنیں 🔊</button>
+                    <button class="play-audio-btn" onclick="playRecitation('السدیس', 'https://server11.mp3quran.net/sds/001.mp3')">تلاوت سنیں 🔊</button>
                 </div>
                 <div class="list-item">
                     <span>قاری مشاری بن راشد العفاسی</span>
@@ -291,7 +303,7 @@
             </div>
         </div>
 
-        <!-- سوال یا مسئلہ پوچھنے کا نیا سیکشن -->
+        <!-- سوال یا مسئلہ پوچھنے کا سیکشن -->
         <div class="card">
             <h3 style="color:var(--primary); margin-top:0;">❓ اپنا مسئلہ یا سوال پوچھیں</h3>
             <p>اگر آپ کو کوئی دینی مسئلہ پوچھنا ہے تو اپنا نام اور مسئلہ نیچے لکھ کر بھیجیں:</p>
@@ -373,7 +385,7 @@
             const name = document.getElementById('askerName').value.trim();
             const problem = document.getElementById('askerProblem').value.trim();
             if(name && problem) {
-                const message = `م میرا نام ${name} ہے اور میرا یہ مسئلہ ہے: ${problem}`;
+                const message = `السلام علیکم، میرا نام ${name} ہے اور میرا یہ مسئلہ ہے: ${problem}`;
                 const url = `https://wa.me/923074974713?text=${encodeURIComponent(message)}`;
                 window.open(url, '_blank');
             } else {
