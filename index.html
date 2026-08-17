@@ -8,11 +8,11 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         
         :root {
-            --bg-color: #f8f9fa;
+            --bg-color: #f4f7f6;
             --text-color: #333;
             --card-bg: #ffffff;
-            --primary: #0a5c36;
-            --accent: #f4c430;
+            --primary: #0b512e;
+            --accent: #ffd700;
         }
 
         .dark-mode {
@@ -25,26 +25,13 @@
 
         /* لاگ ان اسکرین */
         #login-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--primary);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--primary); display: flex; justify-content: center; align-items: center; z-index: 9999;
         }
 
         .login-box {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            width: 85%;
-            max-width: 350px;
-            color: #333;
+            background: white; padding: 30px; border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2); width: 85%; max-width: 350px; color: #333;
         }
 
         .login-box h2 { color: var(--primary); margin-bottom: 15px; font-size: 22px; }
@@ -55,40 +42,36 @@
         /* مین ویب سائٹ */
         #main-content { display: none; }
 
-        header { background: linear-gradient(135deg, var(--primary), #053b22); color: white; padding: 40px 20px; }
-        header h1 { font-size: 2.2rem; color: var(--accent); margin-bottom: 10px; }
+        header { background: linear-gradient(135deg, var(--primary), #053b22); color: var(--accent); padding: 35px 15px; }
+        header h1 { font-size: 2.2rem; margin-bottom: 5px; }
+        header p { color: #fff; font-size: 1rem; }
 
         nav { background: #053b22; display: flex; justify-content: center; gap: 15px; padding: 12px; flex-wrap: wrap; }
         nav a, nav button { color: white; text-decoration: none; font-weight: bold; background: none; border: none; cursor: pointer; font-size: 1rem; }
         nav button:hover, nav a:hover { color: var(--accent); }
 
-        .container { width: 90%; max-width: 1000px; margin: auto; padding: 20px 0; }
+        .container { width: 90%; max-width: 900px; margin: auto; padding: 20px 0; }
         
         .card { 
-            background: var(--card-bg); 
-            padding: 25px; 
-            margin: 20px 0; 
-            border-radius: 10px; 
-            border-top: 4px solid var(--primary); 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
+            background: var(--card-bg); padding: 25px; margin: 20px 0; 
+            border-radius: 12px; border-top: 4px solid var(--primary); 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08); 
         }
 
         .btn-whatsapp { 
-            display: inline-flex; 
-            align-items: center; 
-            justify-content: center; 
-            background: #25D366; 
-            color: white; 
-            padding: 14px 28px; 
-            border-radius: 50px; 
-            text-decoration: none; 
-            font-weight: bold; 
-            font-size: 1.1rem; 
-            margin-top: 15px; 
+            display: inline-block; background: #25D366; color: white; 
+            padding: 14px 28px; border-radius: 50px; text-decoration: none; 
+            font-weight: bold; font-size: 1.1rem; margin-top: 15px; 
         }
 
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 15px; }
-        
+        .select-box {
+            width: 100%; max-width: 350px; padding: 10px; margin: 10px 0;
+            border-radius: 6px; border: 1px solid #ccc; font-size: 16px;
+        }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px; margin-top: 15px; }
+        .course-item { padding: 15px; border: 1px solid #ddd; border-radius: 8px; background: rgba(0,0,0,0.02); }
+
         .fee-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
         .fee-table th, .fee-table td { padding: 12px; border: 1px solid #ddd; text-align: center; }
         .fee-table th { background: var(--primary); color: white; }
@@ -115,74 +98,139 @@
         </header>
 
         <nav>
+            <a href="#trial">مفت ٹرائل</a>
+            <a href="#quran-player">تلاوتِ قرآن</a>
             <a href="#courses">کورسز</a>
-            <a href="#features">خصوصیات</a>
             <a href="#fees">فیس کاؤنٹر</a>
             <button onclick="toggleDarkMode()">🌓 نائٹ موڈ</button>
-            <button onclick="logout()">🔑 لاگ ان</button>
+            <button onclick="logout()">🔑 لاگ آؤٹ</button>
         </nav>
 
         <div class="container">
-            <!-- مفت ٹرائل -->
-            <div class="card">
+            <!-- 1. مفت ٹرائل کلاس -->
+            <div class="card" id="trial">
                 <h2>3 دن کی مفت ٹرائل کلاس حاصل کریں!</h2>
-                <p>تجربہ کار اور سند یافتہ اساتذہ سے آن لائن تعلیم حاصل کریں۔ اب بھی داخلہ لیں!</p>
+                <p>تجربہ کار اور سند یافتہ اساتذہ سے آن لائن تعلیم حاصل کریں۔ ابھی داخلہ لیں!</p>
                 <a href="https://wa.me/923074974713" class="btn-whatsapp" target="_blank">💬 واٹس ایپ پر رابطہ کریں (03074974713)</a>
             </div>
 
-            <!-- تلاوت -->
-            <div class="card">
-                <h2>تلاوتِ قرآن پاک سنیں</h2>
-                <p>سورة الفاتحة - قاری عبد الباسط</p>
-                <audio controls style="width: 100%; max-width: 400px; margin-top: 10px;">
-                    <source src="https://server7.mp3quran.net/basit/001.mp3" type="audio/mpeg">
-                </audio>
+            <!-- 2. تلاوتِ قرآن پاک (مکمل قرآن و تمام قاری) -->
+            <div class="card" id="quran-player">
+                <h2>تلاوتِ قرآن پاک سنیں (مکمل قرآن)</h2>
+                <p>اپنی پسند کے قاری اور سورت کا انتخاب کریں:</p>
+                
+                <div>
+                    <label><b>قاری منتخب کریں:</b></label><br>
+                    <select id="reciter-select" class="select-box" onchange="updateAudio()">
+                        <option value="https://server7.mp3quran.net/basit/">قاری عبد الباسط عبد الصمد</option>
+                        <option value="https://server11.mp3quran.net/shur/">قاری سعود الشریم</option>
+                        <option value="https://server11.mp3quran.net/sds/">قاری عبدالرحمن السدیس</option>
+                        <option value="https://server8.mp3quran.net/afs/">قاری مشاری العفاسی</option>
+                        <option value="https://server7.mp3quran.net/s_gmd/">قاری سعد الغامدی</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label><b>سورت منتخب کریں:</b></label><br>
+                    <select id="surah-select" class="select-box" onchange="updateAudio()"></select>
+                </div>
+
+                <div style="margin-top: 15px;">
+                    <audio id="quran-audio" controls style="width: 100%; max-width: 450px;">
+                        آپ کا براؤزر آڈیو کو سپورٹ نہیں کرتا۔
+                    </audio>
+                </div>
             </div>
 
-            <!-- کورسز -->
+            <!-- 3. ہمارے کورسز -->
             <div class="card" id="courses">
-                <h2>ہمارے کورسز</h2>
+                <h2>ہمارے آن لائن کورسز</h2>
                 <div class="grid">
-                    <div style="padding:15px; border:1px solid #ddd; border-radius:8px;">
+                    <div class="course-item">
                         <h3>ناظرہ قرآن کریم</h3>
-                        <p>تجوید کے قواعد کے ساتھ قرآن پاک پڑھنا سیکھیں۔</p>
+                        <p>تجوید و مخارج کے بنیادی قواعد کے ساتھ قرآن پاک سیکھیں۔</p>
                     </div>
-                    <div style="padding:15px; border:1px solid #ddd; border-radius:8px;">
-                        <h3>حفظِ قرآن</h3>
-                        <p>خاص طریقہ کار کے تحت مکمل یا جزوی حفظ کریں۔</p>
+                    <div class="course-item">
+                        <h3>حفظِ قرآن کریم</h3>
+                        <p>مکمل یا منتخب سورتوں کو آسان طریقے سے یاد کریں۔</p>
                     </div>
-                    <div style="padding:15px; border:1px solid #ddd; border-radius:8px;">
-                        <h3>دینی مسائل و نماز</h3>
-                        <p>بنیادی عقائد، مسنون دعائیں اور نماز کی تربیت۔</p>
+                    <div class="course-item">
+                        <h3>دینی معلومات و نماز</h3>
+                        <p>نماز، مسنون دعائیں، طہارت اور بنیادی اسلام سیکھیں۔</p>
                     </div>
                 </div>
             </div>
 
-            <!-- فیس کاؤنٹر -->
+            <!-- 4. فیس کاؤنٹر (علیحدہ) -->
             <div class="card" id="fees">
-                <h2>فیس کی تفصیلات</h2>
+                <h2>فیس کاؤنٹر و تفصیلات</h2>
                 <table class="fee-table">
-                    <tr>
-                        <th>کورس</th>
-                        <th>ہفتہ وار دن</th>
-                        <th>فیس (ماہانہ)</th>
-                    </tr>
-                    <tr>
-                        <td>بنیادی ناظرہ</td>
-                        <td>5 دن</td>
-                        <td>مناسب فیس</td>
-                    </tr>
-                    <tr>
-                        <td>حفظ و تجوید</td>
-                        <td>5 دن</td>
-                        <td>مناسب فیس</td>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th>کورس کا نام</th>
+                            <th>ہفتہ وار دن</th>
+                            <th>ماہانہ فیس</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ناظرہ قرآن (بنیادی)</td>
+                            <td>5 دن (پیر تا جمعہ)</td>
+                            <td>مناسب و معقول</td>
+                        </tr>
+                        <tr>
+                            <td>حفظِ قرآن</td>
+                            <td>5 دن (پیر تا جمعہ)</td>
+                            <td>مناسب و معقول</td>
+                        </tr>
+                        <tr>
+                            <td>دعائیں و نماز کورس</td>
+                            <td>3 دن</td>
+                            <td>خاص رعایت</td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
     </div>
 
     <script>
+        // سورتوں کی لسٹ خودکار بنانے کا کوڈ
+        const surahs = [
+            "1. الفاتحة", "2. البقرة", "3. آل عمران", "4. النساء", "5. المائدة", "6. الأنعام", "7. الأعراف", "8. الأنفال", "9. التوبة", "10. يونس",
+            "11. هود", "12. يوسف", "13. الرعد", "14. إبراهيم", "15. الحجر", "16. النحل", "17. الإسراء", "18. الكهف", "19. مريم", "20. طه",
+            "21. الأنبياء", "22. الحج", "23. المؤمنون", "24. النور", "25. الفرقان", "26. الشعراء", "27. النمل", "28. القصص", "29. العنكبوت", "30. الروم",
+            "31. لقمان", "32. السجدة", "33. الأحزاب", "34. سبأ", "35. فاطر", "36. يس", "37. الصافات", "38. ص", "39. الزمر", "40. غافر",
+            "41. فصلت", "42. الشورى", "43. الزخرف", "44. الدخان", "45. الجاثية", "46. الأحقاف", "47. محمد", "48. الفتح", "49. الحجرات", "50. ق",
+            "51. الذاريات", "52. الطور", "53. النجم", "54. القمر", "55. الرحمن", "56. الواقعة", "57. الحديد", "58. المجادلة", "59. الحشر", "60. الممتحنة",
+            "61. الصف", "62. الجمعة", "63. المنافقون", "64. التغابن", "65. الطلاق", "66. التحريم", "67. الملك", "68. القلم", "69. الحاقة", "70. المعارج",
+            "71. نوح", "72. الجن", "73. المزمل", "74. المدثر", "75. القيامة", "76. الإنسان", "77. المرسلات", "78. النبأ", "79. النازعات", "80. عبس",
+            "81. التکوير", "82. الانفطار", "83. المطففين", "84. الانشقاق", "85. البروج", "86. الطارق", "87. الأعلى", "88. الغاشية", "89. الفجر", "90. البلد",
+            "91. الشمس", "92. الليل", "93. الضحى", "94. الشرح", "95. التين", "96. العلق", "97. القدر", "98. البينة", "99. الزلزلة", "100. العاديات",
+            "101. القارعة", "102. التكاثر", "103. العصر", "104. الهمزة", "105. الفيل", "106. قريش", "107. الماعون", "108. الكوثر", "109. الكافرون", "110. النصر",
+            "111. المسد", "112. الإخلاص", "113. الفلق", "114. الناس"
+        ];
+
+        const surahSelect = document.getElementById("surah-select");
+        surahs.forEach((surah, index) => {
+            let option = document.createElement("option");
+            let surahNum = (index + 1).toString().padStart(3, '0');
+            option.value = surahNum + ".mp3";
+            option.textContent = surah;
+            surahSelect.appendChild(option);
+        });
+
+        function updateAudio() {
+            const reciter = document.getElementById("reciter-select").value;
+            const surah = document.getElementById("surah-select").value;
+            const audioPlayer = document.getElementById("quran-audio");
+            audioPlayer.src = reciter + surah;
+            audioPlayer.play();
+        }
+
+        // ابتدائی تلاوت سیٹ کریں
+        updateAudio();
+
         function checkPassword() {
             let userPassword = document.getElementById("password-input").value;
             if (userPassword === "1234") {
