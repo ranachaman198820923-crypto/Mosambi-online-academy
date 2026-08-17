@@ -4,56 +4,338 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مصعب بن عمیر آن لائن اکیڈمی</title>
+    <!-- گوگل سرچ کنسول ویریفیکیشن کوڈ -->
+    <meta name="google-site-verification" content="آپ_کا_ویریفیکیشن_کود_یہاں_رہے" />
     <style>
-        :root { --primary: #046307; --secondary: #f4f9f4; --accent: #ffa726; --card-bg: #ffffff; }
-        body { font-family: 'Jameel Noori Nastaleeq', sans-serif; background-color: #eef2f5; margin: 0; padding: 20px; }
-        .main-card { max-width: 600px; margin: auto; background: var(--card-bg); padding: 30px; border-radius: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
-        h1, h2 { color: var(--primary); text-align: center; }
-        .highlight { background: #fff3e0; border-right: 5px solid var(--accent); padding: 15px; border-radius: 10px; margin: 20px 0; }
-        input, button { width: 100%; padding: 12px; margin: 10px 0; border-radius: 10px; border: 1px solid #ccc; font-size: 1rem; }
-        button { background: var(--primary); color: white; border: none; cursor: pointer; font-weight: bold; }
-        .upload-section { margin-top: 20px; border-top: 2px solid #eee; padding-top: 20px; }
+        :root {
+            --primary-color: #046307;
+            --secondary-color: #f4f9f4;
+            --accent-color: #ffa726;
+            --text-color: #333333;
+            --white: #ffffff;
+        }
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 10px;
+            line-height: 1.8;
+        }
+        /* لاگ ان اسکرین کا ڈیزائن */
+        #loginOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(4, 99, 7, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        .login-box {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        .login-box h2 {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+        .login-input {
+            width: 100%;
+            padding: 12px;
+            margin: 15px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+            text-align: right;
+            box-sizing: border-box;
+        }
+        .login-btn {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        /* اصل ویب سائٹ کا ڈیزائن */
+        #mainWebsite {
+            display: none; /* شروع میں چھپی ہوگی جب تک لاگ ان نہ ہو */
+        }
+        header {
+            background: linear-gradient(135deg, #046307, #2e7d32);
+            color: var(--white);
+            text-align: center;
+            padding: 30px 15px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+        }
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .section-title {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 8px;
+            margin-top: 30px;
+            font-size: 1.4rem;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .feature-card {
+            background: #f9fbf9;
+            padding: 15px;
+            border-radius: 10px;
+            border-right: 4px solid var(--primary-color);
+            border: 1px solid #e0e0e0;
+            text-align: center;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        .voice-search-box {
+            background: #e8f5e9;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 25px;
+            border: 1px solid #c8e6c9;
+        }
+        .voice-btn {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .easypaisa-box {
+            background: #fff3e0;
+            border: 2px dashed #ffa726;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 25px;
+        }
+        .name-highlight {
+            font-size: 1.3rem;
+            color: #b71c1c;
+            font-weight: bold;
+            background: #ffebee;
+            padding: 5px 15px;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 8px 0;
+        }
+        .upload-section {
+            background: #f1f8e9;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 25px;
+            border: 1px solid #dcedc8;
+        }
+        input[type="text"], input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            text-align: right;
+        }
+        .submit-btn {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .faq-box {
+            background: #fafafa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-right: 4px solid #ffa726;
+            border: 1px solid #ddd;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #222;
+            color: var(--white);
+            margin-top: 40px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
 
-<div class="main-card">
-    <h1>مصعب بن عمیر آن لائن اکیڈمی</h1>
-    
-    <div class="highlight">
-        <h3>💳 ادائیگی کی تفصیلات</h3>
-        <p><strong>نام:</strong> رانا افتخار احمد</p>
-        <p><strong>ایزی پیسہ نمبر:</strong> 03074974713</p>
+    <!-- سب سے پہلے کھلنے والی لاگ ان اسکرین -->
+    <div id="loginOverlay">
+        <div class="login-box">
+            <h2>خوش آمدید!</h2>
+            <p>بلاگ یا اکیڈمی میں داخل ہونے کے لیے اپنا نام درج کریں:</p>
+            <input type="text" id="userNameInput" class="login-input" placeholder="اپنا نام یہاں لکھیں...">
+            <button class="login-btn" onclick="userLogin()">لاگ ان کریں</button>
+        </div>
     </div>
 
-    <div class="upload-section">
-        <h2>🧾 فیس رسید اپلوڈ کریں</h2>
-        <input type="text" id="stdName" placeholder="اپنا نام لکھیں">
-        <input type="file" id="fileUpload" accept="image/*">
-        <button onclick="saveData()">محفوظ کریں</button>
+    <!-- اصل ویب سائٹ (لاگ ان کے بعد نظر آئے گی) -->
+    <div id="mainWebsite">
+        <div class="container">
+            <header>
+                <h1>مصعب بن عمیر آن لائن اکیڈمی</h1>
+                <p>آن لائن قرآن پاک اور دینی تعلیم کا بہترین اور جدید ادارہ</p>
+            </header>
+
+            <!-- خوش آمدید سیکشن (یہاں لاگ ان کرنے والے کا نام شو ہوگا) -->
+            <h2 class="section-title" id="welcomeUserTitle">خوش آمدید</h2>
+            <p>ہماری اکیڈمی میں آپ کو قرآن پاک کی تجوید و قرات، ناظرہ، حفظ اور بنیادی اسلامی تعلیم گھر بیٹھے انتہائی آسان طریقے سے پڑھائی جاتی ہے۔</p>
+
+            <!-- کورسز اور سیکشنز -->
+            <h2 class="section-title">📚 اکیڈمی کے اہم کورسز و سیکشنز</h2>
+            <div class="features-grid">
+                <div class="feature-card">📖 مکمل قرآن مجید</div>
+                <div class="feature-card">🎧 تلاوتِ قرآن سیکشن</div>
+                <div class="feature-card">🎁 مفت ٹرائل کلاس</div>
+                <div class="feature-card">⭐ الیکٹرانک کورسز</div>
+            </div>
+
+            <!-- وائس سرچ فنکشن -->
+            <div class="voice-search-box">
+                <h3>🎤 بول کر تلاش کریں (Voice Search)</h3>
+                <p>اگر آپ کو لکھنا مشکل لگتا ہے تو مائیک کے بٹن پر کلک کر کے بولیں:</p>
+                <input type="text" id="searchInput" placeholder="یہاں آپ کا بولا ہوا متن آئے گا...">
+                <br>
+                <button class="voice-btn" onclick="startVoiceSearch()">بولنا شروع کریں</button>
+            </div>
+
+            <!-- ایزی پیسہ اور ادائیگی کا سیکشن -->
+            <div class="easypaisa-box">
+                <h3>💳 فیس و ادائیگی کی تفصیلات</h3>
+                <p>فیس جمع کروانے کے لیے اکاؤنٹ ہولڈر کا نام:</p>
+                <div class="name-highlight">رانا افتخار احمد</div>
+                <p><strong>ایزی پیسہ نمبر:</strong> 03074974713</p>
+                <p style="font-size: 0.9rem; color: #555;">فیس جمع کروانے کے بعد نیچے اپنی رسید کا اسکرین شاٹ اپلوڈ کریں۔</p>
+            </div>
+
+            <!-- فیس رسید اپلوڈ اور پروفائل سیکشن -->
+            <div class="upload-section">
+                <h3 style="color: var(--primary-color); margin-top: 0;">🧾 فیس رسید اور طالب علم پروفائل</h3>
+                <input type="text" id="stdName" placeholder="اپنا نام یہاں لکھیں">
+                <input type="file" id="fileUpload" accept="image/*">
+                <button class="submit-btn" onclick="saveStudentData()">معلومات محفوظ کریں</button>
+                
+                <div id="profileBox" style="display:none; margin-top:15px; background:#fff; padding:15px; border-radius:8px; border:1px solid #4caf50;">
+                    <h4 style="color:#2e7d32; margin:0 0 5px 0;">👤 طالب علم پروفائل (سیٹنگز)</h4>
+                    <p id="displayName" style="font-weight:bold; margin: 5px 0;"></p>
+                    <p style="color: green; margin:0;">✅ آپ کی فیس کی رسید کامیابی سے اکیڈمی کو موصول ہو گئی ہے!</p>
+                </div>
+            </div>
+
+            <!-- عام سوالات (FAQs) -->
+            <h2 class="section-title">❓ عام سوالات (FAQs)</h2>
+            <div class="faq-box">
+                <strong>سوال: کلاسز کا وقت کیا ہے؟</strong><br>
+                <em>جواب:</em> طلباء اپنی سہولت اور مرضی کے مطابق وقت کا انتخاب کر سکتے ہیں۔
+            </div>
+            <div class="faq-box">
+                <strong>سوال: کیا فیس کم ہے؟</strong><br>
+                <em>جواب:</em> جی ہاں، فیس انتہائی مناسب اور معقول رکھی گئی ہے۔
+            </div>
+
+            <footer>
+                <p>&copy; 2026 مصعب بن عمیر آن لائن اکیڈمی | تمام حقوق محفوظ ہیں</p>
+            </footer>
+        </div>
     </div>
 
-    <div id="profile" style="margin-top:20px; display:none;">
-        <h2>👤 طالب علم پروفائل</h2>
-        <p id="displayName"></p>
-        <p>✅ رسید موصول ہوئی!</p>
-    </div>
-</div>
-
-<script>
-    function saveData() {
-        const name = document.getElementById('stdName').value;
-        const file = document.getElementById('fileUpload').files[0];
-        if(name && file) {
-            localStorage.setItem('studentName', name);
-            document.getElementById('displayName').innerText = "نام: " + name;
-            document.getElementById('profile').style.display = 'block';
-            alert("شکریہ! آپ کی رسید موصول ہو گئی ہے۔");
-        } else {
-            alert("براہ کرم اپنا نام لکھیں اور تصویر منتخب کریں۔");
+    <script>
+        // لاگ ان فنکشن
+        function userLogin() {
+            const name = document.getElementById('userNameInput').value.trim();
+            if(name) {
+                // نام کو ویب سائٹ پر شو کریں
+                document.getElementById('welcomeUserTitle').innerText = "خوش آمدید " + name;
+                document.getElementById('stdName').value = name; // فیس والے خانے میں بھی نام خود آ جائے
+                
+                // لاگ ان اسکرین ہٹا کر اصل ویب سائٹ دکھائیں
+                document.getElementById('loginOverlay').style.display = 'none';
+                document.getElementById('mainWebsite').style.display = 'block';
+            } else {
+                alert("براہ کرم آگے بڑھنے کے لیے اپنا نام درج کریں۔");
+            }
         }
-    }
-</script>
+
+        // وائس سرچ فنکشن
+        function startVoiceSearch() {
+            if ('webkitSpeechRecognition' in window) {
+                const recognition = new webkitSpeechRecognition();
+                recognition.lang = 'ur-PK';
+                recognition.onstart = function() {
+                    document.getElementById('searchInput').placeholder = "سن رہے ہیں، بولیں...";
+                };
+                recognition.onresult = function(event) {
+                    const speechToText = event.results[0][0].transcript;
+                    document.getElementById('searchInput').value = speechToText;
+                };
+                recognition.start();
+            } else {
+                alert("معذرت، آپ کا براؤزر وائس سرچ کو سپورٹ نہیں کرتا۔");
+            }
+        }
+
+        // طالب علم کا نام اور رسید محفوظ کرنے کا فنکشن
+        function saveStudentData() {
+            const name = document.getElementById('stdName').value;
+            const file = document.getElementById('fileUpload').files[0];
+            if(name && file) {
+                document.getElementById('displayName').innerText = "طالب علم کا نام: " + name;
+                document.getElementById('profileBox').style.display = 'block';
+                alert("شکریہ! آپ کا نام اور رسید کامیابی کے ساتھ محفوظ ہو گئی ہے۔");
+            } else {
+                alert("براہ کرم اپنا نام بھی لکھیں اور رسید کی تصویر بھی منتخب کریں۔");
+            }
+        }
+    </script>
 
 </body>
 </html>
