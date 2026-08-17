@@ -4,288 +4,264 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مصعب بن عمیر آن لائن اکیڈمی</title>
-    <!-- گوگل سرچ کنسول ویریفیکیشن کوڈ -->
     <meta name="google-site-verification" content="آپ_کا_ویریفیکیشن_کود_یہاں_رہے" />
     <style>
         :root {
-            --primary-color: #046307;
-            --secondary-color: #f4f9f4;
-            --accent-color: #ffa726;
-            --text-color: #333333;
+            --primary: #0b6623;
+            --primary-dark: #044d18;
+            --secondary: #f4f9f4;
+            --accent: #d4af37; /* گولڈن رنگ پریمیم لک کے لیے */
+            --text-dark: #222222;
             --white: #ffffff;
         }
         body {
-            font-family: 'Jameel Noori Nastaleeq', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--secondary-color);
-            color: var(--text-color);
+            font-family: 'Jameel Noori Nastaleeq', 'Segoe UI', Tahoma, sans-serif;
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+            color: var(--text-dark);
             margin: 0;
-            padding: 10px;
-            line-height: 1.8;
+            padding: 15px;
+            min-height: 100vh;
         }
-        /* لاگ ان اسکرین کا ڈیزائن */
+        /* لاگ ان اسکرین */
         #loginOverlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(4, 99, 7, 0.95);
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(4, 77, 24, 0.95);
+            display: flex; justify-content: center; align-items: center;
             z-index: 9999;
         }
         .login-box {
             background: var(--white);
-            padding: 30px;
-            border-radius: 15px;
+            padding: 35px;
+            border-radius: 20px;
             text-align: center;
             max-width: 400px;
             width: 90%;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            border: 3px solid var(--accent);
         }
-        .login-box h2 {
-            color: var(--primary-color);
-            margin-top: 0;
-        }
+        .login-box h2 { color: var(--primary); margin-top: 0; }
         .login-input {
-            width: 100%;
-            padding: 12px;
-            margin: 15px 0;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 1rem;
-            text-align: right;
-            box-sizing: border-box;
+            width: 100%; padding: 12px; margin: 15px 0;
+            border: 2px solid #ccc; border-radius: 10px;
+            font-size: 1rem; text-align: right; box-sizing: border-box;
         }
         .login-btn {
-            background-color: var(--primary-color);
-            color: var(--white);
-            border: none;
-            padding: 12px;
-            width: 100%;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
+            background: var(--primary); color: var(--white);
+            border: none; padding: 12px; width: 100%;
+            border-radius: 10px; font-size: 1.1rem; font-weight: bold; cursor: pointer;
+            transition: 0.3s;
         }
-        /* اصل ویب سائٹ کا ڈیزائن */
-        #mainWebsite {
-            display: none; /* شروع میں چھپی ہوگی جب تک لاگ ان نہ ہو */
-        }
+        .login-btn:hover { background: var(--primary-dark); }
+
+        /* مین ویب سائٹ */
+        #mainWebsite { display: none; max-width: 850px; margin: auto; }
         header {
-            background: linear-gradient(135deg, #046307, #2e7d32);
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: var(--white);
             text-align: center;
-            padding: 30px 15px;
-            border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            padding: 35px 20px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            border-bottom: 4px solid var(--accent);
             margin-bottom: 20px;
         }
-        header h1 {
-            margin: 0;
-            font-size: 2.2rem;
-        }
-        header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
+        header h1 { margin: 0; font-size: 2.4rem; color: var(--white); }
+        header p { font-size: 1.1rem; opacity: 0.95; margin-top: 5px; }
+
+        .card {
             background: var(--white);
+            padding: 25px;
             border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+            border-right: 5px solid var(--accent);
         }
         .section-title {
-            color: var(--primary-color);
-            border-bottom: 2px solid var(--primary-color);
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-top: 0;
+            border-bottom: 2px solid #eee;
             padding-bottom: 8px;
-            margin-top: 30px;
-            font-size: 1.4rem;
         }
-        .features-grid {
+        /* الگ الگ کیٹیگریز کے بٹن (Grid Menu) */
+        .category-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 15px;
             margin-top: 15px;
         }
-        .feature-card {
-            background: #f9fbf9;
-            padding: 15px;
-            border-radius: 10px;
-            border-right: 4px solid var(--primary-color);
-            border: 1px solid #e0e0e0;
+        .cat-btn {
+            background: var(--secondary);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 18px;
             text-align: center;
-            font-weight: bold;
-            color: var(--primary-color);
-        }
-        .voice-search-box {
-            background: #e8f5e9;
-            padding: 20px;
             border-radius: 12px;
-            text-align: center;
-            margin-top: 25px;
-            border: 1px solid #c8e6c9;
-        }
-        .voice-btn {
-            background-color: var(--primary-color);
-            color: var(--white);
-            border: none;
-            padding: 10px 20px;
-            font-size: 1rem;
-            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
             cursor: pointer;
-            margin-top: 10px;
+            transition: 0.3s;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+        }
+        .cat-btn:hover {
+            background: var(--primary);
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+        /* سب سیکشنز / صفحات جو کلک کرنے پر کھلیں گے */
+        .sub-page {
+            display: none;
+            background: #fafafa;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 15px;
+            border: 1px dashed var(--primary);
+        }
+        .back-btn {
+            background: #666; color: white; border: none;
+            padding: 8px 15px; border-radius: 6px; cursor: pointer;
+            margin-bottom: 15px; font-weight: bold;
+        }
+        .list-item {
+            background: white; padding: 12px 15px; margin: 8px 0;
+            border-radius: 8px; border: 1px solid #ddd;
+            display: flex; justify-content: space-between; align-items: center;
             font-weight: bold;
         }
+        .play-audio-btn {
+            background: var(--primary); color: white; border: none;
+            padding: 6px 12px; border-radius: 5px; cursor: pointer;
+        }
+        /* ایزی پیسہ باکس */
         .easypaisa-box {
-            background: #fff3e0;
-            border: 2px dashed #ffa726;
+            background: #fff8e1;
+            border: 2px dashed var(--accent);
             padding: 20px;
             border-radius: 12px;
             text-align: center;
-            margin-top: 25px;
         }
         .name-highlight {
-            font-size: 1.3rem;
-            color: #b71c1c;
-            font-weight: bold;
-            background: #ffebee;
-            padding: 5px 15px;
-            border-radius: 5px;
-            display: inline-block;
-            margin: 8px 0;
-        }
-        .upload-section {
-            background: #f1f8e9;
-            padding: 20px;
-            border-radius: 12px;
-            margin-top: 25px;
-            border: 1px solid #dcedc8;
+            font-size: 1.4rem; color: #b71c1c; font-weight: bold;
+            background: #ffebee; padding: 6px 20px;
+            border-radius: 8px; display: inline-block; margin: 10px 0;
+            border: 1px solid #ffcdd2;
         }
         input[type="text"], input[type="file"] {
-            width: 100%;
-            padding: 12px;
-            margin: 8px 0;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 1rem;
-            box-sizing: border-box;
-            text-align: right;
+            width: 100%; padding: 12px; margin: 8px 0;
+            border: 1px solid #ccc; border-radius: 8px; font-size: 1rem;
+            box-sizing: border-box; text-align: right;
         }
         .submit-btn {
-            background-color: var(--primary-color);
-            color: var(--white);
-            border: none;
-            padding: 12px;
-            width: 100%;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        .faq-box {
-            background: #fafafa;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 10px 0;
-            border-right: 4px solid #ffa726;
-            border: 1px solid #ddd;
+            background: var(--primary); color: white; border: none;
+            padding: 12px; width: 100%; border-radius: 8px;
+            font-size: 1rem; font-weight: bold; cursor: pointer; margin-top: 10px;
         }
         footer {
-            text-align: center;
-            padding: 20px;
-            background: #222;
-            color: var(--white);
-            margin-top: 40px;
-            border-radius: 10px;
-            font-size: 0.9rem;
+            text-align: center; padding: 20px; background: var(--text-dark);
+            color: var(--white); border-radius: 12px; margin-top: 30px; font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
 
-    <!-- سب سے پہلے کھلنے والی لاگ ان اسکرین -->
+    <!-- لاگ ان اسکرین -->
     <div id="loginOverlay">
         <div class="login-box">
             <h2>خوش آمدید!</h2>
-            <p>بلاگ یا اکیڈمی میں داخل ہونے کے لیے اپنا نام درج کریں:</p>
+            <p>اکیڈمی میں داخل ہونے کے لیے اپنا نام درج کریں:</p>
             <input type="text" id="userNameInput" class="login-input" placeholder="اپنا نام یہاں لکھیں...">
-            <button class="login-btn" onclick="userLogin()">لاگ ان کریں</button>
+            <button class="login-btn" onclick="userLogin()">داخل ہوں</button>
         </div>
     </div>
 
-    <!-- اصل ویب سائٹ (لاگ ان کے بعد نظر آئے گی) -->
+    <!-- اصل ویب سائٹ -->
     <div id="mainWebsite">
-        <div class="container">
-            <header>
-                <h1>مصعب بن عمیر آن لائن اکیڈمی</h1>
-                <p>آن لائن قرآن پاک اور دینی تعلیم کا بہترین اور جدید ادارہ</p>
-            </header>
+        <header>
+            <h1>مصعب بن عمیر آن لائن اکیڈمی</h1>
+            <p>قرآن پاک اور دینی تعلیم کا پریمیم و جدید مرکز</p>
+        </header>
 
-            <!-- خوش آمدید سیکشن (یہاں لاگ ان کرنے والے کا نام شو ہوگا) -->
-            <h2 class="section-title" id="welcomeUserTitle">خوش آمدید</h2>
-            <p>ہماری اکیڈمی میں آپ کو قرآن پاک کی تجوید و قرات، ناظرہ، حفظ اور بنیادی اسلامی تعلیم گھر بیٹھے انتہائی آسان طریقے سے پڑھائی جاتی ہے۔</p>
-
-            <!-- کورسز اور سیکشنز -->
-            <h2 class="section-title">📚 اکیڈمی کے اہم کورسز و سیکشنز</h2>
-            <div class="features-grid">
-                <div class="feature-card">📖 مکمل قرآن مجید</div>
-                <div class="feature-card">🎧 تلاوتِ قرآن سیکشن</div>
-                <div class="feature-card">🎁 مفت ٹرائل کلاس</div>
-                <div class="feature-card">⭐ الیکٹرانک کورسز</div>
+        <!-- مین مینیو کیٹیگریز (علیحدہ الگ بٹن) -->
+        <div class="card">
+            <h2 class="section-title" id="welcomeTitle">خوش آمدید</h2>
+            <p>براہ کرم نیچے دی گئی کیٹیگریز میں سے اپنی مطلوبہ چیز کا انتخاب کریں:</p>
+            
+            <div class="category-grid">
+                <div class="cat-btn" onclick="openPage('quranPage')">📖 مکمل قرآن مجید</div>
+                <div class="cat-btn" onclick="openPage('tilawatPage')">🎧 مشہور قاری تلاوت</div>
+                <div class="cat-btn" onclick="openPage('coursesPage')">📚 اکیڈمی کورسز</div>
+                <div class="cat-btn" onclick="openPage('feePage')">💳 فیس و ادائیگی</div>
             </div>
 
-            <!-- وائس سرچ فنکشن -->
-            <div class="voice-search-box">
-                <h3>🎤 بول کر تلاش کریں (Voice Search)</h3>
-                <p>اگر آپ کو لکھنا مشکل لگتا ہے تو مائیک کے بٹن پر کلک کر کے بولیں:</p>
-                <input type="text" id="searchInput" placeholder="یہاں آپ کا بولا ہوا متن آئے گا...">
-                <br>
-                <button class="voice-btn" onclick="startVoiceSearch()">بولنا شروع کریں</button>
+            <!-- 1. قرآن مجید کا الگ صفحہ/کیٹیگری -->
+            <div id="quranPage" class="sub-page">
+                <button class="back-btn" onclick="closePages()">⬅ واپس جائیں</button>
+                <h3 style="color:var(--primary);">📖 مکمل قرآن مجید (سورتیں)</h3>
+                <div class="list-item"><span>سورة الفاتحه (مکہ)</span> <span style="color:var(--primary);">موجود ہے</span></div>
+                <div class="list-item"><span>سورة البقرة (مدینہ)</span> <span style="color:var(--primary);">موجود ہے</span></div>
+                <div class="list-item"><span>سورة آل عمران (مدینہ)</span> <span style="color:var(--primary);">موجود ہے</span></div>
+                <div class="list-item"><span>سورة الكهف (مکہ)</span> <span style="color:var(--primary);">موجود ہے</span></div>
+                <p style="text-align:center; color:#666; margin-top:10px;">تمام 114 سورتیں یہاں ترتیب وار دستیاب ہیں۔</p>
             </div>
 
-            <!-- ایزی پیسہ اور ادائیگی کا سیکشن -->
-            <div class="easypaisa-box">
-                <h3>💳 فیس و ادائیگی کی تفصیلات</h3>
-                <p>فیس جمع کروانے کے لیے اکاؤنٹ ہولڈر کا نام:</p>
-                <div class="name-highlight">رانا افتخار احمد</div>
-                <p><strong>ایزی پیسہ نمبر:</strong> 03074974713</p>
-                <p style="font-size: 0.9rem; color: #555;">فیس جمع کروانے کے بعد نیچے اپنی رسید کا اسکرین شاٹ اپلوڈ کریں۔</p>
-            </div>
-
-            <!-- فیس رسید اپلوڈ اور پروفائل سیکشن -->
-            <div class="upload-section">
-                <h3 style="color: var(--primary-color); margin-top: 0;">🧾 فیس رسید اور طالب علم پروفائل</h3>
-                <input type="text" id="stdName" placeholder="اپنا نام یہاں لکھیں">
-                <input type="file" id="fileUpload" accept="image/*">
-                <button class="submit-btn" onclick="saveStudentData()">معلومات محفوظ کریں</button>
-                
-                <div id="profileBox" style="display:none; margin-top:15px; background:#fff; padding:15px; border-radius:8px; border:1px solid #4caf50;">
-                    <h4 style="color:#2e7d32; margin:0 0 5px 0;">👤 طالب علم پروفائل (سیٹنگز)</h4>
-                    <p id="displayName" style="font-weight:bold; margin: 5px 0;"></p>
-                    <p style="color: green; margin:0;">✅ آپ کی فیس کی رسید کامیابی سے اکیڈمی کو موصول ہو گئی ہے!</p>
+            <!-- 2. تلاوتِ قرآن کا الگ صفحہ/کیٹیگری -->
+            <div id="tilawatPage" class="sub-page">
+                <button class="back-btn" onclick="closePages()">⬅ واپس جائیں</button>
+                <h3 style="color:var(--primary);">🎧 مشہور قاری حضرات کی تلاوت</h3>
+                <div class="list-item">
+                    <span>قاری عبد الرحمن السدیس (مکی لہجہ)</span>
+                    <button class="play-audio-btn" onclick="alert('تلاوت جلد پلے ہوگی!')">تلاوت سنیں</button>
+                </div>
+                <div class="list-item">
+                    <span>قاری مشاری بن راشد العفاسی</span>
+                    <button class="play-audio-btn" onclick="alert('تلاوت جلد پلے ہوگی!')">تلاوت سنیں</button>
+                </div>
+                <div class="list-item">
+                    <span>قاری عبد الباسط عبد الصمد</span>
+                    <button class="play-audio-btn" onclick="alert('تلاوت جلد پلے ہوگی!')">تلاوت سنیں</button>
                 </div>
             </div>
 
-            <!-- عام سوالات (FAQs) -->
-            <h2 class="section-title">❓ عام سوالات (FAQs)</h2>
-            <div class="faq-box">
-                <strong>سوال: کلاسز کا وقت کیا ہے؟</strong><br>
-                <em>جواب:</em> طلباء اپنی سہولت اور مرضی کے مطابق وقت کا انتخاب کر سکتے ہیں۔
-            </div>
-            <div class="faq-box">
-                <strong>سوال: کیا فیس کم ہے؟</strong><br>
-                <em>جواب:</em> جی ہاں، فیس انتہائی مناسب اور معقول رکھی گئی ہے۔
+            <!-- 3. کورسز کا الگ صفحہ/کیٹیگری -->
+            <div id="coursesPage" class="sub-page">
+                <button class="back-btn" onclick="closePages()">⬅ واپس جائیں</button>
+                <h3 style="color:var(--primary);">📚 اکیڈمی کے خصوصی کورسز</h3>
+                <div class="list-item"><span>ناظرہ قرآن پاک کورس</span> <span style="color:green;">انرول کریں</span></div>
+                <div class="list-item"><span>حفظ القرآن الکریم کورس</span> <span style="color:green;">انرول کریں</span></div>
+                <div class="list-item"><span>تجوید و قرات کورس</span> <span style="color:green;">انرول کریں</span></div>
+                <div class="list-item"><span>بنیادی دینی مسائل و دعا کورس</span> <span style="color:green;">انرول کریں</span></div>
             </div>
 
-            <footer>
-                <p>&copy; 2026 مصعب بن عمیر آن لائن اکیڈمی | تمام حقوق محفوظ ہیں</p>
-            </footer>
+            <!-- 4. فیس اور ادائیگی کا الگ صفحہ/کیٹیگری -->
+            <div id="feePage" class="sub-page">
+                <button class="back-btn" onclick="closePages()">⬅ واپس جائیں</button>
+                <div class="easypaisa-box">
+                    <h3 style="color:#d84315; margin-top:0;">💳 فیس و معاونت اکاؤنٹ تفصیلات</h3>
+                    <p>اکاؤنٹ ہولڈر کا نام:</p>
+                    <div class="name-highlight">رانا افتخار احمد</div>
+                    <p><strong>ایزی پیسہ نمبر:</strong> 03074974713</p>
+                    <p style="font-size: 0.9rem; color: #555;">فیس جمع کروانے کے بعد نیچے اپنی رسید اپلوڈ کریں۔</p>
+                </div>
+
+                <div style="margin-top: 15px;">
+                    <h4 style="color:var(--primary);">🧾 فیس رسید اور طالب علم پروفائل</h4>
+                    <input type="text" id="stdName" placeholder="اپنا نام یہاں لکھیں">
+                    <input type="file" id="fileUpload" accept="image/*">
+                    <button class="submit-btn" onclick="saveStudentData()">معلومات محفوظ کریں</button>
+                    
+                    <div id="profileBox" style="display:none; margin-top:15px; background:#fff; padding:15px; border-radius:8px; border:1px solid #4caf50;">
+                        <h4 style="color:#2e7d32; margin:0 0 5px 0;">👤 طالب علم پروفائل</h4>
+                        <p id="displayName" style="font-weight:bold; margin: 5px 0;"></p>
+                        <p style="color: green; margin:0;">✅ آپ کی رسید کامیابی سے محفوظ ہو گئی ہے!</p>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <footer>
+            <p>&copy; 2026 مصعب بن عمیر آن لائن اکیڈمی | تمام حقوق محفوظ ہیں</p>
+        </footer>
     </div>
 
     <script>
@@ -293,37 +269,32 @@
         function userLogin() {
             const name = document.getElementById('userNameInput').value.trim();
             if(name) {
-                // نام کو ویب سائٹ پر شو کریں
-                document.getElementById('welcomeUserTitle').innerText = "خوش آمدید " + name;
-                document.getElementById('stdName').value = name; // فیس والے خانے میں بھی نام خود آ جائے
-                
-                // لاگ ان اسکرین ہٹا کر اصل ویب سائٹ دکھائیں
+                document.getElementById('welcomeTitle').innerText = "خوش آمدید، " + name;
+                document.getElementById('stdName').value = name;
                 document.getElementById('loginOverlay').style.display = 'none';
                 document.getElementById('mainWebsite').style.display = 'block';
             } else {
-                alert("براہ کرم آگے بڑھنے کے لیے اپنا نام درج کریں۔");
+                alert("براہ کرم داخل ہونے کے لیے اپنا نام درج کریں۔");
             }
         }
 
-        // وائس سرچ فنکشن
-        function startVoiceSearch() {
-            if ('webkitSpeechRecognition' in window) {
-                const recognition = new webkitSpeechRecognition();
-                recognition.lang = 'ur-PK';
-                recognition.onstart = function() {
-                    document.getElementById('searchInput').placeholder = "سن رہے ہیں، بولیں...";
-                };
-                recognition.onresult = function(event) {
-                    const speechToText = event.results[0][0].transcript;
-                    document.getElementById('searchInput').value = speechToText;
-                };
-                recognition.start();
-            } else {
-                alert("معذرت، آپ کا براؤزر وائس سرچ کو سپورٹ نہیں کرتا۔");
-            }
+        // الگ الگ کیٹیگری صفحے کھولنے کا فنکشن
+        function openPage(pageId) {
+            // پہلے سارے سب پیجز بند کریں
+            closePages();
+            // مطلوبہ صفحہ کھولیں
+            document.getElementById(pageId).style.display = 'block';
         }
 
-        // طالب علم کا نام اور رسید محفوظ کرنے کا فنکشن
+        // تمام سب پیجز بند کرنے کا فنکشن
+        function closePages() {
+            const pages = ['quranPage', 'tilawatPage', 'coursesPage', 'feePage'];
+            pages.forEach(id => {
+                document.getElementById(id).style.display = 'none';
+            });
+        }
+
+        // رسید اور نام محفوظ کرنے کا فنکشن
         function saveStudentData() {
             const name = document.getElementById('stdName').value;
             const file = document.getElementById('fileUpload').files[0];
@@ -332,7 +303,7 @@
                 document.getElementById('profileBox').style.display = 'block';
                 alert("شکریہ! آپ کا نام اور رسید کامیابی کے ساتھ محفوظ ہو گئی ہے۔");
             } else {
-                alert("براہ کرم اپنا نام بھی لکھیں اور رسید کی تصویر بھی منتخب کریں۔");
+                alert("براہ کرم نام درج کریں اور رسید کی تصویر منتخب کریں۔");
             }
         }
     </script>
