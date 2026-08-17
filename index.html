@@ -19,87 +19,115 @@
     <meta property="og:description" content="تجوید کے ساتھ آن لائن قرآن کریم پڑھیں۔ 3 دن کی مفت ٹرائل کلاس حاصل کریں۔">
     <meta property="og:type" content="website">
 
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         
         :root {
             --bg-color: #f4f7f6;
-            --text-color: #333;
+            --text-color: #2c3e50;
             --card-bg: #ffffff;
             --primary: #0b512e;
+            --primary-dark: #053b22;
             --accent: #ffd700;
+            --shadow: 0 8px 20px rgba(0,0,0,0.06);
         }
 
         .dark-mode {
             --bg-color: #121212;
             --text-color: #f1f1f1;
             --card-bg: #1e1e1e;
+            --shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
 
-        body { background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; text-align: center; }
+        body { background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; text-align: center; transition: 0.3s; }
 
         /* لاگ ان اسکرین */
         #login-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: var(--primary); display: flex; justify-content: center; align-items: center; z-index: 9999;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark)); 
+            display: flex; justify-content: center; align-items: center; z-index: 9999;
         }
 
         .login-box {
-            background: white; padding: 30px; border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2); width: 85%; max-width: 350px; color: #333;
+            background: white; padding: 35px 25px; border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3); width: 88%; max-width: 380px; color: #333;
         }
 
-        .login-box h2 { color: var(--primary); margin-bottom: 15px; font-size: 22px; }
-        .login-box input { width: 90%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 6px; font-size: 16px; text-align: center; }
-        .login-box button { width: 95%; padding: 12px; background-color: #25D366; color: white; border: none; border-radius: 6px; font-size: 16px; cursor: pointer; font-weight: bold; }
-        #error-msg { color: red; margin-top: 10px; display: none; }
+        .login-box h2 { color: var(--primary); margin-bottom: 10px; font-size: 22px; }
+        .login-box input { width: 100%; padding: 12px; margin: 15px 0; border: 1px solid #ccc; border-radius: 8px; font-size: 16px; text-align: center; outline: none; }
+        .login-box button { width: 100%; padding: 12px; background-color: #25D366; color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; font-weight: bold; transition: 0.2s; }
+        .login-box button:hover { background-color: #1eb954; }
+        #error-msg { color: #e74c3c; margin-top: 10px; display: none; font-size: 14px; }
 
         /* مین ویب سائٹ */
         #main-content { display: none; }
 
-        header { background: linear-gradient(135deg, var(--primary), #053b22); color: var(--accent); padding: 30px 15px; }
-        header h1 { font-size: 2.2rem; margin-bottom: 5px; }
-        header p { color: #fff; font-size: 1rem; }
+        header { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: var(--accent); padding: 35px 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        header h1 { font-size: 2.2rem; margin-bottom: 8px; font-weight: 700; }
+        header p { color: #fff; font-size: 1.05rem; opacity: 0.9; }
 
-        nav { background: #053b22; display: flex; justify-content: center; gap: 10px; padding: 12px; flex-wrap: wrap; }
+        /* ٹیب نیویگیشن */
+        nav { background: var(--primary-dark); display: flex; justify-content: center; gap: 8px; padding: 10px; flex-wrap: wrap; sticky: top; top: 0; z-index: 100; }
         .tab-btn { 
-            color: white; background: rgba(255,255,255,0.1); border: 1px solid var(--accent); 
-            padding: 10px 18px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1rem; transition: 0.3s;
+            color: white; background: rgba(255,255,255,0.08); border: 1px solid rgba(255, 215, 0, 0.4); 
+            padding: 8px 16px; border-radius: 20px; font-weight: 600; cursor: pointer; font-size: 0.95rem; transition: 0.3s;
         }
-        .tab-btn:hover, .tab-btn.active { background: var(--accent); color: #000; }
+        .tab-btn:hover, .tab-btn.active { background: var(--accent); color: #000; border-color: var(--accent); }
 
-        .container { width: 90%; max-width: 900px; margin: auto; padding: 20px 0; }
+        .container { width: 92%; max-width: 900px; margin: auto; padding: 20px 0; }
         
-        .tab-content { display: none; }
+        .tab-content { display: none; animation: fadeIn 0.4s ease-in-out; }
         .tab-content.active { display: block; }
 
-        .card { 
-            background: var(--card-bg); padding: 25px; margin: 15px 0; 
-            border-radius: 12px; border-top: 4px solid var(--primary); 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08); 
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .btn-whatsapp { 
-            display: inline-block; background: #25D366; color: white; 
-            padding: 14px 28px; border-radius: 50px; text-decoration: none; 
-            font-weight: bold; font-size: 1.1rem; margin-top: 15px; border: none; cursor: pointer;
+        .card { 
+            background: var(--card-bg); padding: 25px; margin: 18px 0; 
+            border-radius: 14px; border-top: 5px solid var(--primary); 
+            box-shadow: var(--shadow); transition: 0.3s;
         }
+
+        /* بٹنز سٹائل */
+        .btn-action { 
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 12px 24px; border-radius: 50px; text-decoration: none; 
+            font-weight: bold; font-size: 1rem; margin: 8px 4px; border: none; cursor: pointer; transition: 0.3s; color: white;
+        }
+        .btn-whatsapp { background: #25D366; }
+        .btn-whatsapp:hover { background: #1eb954; }
+        .btn-copy { background: #007bff; }
+        .btn-copy:hover { background: #0056b3; }
+        
+        /* سوشل شیئرنگ بٹنز */
+        .share-container { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 15px; }
+        .btn-share { padding: 8px 16px; border-radius: 6px; color: white; text-decoration: none; font-size: 0.9rem; font-weight: bold; }
+        .bg-fb { background: #1877f2; }
+        .bg-tw { background: #1da1f2; }
 
         .select-box, .input-box, .textarea-box {
-            width: 100%; max-width: 400px; padding: 12px; margin: 10px 0;
-            border-radius: 6px; border: 1px solid #ccc; font-size: 16px;
+            width: 100%; max-width: 420px; padding: 12px; margin: 8px 0 16px 0;
+            border-radius: 8px; border: 1px solid #ccc; font-size: 15px; outline: none;
         }
 
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px; margin-top: 15px; }
-        .course-item { padding: 20px; border: 1px solid #ddd; border-radius: 8px; background: rgba(0,0,0,0.02); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 18px; margin-top: 15px; }
+        .course-item { padding: 22px; border: 1px solid #e2e8f0; border-radius: 10px; background: rgba(0,0,0,0.01); text-align: right; }
+        .course-item h3 { color: var(--primary); margin-bottom: 8px; }
 
         .easypaisa-box {
-            background: #e8f5e9; border: 2px dashed #2e7d32; padding: 15px; border-radius: 10px; margin-top: 15px; color: #1b5e20;
+            background: #e8f5e9; border: 2px dashed #2e7d32; padding: 18px; border-radius: 12px; margin-top: 20px; color: #1b5e20;
         }
 
-        .fee-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        .fee-table th, .fee-table td { padding: 12px; border: 1px solid #ddd; text-align: center; }
+        .fee-table { width: 100%; border-collapse: collapse; margin-top: 15px; overflow: hidden; border-radius: 8px; }
+        .fee-table th, .fee-table td { padding: 12px; border: 1px solid #e0e0e0; text-align: center; }
         .fee-table th { background: var(--primary); color: white; }
+
+        footer { margin-top: 30px; padding: 20px; font-size: 0.9rem; opacity: 0.8; }
     </style>
 </head>
 <body>
@@ -107,7 +135,7 @@
     <!-- لاگ ان فارم -->
     <div id="login-overlay">
         <div class="login-box">
-            <h2>مصعب بن عمیر آن لائن اکیڈمی</h2>
+            <h2><i class="fa-solid fa-kaaba"></i> مصعب بن عمیر آن لائن اکیڈمی</h2>
             <p>ویب سائٹ میں داخل ہونے کے لیے پاسورڈ درج کریں:</p>
             <input type="password" id="password-input" placeholder="پاسورڈ (1234)">
             <button onclick="checkPassword()">لاگ ان کریں</button>
@@ -124,13 +152,13 @@
 
         <!-- ٹیب بٹنز -->
         <nav>
-            <button class="tab-btn active" onclick="openTab('trial', this)">🎁 مفت ٹرائل</button>
-            <button class="tab-btn" onclick="openTab('quran', this)">📖 تلاوتِ قرآن</button>
-            <button class="tab-btn" onclick="openTab('courses', this)">📚 ہمارے کورسز</button>
-            <button class="tab-btn" onclick="openTab('fees', this)">💳 فیس و ایزی پیسہ</button>
-            <button class="tab-btn" onclick="openTab('masla', this)">❓ مسئلہ پوچھیں</button>
-            <button class="tab-btn" onclick="toggleDarkMode()">🌓 موڈ</button>
-            <button class="tab-btn" style="border-color: red;" onclick="logout()">🔑 لاگ آؤٹ</button>
+            <button class="tab-btn active" onclick="openTab('trial', this)"><i class="fa-solid fa-gift"></i> مفت ٹرائل</button>
+            <button class="tab-btn" onclick="openTab('quran', this)"><i class="fa-solid fa-book-quran"></i> تلاوتِ قرآن</button>
+            <button class="tab-btn" onclick="openTab('courses', this)"><i class="fa-solid fa-graduation-cap"></i> کورسز</button>
+            <button class="tab-btn" onclick="openTab('fees', this)"><i class="fa-solid fa-credit-card"></i> فیس و ادائیگی</button>
+            <button class="tab-btn" onclick="openTab('masla', this)"><i class="fa-solid fa-circle-question"></i> مسئلہ پوچھیں</button>
+            <button class="tab-btn" onclick="toggleDarkMode()"><i class="fa-solid fa-moon"></i> موڈ</button>
+            <button class="tab-btn" style="border-color: #ff4d4d; color: #ff4d4d;" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> خروج</button>
         </nav>
 
         <div class="container">
@@ -138,19 +166,38 @@
             <!-- 1. مفت ٹرائل ٹیب -->
             <div id="trial" class="tab-content active">
                 <div class="card">
-                    <h2>3 دن کی مفت ٹرائل کلاس حاصل کریں!</h2>
-                    <p style="margin-top:10px;">تجربہ کار اور سند یافتہ اساتذہ سے آن لائن تعلیم حاصل کریں۔ ابھی اپنی مفت ٹرائل بک کروائیں۔</p>
-                    <a href="https://wa.me/923074974713?text=السلام%20علیکم!%20مجھے%203%20دن%20کی%20مفت%20ٹرائل%20کلاس%20چاہیے۔" class="btn-whatsapp" target="_blank">💬 واٹس ایپ پر ٹرائل حاصل کریں</a>
+                    <h2><i class="fa-solid fa-star" style="color:var(--accent);"></i> 3 دن کی مفت ٹرائل کلاس حاصل کریں!</h2>
+                    <p style="margin: 10px 0 20px 0;">تجربہ کار اور سند یافتہ اساتذہ سے آن لائن تعلیم حاصل کریں۔ ابھی اپنی مفت ٹرائل بک کروائیں۔</p>
+
+                    <!-- سریع فارم -->
+                    <div style="max-width: 400px; margin: auto; text-align: right;">
+                        <label><b>آپ کا نام:</b></label>
+                        <input type="text" id="trial-name" class="input-box" placeholder="اپنا نام لکھیں">
+                        
+                        <label><b>واٹس ایپ نمبر / کورس:</b></label>
+                        <input type="text" id="trial-course" class="input-box" placeholder="مثلاً: ناظرہ یا حفظ">
+                        
+                        <button onclick="sendTrialForm()" class="btn-action btn-whatsapp" style="width: 100%; margin: 10px 0;"><i class="fa-brands fa-whatsapp"></i> ٹرائل کلاس بک کریں</button>
+                    </div>
+
+                    <hr style="margin: 20px 0; border: 0; border-top: 1px solid #ddd;">
+
+                    <p><b>ویب سائٹ کا لنک شیئر کریں:</b></p>
+                    <div class="share-container">
+                        <button onclick="copyWebsiteLink()" class="btn-action btn-copy"><i class="fa-solid fa-link"></i> کاپی لنک</button>
+                        <a href="#" onclick="shareWhatsapp()" class="btn-share bg-fb" style="background:#25D366;"><i class="fa-brands fa-whatsapp"></i> واٹس ایپ</a>
+                        <a href="#" onclick="shareFacebook()" class="btn-share bg-fb"><i class="fa-brands fa-facebook"></i> فیس بک</a>
+                    </div>
                 </div>
             </div>
 
             <!-- 2. تلاوتِ قرآن ٹیب -->
             <div id="quran" class="tab-content">
                 <div class="card">
-                    <h2>تلاوتِ قرآن پاک (مکمل قرآن)</h2>
+                    <h2><i class="fa-solid fa-headphones"></i> تلاوتِ قرآن پاک (مکمل قرآن)</h2>
                     <p>اپنی پسند کے قاری اور سورت کا انتخاب کریں:</p>
                     
-                    <div style="margin-top:15px;">
+                    <div style="margin-top:15px; text-align: right; max-width: 420px; margin-left: auto; margin-right: auto;">
                         <label><b>قاری منتخب کریں:</b></label><br>
                         <select id="reciter-select" class="select-box" onchange="updateAudio()">
                             <option value="https://server7.mp3quran.net/basit/">قاری عبد الباسط عبد الصمد</option>
@@ -159,15 +206,13 @@
                             <option value="https://server8.mp3quran.net/afs/">قاری مشاری العفاسی</option>
                             <option value="https://server7.mp3quran.net/s_gmd/">قاری سعد الغامدی</option>
                         </select>
-                    </div>
 
-                    <div>
                         <label><b>سورت منتخب کریں:</b></label><br>
                         <select id="surah-select" class="select-box" onchange="updateAudio()"></select>
                     </div>
 
                     <div style="margin-top: 15px;">
-                        <audio id="quran-audio" controls style="width: 100%; max-width: 450px;"></audio>
+                        <audio id="quran-audio" controls style="width: 100%; max-width: 450px; border-radius: 30px;"></audio>
                     </div>
                 </div>
             </div>
@@ -175,19 +220,19 @@
             <!-- 3. کورسز ٹیب -->
             <div id="courses" class="tab-content">
                 <div class="card">
-                    <h2>ہمارے آن لائن کورسز</h2>
+                    <h2><i class="fa-solid fa-book-open"></i> ہمارے آن لائن کورسز</h2>
                     <div class="grid">
                         <div class="course-item">
-                            <h3>1. ناظرہ قرآن کریم</h3>
-                            <p>تجوید و مخارج کے بنیادی قواعد کے ساتھ قرآن پاک پڑھنا سیکھیں۔</p>
+                            <h3><i class="fa-solid fa-check-circle"></i> 1. ناظرہ قرآن کریم</h3>
+                            <p>تجوید و مخارج کے بنیادی قواعد کے ساتھ قرآن پاک صحیح تلفظ سے پڑھنا سیکھیں۔</p>
                         </div>
                         <div class="course-item">
-                            <h3>2. حفظِ قرآن کریم</h3>
+                            <h3><i class="fa-solid fa-check-circle"></i> 2. حفظِ قرآن کریم</h3>
                             <p>مکمل یا منتخب سورتوں کو آسان اور جدید طریقہ کار سے یاد کریں۔</p>
                         </div>
                         <div class="course-item">
-                            <h3>3. دینی معلومات و نماز</h3>
-                            <p>طہارت، مسنون دعائیں، مسنون مسائل اور مکمل نماز کی عملی تربیت۔</p>
+                            <h3><i class="fa-solid fa-check-circle"></i> 3. دینی معلومات و نماز</h3>
+                            <p>طہارت، مسنون دعائیں، روزمرہ مسائل اور مکمل نماز کی عملی تربیت۔</p>
                         </div>
                     </div>
                 </div>
@@ -196,7 +241,7 @@
             <!-- 4. فیس کاؤنٹر و ایزی پیسہ ٹیب -->
             <div id="fees" class="tab-content">
                 <div class="card">
-                    <h2>فیس کاؤنٹر و ادائیگی</h2>
+                    <h2><i class="fa-solid fa-wallet"></i> فیس کاؤنٹر و ادائیگی</h2>
                     <table class="fee-table">
                         <thead>
                             <tr>
@@ -220,9 +265,9 @@
                     </table>
 
                     <div class="easypaisa-box">
-                        <h3>💳 ایزی پیسہ اکاؤنٹ کی تفصیلات</h3>
-                        <p style="font-size: 18px; font-weight: bold; margin-top: 5px;">ایزی پیسہ نمبر: 03074974713</p>
-                        <p>فیس جمع کروانے کے بعد سکرین شاٹ واٹس ایپ پر شیئر کریں۔</p>
+                        <h3><i class="fa-solid fa-mobile-retro"></i> ایزی پیسہ / جیز کیش تفصیلات</h3>
+                        <p style="font-size: 20px; font-weight: bold; margin: 8px 0; color: #2e7d32;">03074974713</p>
+                        <p>فیس جمع کروانے کے بعد رسید کا سکرین شاٹ واٹس ایپ پر بھیجیں۔</p>
                     </div>
                 </div>
             </div>
@@ -230,16 +275,22 @@
             <!-- 5. مسئلہ / سوال پوچھیں ٹیب -->
             <div id="masla" class="tab-content">
                 <div class="card">
-                    <h2>کوئی شرعی مسئلہ یا سوال پوچھیں</h2>
-                    <p>اپنا نام اور سوال نیچے لکھ کر بھیجیں۔ آپ کو براہِ راست واٹس ایپ پر جواب دے دیا جائے گا۔</p>
+                    <h2><i class="fa-solid fa-comments"></i> شرعی مسئلہ یا سوال پوچھیں</h2>
+                    <p style="margin-bottom: 15px;">اپنا نام اور سوال نیچے لکھ کر بھیجیں۔ آپ کو براہِ راست واٹس ایپ پر جواب دے دیا جائے گا۔</p>
                     
-                    <input type="text" id="user-name" class="input-box" placeholder="آپ کا نام"><br>
-                    <textarea id="user-question" class="textarea-box" rows="4" placeholder="اپنا مسئلہ یا سوال یہاں تحریر کریں..."></textarea><br>
-                    <button class="btn-whatsapp" onclick="sendQuestion()">📩 مسئلہ بھیجیں (واٹس ایپ)</button>
+                    <div style="max-width: 420px; margin: auto; text-align: right;">
+                        <input type="text" id="user-name" class="input-box" placeholder="آپ کا نام"><br>
+                        <textarea id="user-question" class="textarea-box" rows="4" placeholder="اپنا مسئلہ یا سوال یہاں تحریر کریں..."></textarea><br>
+                        <button class="btn-action btn-whatsapp" onclick="sendQuestion()" style="width: 100%;"><i class="fa-brands fa-whatsapp"></i> مسئلہ بھیجیں (واٹس ایپ)</button>
+                    </div>
                 </div>
             </div>
 
         </div>
+
+        <footer>
+            <p>جملہ حقوق بحق **مصعب بن عمیر آن لائن اکیڈمی** محفوظ ہیں۔ © 2026</p>
+        </footer>
     </div>
 
     <script>
@@ -324,6 +375,32 @@
             }
             let message = `السلام علیکم!%0Aنام: ${encodeURIComponent(name)}%0Aسوال/مسئلہ: ${encodeURIComponent(question)}`;
             window.open(`https://wa.me/923074974713?text=${message}`, '_blank');
+        }
+
+        function sendTrialForm() {
+            let name = document.getElementById("trial-name").value;
+            let course = document.getElementById("trial-course").value;
+            if (name === "") {
+                alert("برائے مہربانی اپنا نام درج کریں۔");
+                return;
+            }
+            let message = `السلام علیکم!%0Aمیں 3 دن کی مفت ٹرائل کلاس لینا چاہتا/چاہتی ہوں۔%0Aنام: ${encodeURIComponent(name)}%0Aکورس/تفصیل: ${encodeURIComponent(course)}`;
+            window.open(`https://wa.me/923074974713?text=${message}`, '_blank');
+        }
+
+        function copyWebsiteLink() {
+            const url = window.location.href;
+            navigator.clipboard.writeText(url).then(() => {
+                alert("ویب سائٹ کا لنک کامیابی سے کاپی ہو گیا ہے!");
+            });
+        }
+
+        function shareWhatsapp() {
+            window.open(`https://wa.me/?text=${encodeURIComponent('مصعب بن عمیر آن لائن اکیڈمی - تجوید کے ساتھ قرآن کریم سیکھیں: ' + window.location.href)}`, '_blank');
+        }
+
+        function shareFacebook() {
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`, '_blank');
         }
     </script>
 
