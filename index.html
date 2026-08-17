@@ -3,7 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مصعب بن عمیر آن لائن اکیڈمی</title>
+    
+    <!-- گوگل سرچ کنسول ویری فیکیشن ٹیگ -->
+    <meta name="google-site-verification" content="Fro_rozNp2k0XzkITjox8fJh9zCUuOk8ZAY08WyijhM" />
+
+    <!-- SEO ٹیگز -->
+    <title>مصعب بن عمیر آن لائن اکیڈمی | آن لائن قرآن مجید و دینی تعلیم</title>
+    <meta name="description" content="مصعب بن عمیر آن لائن اکیڈمی - گھر بیٹھے تجوید و مخارج کے ساتھ ناظرہ قرآن کریم، حفظ قرآن اور دینی معلومات کا بہترین آن لائن ادارہ۔ 3 دن کا مفت ٹرائل حاصل کریں۔">
+    <meta name="keywords" content="مصعب بن عمیر آن لائن اکیڈمی, Musab Bin Umair Online Academy, Online Quran Academy, Learn Quran Online, Quran Classes Urdu, مصعب بن عمیر اکیڈمی">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Musab Bin Umair Academy">
+    
+    <!-- WhatsApp اور Facebook پریویو -->
+    <meta property="og:title" content="مصعب بن عمیر آن لائن اکیڈمی">
+    <meta property="og:description" content="تجوید کے ساتھ آن لائن قرآن کریم پڑھیں۔ 3 دن کی مفت ٹرائل کلاس حاصل کریں۔">
+    <meta property="og:type" content="website">
+
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         
@@ -46,7 +61,6 @@
         header h1 { font-size: 2.2rem; margin-bottom: 5px; }
         header p { color: #fff; font-size: 1rem; }
 
-        /* ٹیب نیویگیشن (بڑے بٹن) */
         nav { background: #053b22; display: flex; justify-content: center; gap: 10px; padding: 12px; flex-wrap: wrap; }
         .tab-btn { 
             color: white; background: rgba(255,255,255,0.1); border: 1px solid var(--accent); 
@@ -56,7 +70,6 @@
 
         .container { width: 90%; max-width: 900px; margin: auto; padding: 20px 0; }
         
-        /* الگ الگ صفحات/ٹیبز */
         .tab-content { display: none; }
         .tab-content.active { display: block; }
 
@@ -109,7 +122,7 @@
             <p>گھر بیٹھے معیاری، تجوید کے ساتھ اور مستند دینی تعلیم حاصل کریں</p>
         </header>
 
-        <!-- ٹیب بٹنز (ہر سیکشن الگ کھولنے کے لیے) -->
+        <!-- ٹیب بٹنز -->
         <nav>
             <button class="tab-btn active" onclick="openTab('trial', this)">🎁 مفت ٹرائل</button>
             <button class="tab-btn" onclick="openTab('quran', this)">📖 تلاوتِ قرآن</button>
@@ -230,7 +243,6 @@
     </div>
 
     <script>
-        // سورتوں کی لسٹ
         const surahs = [
             "1. الفاتحة", "2. البقرة", "3. آل عمران", "4. النساء", "5. المائدة", "6. الأنعام", "7. الأعراف", "8. الأنفال", "9. التوبة", "10. يونس",
             "11. هود", "12. يوسف", "13. الرعد", "14. إبراهيم", "15. الحجر", "16. النحل", "17. الإسراء", "18. الكهف", "19. مريم", "20. طه",
@@ -263,7 +275,6 @@
         }
         updateAudio();
 
-        // ٹیب تبدیل کرنے کا فنکشن
         function openTab(tabId, btn) {
             let contents = document.querySelectorAll('.tab-content');
             contents.forEach(c => c.classList.remove('active'));
@@ -275,7 +286,6 @@
             btn.classList.add('active');
         }
 
-        // لاگ ان خودکار یاد رکھنے کا کوڈ
         window.onload = function() {
             if (localStorage.getItem("isLoggedIn") === "true") {
                 document.getElementById("login-overlay").style.display = "none";
@@ -305,7 +315,6 @@
             document.body.classList.toggle("dark-mode");
         }
 
-        // مسئلہ بھیجنے کا فنکشن
         function sendQuestion() {
             let name = document.getElementById("user-name").value;
             let question = document.getElementById("user-question").value;
