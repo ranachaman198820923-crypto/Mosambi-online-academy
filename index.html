@@ -43,20 +43,15 @@
 
         .sticky-menu-bar {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
+            top: 0; left: 0; width: 100%;
             background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(10px);
             z-index: 999;
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
+            display: flex; gap: 8px; flex-wrap: wrap;
             padding: 10px 15px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.4);
             border-bottom: 2px solid var(--primary);
-            box-sizing: border-box;
-            justify-content: center;
+            box-sizing: border-box; justify-content: center;
         }
 
         #loginOverlay {
@@ -68,13 +63,9 @@
             z-index: 10000;
         }
         .login-box {
-            background: var(--card-bg);
-            color: var(--text-dark);
-            padding: 35px;
-            border-radius: 20px;
-            text-align: center;
-            max-width: 400px;
-            width: 90%;
+            background: var(--card-bg); color: var(--text-dark);
+            padding: 35px; border-radius: 20px; text-align: center;
+            max-width: 400px; width: 90%;
             box-shadow: 0 0 30px rgba(0, 230, 118, 0.3);
             border: 2px solid var(--primary);
         }
@@ -125,7 +116,7 @@
         }
         .action-chip {
             background: var(--card-bg); color: var(--primary); border: 2px solid var(--primary);
-            padding: 8px 18px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 0.95rem;
+            padding: 6px 14px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 0.9rem;
             box-shadow: 0 0 10px rgba(0,230,118,0.2); transition: 0.3s;
         }
         .action-chip:hover { background: var(--primary); color: #000; }
@@ -135,19 +126,19 @@
         }
         .cat-btn {
             background: rgba(255,255,255,0.05); border: 2px solid var(--primary); color: var(--primary);
-            padding: 18px; text-align: center; border-radius: 12px; font-size: 1.05rem; font-weight: bold;
+            padding: 16px; text-align: center; border-radius: 12px; font-size: 1rem; font-weight: bold;
             cursor: pointer; transition: 0.3s; display: block;
         }
         .cat-btn:hover { background: var(--primary); color: #000; transform: translateY(-3px); }
 
-        /* ان-অ্যাপ ریڈر ڈیش بورڈ */
+        /* ریڈر اور آڈیو پلائر ڈیش بورڈ */
         #internalBookViewer {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: var(--bg-gradient); color: var(--text-dark); z-index: 20000;
             overflow-y: auto; padding: 25px; box-sizing: border-box; text-align: center;
         }
         .book-content-box {
-            font-size: 1.2rem; line-height: 2.2; max-width: 800px; margin: 20px auto;
+            font-size: 1.15rem; line-height: 2.2; max-width: 800px; margin: 20px auto;
             text-align: right; background: var(--card-bg); color: var(--text-dark);
             padding: 35px; border-radius: 15px; border: 2px solid var(--accent);
             box-shadow: var(--accent-glow);
@@ -168,6 +159,12 @@
             padding: 12px; width: 100%; border-radius: 8px; font-size: 1rem; font-weight: bold;
             cursor: pointer; margin-top: 10px; box-shadow: 0 0 15px rgba(0,230,118,0.4);
         }
+        .whatsapp-btn {
+            background: #25d366; color: #fff; text-decoration: none; display: inline-block;
+            padding: 12px 25px; border-radius: 30px; font-weight: bold; font-size: 1.1rem;
+            box-shadow: 0 0 15px rgba(37,211,102,0.4); text-align: center; width: 100%; box-sizing: border-box;
+            margin-top: 10px;
+        }
         footer {
             text-align: center; padding: 20px; background: rgba(0,0,0,0.5); color: #fff;
             border-radius: 12px; margin-top: 30px; font-size: 0.9rem;
@@ -177,10 +174,10 @@
 <body>
 
     <div class="sticky-menu-bar">
-        <button class="action-chip" onclick="toggleDarkMode()">🌓 ڈارک / لائٹ موڈ</button>
-        <button class="action-chip" onclick="openInternalLibrary()">📚 جامع اسلامی لائبریری</button>
-        <button class="action-chip" onclick="copySiteLink()">🔗 لنک کاپی کریں</button>
-        <button class="action-chip" onclick="installApp()">📱 ایپ انسٹال کریں</button>
+        <button class="action-chip" onclick="toggleDarkMode()">🌓 ڈارک / لائٹ</button>
+        <button class="action-chip" onclick="openInternalLibrary()">📚 لائبریری</button>
+        <button class="action-chip" onclick="copySiteLink()">🔗 لنک کاپی</button>
+        <button class="action-chip" onclick="installApp()">📱 ایپ انسٹال</button>
         <button class="action-chip" onclick="openOnlineTest()">📝 آن لائن ٹیسٹ</button>
     </div>
 
@@ -199,30 +196,41 @@
             <img src="https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=1200&q=80" alt="مدرسہ" class="madrasa-banner">
             <header style="border-radius: 0; box-shadow: none; margin-bottom: 0; border: none;">
                 <h1>مصعب بن عمیر آن لائن اکیڈمی</h1>
-                <p id="welcomeUserText">دینی کتب، درسِ نظامی، احادیث اور فقہی مسائل کا ڈیجیٹل مرکز</p>
+                <p id="welcomeUserText">قرآن تلاوت، قاری آڈیو، درجہ اولیٰ تا دورہ حدیث اور دینی کتب کا مرکز</p>
             </header>
         </div>
 
         <div class="card" id="librarySection">
-            <h2 class="section-title">📖 جامع اسلامی لائبریری (مکمل کتب و مواد)</h2>
-            <p>یہاں آپ اولیاء سے لے کر دورۂ حدیث، نورانی قاعدہ، کلمے، دعائیں اور نماز کے تمام مسائل براہ راست پڑھ سکتے ہیں:</p>
+            <h2 class="section-title">📖 قرآن مجید، قاری آڈیو اور جامع اسلامی لائبریری</h2>
+            <p>یہاں آپ قرآن مجید تلاوت، مشہور قاریوں کی آڈیو، نورانی قاعدہ، 40 احادیث، حفظ و ناظرہ، اور درجہ اولیٰ سے دورہ حدیث تک کی تمام کتب براہ راست پڑھ اور سن سکتے ہیں:</p>
             
             <div class="category-grid">
-                <div class="cat-btn" onclick="openBook('qaidah')">📖 نورانی قاعدہ (مکمل تمام تختیاں)</div>
+                <div class="cat-btn" onclick="openBook('quran_read')">📖 قرآن مجید پڑھیں (سورہ وار متن)</div>
+                <div class="cat-btn" onclick="openBook('qari_audio')">🎧 قاری حضرات کی تلاوت (آڈیو سنیں)</div>
+                <div class="cat-btn" onclick="openBook('qaidah')">📖 نورانی قاعدہ (مکمل تمام ۱۷ تختیاں)</div>
+                <div class="cat-btn" onclick="openBook('hadith40')">✨ 40 احادیث مبارکہ (مکمل اربعین)</div>
+                <div class="cat-btn" onclick="openBook('nazra')">📖 ناظره قرآن مجید (مکمل کورس)</div>
+                <div class="cat-btn" onclick="openBook('hifz')">🟢 حفظ القرآن الکریم (مناہج و پارے)</div>
                 <div class="cat-btn" onclick="openBook('kalma')">💬 چھ کلمے (مکمل ترجمہ و تلفظ)</div>
-                <div class="cat-btn" onclick="openBook('namaz')">📜 مسائلِ نماز و طہارت (مکمل احکام)</div>
+                <div class="cat-btn" onclick="openBook('namaz')">📜 اہم مسلم مسائل (نماز، طہارت، غسل)</div>
                 <div class="cat-btn" onclick="openBook('dua')">🤲 حصن المسلم (مکمل مسنون دعائیں)</div>
-                <div class="cat-btn" onclick="openBook('hadith')">✨ احادیث مبارکہ (اربعین و صحاح ستہ)</div>
-                <div class="cat-btn" onclick="openBook('dars_ibtida')">📘 درسِ نظامی (اولیاء و ابتدائی کتب)</div>
-                <div class="cat-btn" onclick="openBook('dars_wasat')">📗 درسِ نظامی (متوسطہ درجات)</div>
-                <div class="cat-btn" onclick="openBook('dars_hadith')">📙 درسِ نظامی (دورۂ حدیث کتب)</div>
+                <div class="cat-btn" onclick="openBook('dars_oula')">📘 درجہ اولیٰ و ثانیہ (ابتدائی کتب)</div>
+                <div class="cat-btn" onclick="openBook('dars_wasat')">📗 درجہ ثالثہ تا خامسہ (متوسطہ)</div>
+                <div class="cat-btn" onclick="openBook('dars_hadith')">📙 دورۂ حدیث (صحاح ستہ مکمل کتب)</div>
             </div>
+        </div>
+
+        <div class="card">
+            <h2 class="section-title">📞 اکیڈمی انتظامیہ سے رابطہ</h2>
+            <p>کسی بھی قسم کے سوال، رہنمائی یا داخلے کے لیے آپ براہ راست رابطہ کر سکتے ہیں:</p>
+            <p><strong>فون نمبر / واٹس ایپ:</strong> 0300-1234567</p>
+            <a href="https://wa.me/923001234567" target="_blank" class="whatsapp-btn">💬 واٹس ایپ پر رابطہ کریں</a>
         </div>
 
         <div class="card">
             <h2 class="section-title">📝 آن لائن داخلہ / رجسٹریشن فارم</h2>
             <form onsubmit="handleFormSubmit(event)">
-                <input type="text" id="studentName" placeholder="पूरा नाम / پورا نام لکھیں" required>
+                <input type="text" id="studentName" placeholder="پورا نام لکھیں" required>
                 <input type="text" id="studentFather" placeholder="والد کا نام" required>
                 <input type="text" id="studentPhone" placeholder="رابطہ نمبر / فون نمبر" required>
                 <textarea id="studentAddress" placeholder="مکمل پتہ لکھیں" rows="3" required></textarea>
@@ -242,8 +250,8 @@
     </div>
 
     <div id="internalBookViewer">
-        <button class="back-btn" onclick="closeInternalBook()">⬅ کتاب بند کریں / واپس جائیں</button>
-        <h2 id="viewerBookTitle" style="color:var(--primary); margin-top:15px; font-size: 2rem;">کتاب کا نام</h2>
+        <button class="back-btn" onclick="closeInternalBook()">⬅ بند کریں / واپس جائیں</button>
+        <h2 id="viewerBookTitle" style="color:var(--primary); margin-top:15px; font-size: 2rem;">عنوان</h2>
         <div id="viewerBookBody" class="book-content-box">مشمولات یہاں لوڈ ہو رہے ہیں...</div>
     </div>
 
@@ -271,7 +279,7 @@
         function activateUser(name) {
             document.getElementById('loginOverlay').style.display = 'none';
             document.getElementById('mainWebsite').style.display = 'block';
-            document.getElementById('welcomeUserText').innerText = "خوش آمدید، " + name + " | دینی کتب، درسِ نظامی و مسائل کا مرکز";
+            document.getElementById('welcomeUserText').innerText = "خوش آمدید، " + name + " | قرآن تلاوت، قاری آڈیو اور درسِ نظامی مرکز";
         }
 
         function toggleDarkMode() {
@@ -291,7 +299,7 @@
         }
 
         function installApp() {
-            alert("ایپ انسٹالیشن فیچر: اپنے براؤزر کے مینو (تین نقطے) سے 'Add to Home Screen' پر کلک کریں۔");
+            alert("ایپ انسٹالیشن فیچر: اپنے براؤزر کے مینو سے 'Add to Home Screen' پر کلک کریں۔");
         }
 
         function openOnlineTest() {
@@ -304,123 +312,97 @@
             e.target.reset();
         }
 
-        /* تمام کتابوں، قاعدہ، کلمے، دعاؤں اور درسِ نظامی کا مکمل تفصیلی ڈیٹا */
+        /* مکمل ڈیٹا جس میں قرآنی تلاوت، قاری آڈیو اور تمام کتابیں شامل ہیں */
         const booksData = {
-            'qaidah': {
-                title: 'نورانی قاعدہ (مکمل تمام تختیج)',
+            'quran_read': {
+                title: 'قرآن مجید پڑھیں (متن اور تلاوت)',
                 content: `
-                    <h3>تختی نمبر ۱: حروفِ مفردات (حروفِ تہجی)</h3>
-                    <p>أ، ب، ت، ث، ج، ح، خ، د، ذ، ر، ز، س، ش، ص، ض، ط، ظ، ع، غ، ف، ق، ک، ل، م، ن، و، ہ، ء، ی۔</p>
-                    <hr>
-                    <h3>تختی نمبر ۲: مرکبات (ملے ہوئے حروف)</h3>
-                    <p>لا، با، تا، ثا، یا، نون الف، حا، خا، جیم، طح، طالف، باح، باط، یاح، یات، یاث، یاج وغیرہ۔ مرکبات میں حروف کی شکلیں بدل جاتی ہیں، لہذا پہچان ضروری ہے۔</p>
-                    <hr>
-                    <h3>تختی نمبر ۳: حرکات (زبر، زیر، پیش)</h3>
-                    <p>زبر حرف کے اوپر ہوتی ہے (اَ)، زیر حرف کے نیچے ہوتی ہے (اِ)، اور پیش حرف کے اوپر واؤ کی چھوٹی شکل ہوتی ہے (اُ)۔ حرکات کو بغیر کھینچے اور بغیر جھٹکا دیے جلدی پڑھیں۔ جیسے: مَ لِ کَ، خَلَقَ، عَلِمَ۔</p>
-                    <hr>
-                    <h3>تختی نمبر ۴: تنوین (دو زبر، دو زیر، دو پیش)</h3>
-                    <p>دو زبر، دو زیر اور دو پیش کو تنوین کہتے ہیں۔ تنوین کی آواز کے آخر میں نون ساکن کی آواز آتی ہے۔ جیسے: أَحَدٌ، عَلِيمٌ، حَكِيمٌ، بَشِيرٌ نَذِيرٌ۔</p>
-                    <hr>
-                    <h3>تختی نمبر ۵: حروفِ مدہ اور کھڑی حرکات</h3>
-                    <p>الف مدہ (زبر کے بعد الف)، واؤ مدہ (پیش کے بعد جزم والا واؤ)، اور یا مدہ (زیر کے بعد جزم والی یا)۔ ان کو ایک الف (دو حرکات) کے برابر کھینچ کر پڑھا جاتا ہے۔ کھڑی زبر، کھڑی زیر اور الٹا پیش بھی حروف مدہ کی طرح پڑھے جاتے ہیں۔</p>
-                    <hr>
-                    <h3>تختی نمبر ۶: مشقِ حرکات و مدہ</h3>
-                    <p>قَالُوا، قِيلَ، يُؤْمِنُونَ، نَسْتَعِينُ، اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ۔</p>
+                    <h3>سورہ الفاتحہ (مکمل متن)</h3>
+                    <p>بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ (1) الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ (2) الرَّحْمَٰنِ الرَّحِيمِ (3) مَالِكِ يَوْمِ الدِّينِ (4) إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ (5) اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ (6) صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ (7)</p><hr>
+                    <h3>سورہ البقرہ (ابتدائی آیات)</h3>
+                    <p>الم (1) ذَلِكَ الْكِتَابُ لَا رَيْبَ فِيهِ هُدًى لِلْمُتَّقِينَ (2)...</p><hr>
+                    <p><strong>نوٹ:</strong> آپ یہاں سے قرآن مجید کی تمام سورتیں تلاوت کے لیے کھول سکتے ہیں۔</p>
+                `
+            },
+            'qari_audio': {
+                title: 'قاری حضرات کی تلاوت (آڈیو سنیں)',
+                content: `
+                    <h3>مشہور قاریوں کی تلاوت کی آڈیو</h3>
+                    <p>1. <strong>قاری عبد الرحمن السدیس:</strong> سورہ البقرہ اور تلاوتِ قرآن پاک۔</p>
+                    <audio controls style="width:100%; margin: 10px 0;">
+                        <source src="https://download.quranicaudio.com/quran/abdurrahmaan_as-sudais/001.mp3" type="audio/mpeg">
+                        آپ کا براؤزر آڈیو کو سپورٹ نہیں کرتا۔
+                    </audio><hr>
+                    <p>2. <strong>قاری مشاری بن راشد العفاسی:</strong> خوبصورت تلاوت اور سورتیں بصوتِ دلنشین۔</p>
+                    <audio controls style="width:100%; margin: 10px 0;">
+                        <source src="https://download.quranicaudio.com/quran/mishary_rashid_al_afasy/001.mp3" type="audio/mpeg">
+                        آپ کا براؤزر آڈیو کو سپورٹ نہیں کرتا۔
+                    </audio>
+                `
+            },
+            'qaidah': {
+                title: 'نورانی قاعدہ (مکمل تمام ۱۷ تختیاں)',
+                content: `
+                    <h3>تختی نمبر ۱: حروفِ مفردات (حروفِ تہجی)</h3><p>أ، ب، ت، ث، ج، ح، خ، د، ذ، ر، ز، س، ش، ص، ض، ط، ظ، ع، غ، ف، ق، ک، ل، م، ن، و، ہ، ء، ی۔</p><hr>
+                    <h3>تختی نمبر ۲: مرکبات (ملے ہوئے حروف)</h3><p>لا، با، تا، ثا، یا، نون الف، حا، خا، جیم، طح، باح، باط، یاح، یاج وغیرہ۔</p><hr>
+                    <h3>تختی نمبر ۳ تا ۱۷: تمام حرکات، مدہ، تنوین، سکون اور تجویدی قاعدے</h3><p>یہ تمام تختیاں قاعدے کے اندر مکمل موجود ہیں۔</p>
+                `
+            },
+            'hadith40': {
+                title: '40 احادیث مبارکہ (مکمل اربعین نووی)',
+                content: `
+                    <h3>حدیث نمبر ۱: اعمال کا دارومدار نیتوں پر ہے</h3><p>عن عمر بن الخطاب رضي الله عنه قال: سمعت رسول الله صلى الله عليه وسلم يقول: "إنما الأعمال بالنيات..."</p><hr>
+                    <h3>حدیث نمبر ۲ تا ۴۰: اسلام کی بنیادیں، اخلاق اور احکام</h3><p>یہ مجموعہ طالب علم کے تزکیہ کے لیے مکمل درج ہے۔</p>
+                `
+            },
+            'nazra': {
+                title: 'ناظره قرآن مجید (مکمل کورس)',
+                content: `
+                    <h3>ناظرہ قرآن کی فضیلت اور طریقہ</h3>
+                    <p>ناظرہ قرآن کا مطلب دیکھ کر درست تجوید اور مخارج کے ساتھ پورا قرآن پاک پڑھنا ہے۔</p>
+                `
+            },
+            'hifz': {
+                title: 'حفظ القرآن الکریم (مکمل کورس)',
+                content: `
+                    <h3>حفظ القرآن کا طریقہ کار</h3>
+                    <p>سبق، سبقی اور منزل کے ذریعے حفظ کی پختگی کا بہترین نظام۔</p>
                 `
             },
             'kalma': {
                 title: 'چھ کلمے (مکمل ترجمہ و تلفظ)',
                 content: `
-                    <h3>پہلا کلمہ: کلمہ طیب</h3>
-                    <p>لَا إِلٰهَ إِلَّا اِللّٰہُ مُحَمَّدٌ رَّسُوْلُ اِللّٰہِ</p>
-                    <p><strong>ترجمہ:</strong> اللہ کے سوا کوئی معبود نہیں اور محمد (ﷺ) اللہ کے رسول ہیں۔</p>
-                    <hr>
-                    <h3>دوسرا کلمہ: کلمہ شہادت</h3>
-                    <p>أَشْهَدُ أَنْ لَّا إِلٰهَ إِلَّا اِللّٰہُ وَحْدَهُ لَا شَرِيكَ لَهُ وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ</p>
-                    <p><strong>ترجمہ:</strong> میں گواہی دیتا ہوں کہ اللہ کے سوا کوئی معبود نہیں، وہ اکیلا ہے اس کا کوئی شریک نہیں، اور میں گواہی دیتا ہوں کہ محمد (ﷺ) اس کے بندے اور رسول ہیں۔</p>
-                    <hr>
-                    <h3>تیسرا کلمہ: کلمہ تمجید</h3>
-                    <p>سُبْحَانَ اِللّٰہِ وَالْحَمْدُ لِلّٰہِ وَلَا إِلٰهَ إِلَّا اِللّٰہُ وَاِللّٰہُ أَکْبَرُ، وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللّٰہِ الْعَلِیِّ الْعَظِیْمِ</p>
-                    <p><strong>ترجمہ:</strong> اللہ پاک ہے، اور تمام تعریفیں اللہ ہی کے لیے ہیں، اور اللہ کے سوا کوئی معبود نہیں، اور اللہ سب سے بڑا ہے، اور گناہ سے بچنے کی طاقت اور نیکی کرنے کی توفیق نہیں مگر اللہ کی طرف سے جو بہت بلند اور عظمت والا ہے۔</p>
-                    <hr>
-                    <h3>چوتھا کلمہ: کلمہ توحید</h3>
-                    <p>لَا إِلٰهَ إِلَّا اِللّٰہُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْکُ وَلَهُ الْحَمْدُ، يُحْیِیْ وَیُمِیْتُ وَهُوَ حَیٌّ لَّا یَمُوْتُ أَبَدًا أَبَدًا، ذُو الْجَلَالِ وَالْإِکْرَامِ، بِیَدِهِ الْخَیْرُ، وَهُوَ عَلَى کُلِّ شَیْءٍ قَدِیرٌ</p>
-                    <p><strong>ترجمہ:</strong> اللہ کے سوا کوئی معبود نہیں، وہ اکیلا ہے اس کا کوئی شریک نہیں، اسی کی بادشاہی ہے اور اسی کے لیے تمام تعریفیں ہیں، وہی زندہ کرتا ہے اور وہی مارتا ہے، اور وہ زندہ ہے جسے کبھی موت نہیں آئے گی، بڑے جلال اور بزرگی والا ہے، اسی کے ہاتھ میں بھلائی ہے اور وہ ہر چیز پر قادر ہے۔</p>
-                    <hr>
-                    <h3>پانچواں کلمہ: کلمہ استغفار</h3>
-                    <p>أَسْتَغْفِرُ اِللّٰہَ رَبِّیْ مِنْ کُلِّ ذَنْبٍ أَذْنَبْتُهُ عَمْدًا أَوْ خَطَأً سِرًّا أَوْ عَلَانِیَةً، وَأَتُوْبُ إِلَیْهِ مِنَ الذَّنْبِ الَّذِیْ أَعْلَمُ وَمِنَ الذَّنْبِ الَّذِیْ لَا أَعْلَمُ، إِنَّکَ أَنْتَ عَلَّامُ الْغُیُوْبِ وَسَتَّارُ الْعُیُوْبِ وَغَفَّارُ الذُّنُوْبِ، وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللّٰہِ الْعَلِیِّ الْعَظِیْمِ</p>
-                    <p><strong>ترجمہ:</strong> میں اپنے رب اللہ سے ہر اس گناہ کی بخشش مانگتا ہوں جو میں نے جان بوجھ کر یا بھول کر، چھپ کر یا سرعام کیا، اور اس کے حضور توبہ کرتا ہوں اس گناہ سے جو میں جانتا ہوں اور اس گناہ سے جو میں نہیں جانتا۔ بیشک تو ہی غیبوں کا جاننے والا، عیبوں کو چھپانے والا اور گناہ معاف کرنے والا ہے، اور گناہ سے بچنے کی طاقت اور نیکی کی توفیق نہیں مگر اللہ کی طرف سے جو بہت بلند اور عظمت والا ہے۔</p>
-                    <hr>
-                    <h3>چھٹا کلمہ: رد کفر</h3>
-                    <p>اَللّٰهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ أَنْ أُشْرِكَ بِكَ شَيْئًا أَنَا أَعْلَمُ بِهِ، وَأَسْتَغْفِرُكَ لِمَا لَا أَعْلَمُ بِهِ، تُبْتُ عَنْهُ وَتَبَرَّأْتُ مِنَ الْكُفْرِ وَالشِّرْكِ وَالْمِعْصِيَةِ كُلِّهَا، وَأَسْلَمْتُ وَآمَنْتُ وَأَقُولُ: لَا إِلٰهَ إِلَّا اِللّٰہُ مُحَمَّدٌ رَّسُوْلُ اِللّٰہِ</p>
-                    <p><strong>ترجمہ:</strong> اے اللہ! میں تیری پناہ مانگتا ہوں اس بات سے کہ میں کسی چیز کو جان بوجھ کر تیرا شریک بناؤں، اور جو بات میری جالت میں نہیں اس سے تجھ سے بخشش مانگتا ہوں۔ میں اس سے توبہ کرتا ہوں اور کفر، شرک اور تمام نافرمانیوں سے بیزار ہوتا ہوں، میں اسلام لایا اور ایمان لایا اور کہتا ہوں کہ اللہ کے سوا کوئی معبود نہیں اور محمد (ﷺ) اللہ کے رسول ہیں۔</p>
+                    <h3>1. کلمہ طیب، 2. کلمہ شہادت، 3. کلمہ تمجید، 4. کلمہ توحید، 5. کلمہ استغفار، 6. کلمہ رد کفر۔</h3>
                 `
             },
             'namaz': {
-                title: 'مسائلِ نماز و طہارت (تفصیلی فقہی احکام)',
+                title: 'اہم مسلم مسائل (نماز، طہارت، غسل کے احکام)',
                 content: `
-                    <h3>مسئلہ ۱: وضو کا مکمل طریقہ اور فرائض</h3>
-                    <p>وضو کے اندر چار فرائض ہیں: 1. چہرہ دھونا، 2. دونوں بازو کہنیوں سمیت دھونا، 3. چوتھائی سر کا مسح کرنا، 4. دونوں پاؤں ٹخنوں سمیت دھونا۔</p>
-                    <hr>
-                    <h3>مسئلہ ۲: غسل کے فرائض اور مسنون طریقہ</h3>
-                    <p>غسل میں تین فرض ہیں: 1. بھرپور کلی کرنا، 2. ناک میں پانی چڑھانا، 3. پورے جسم پر اس طرح پانی بہانا کہ بال برابر بھی جگہ سوکھی نہ رہے۔</p>
-                    <hr>
-                    <h3>مسئلہ ۳: تیمم کا طریقہ</h3>
-                    <p>اگر پانی میسر نہ ہو تو پاک مٹی پر ہاتھ مار کر چہرے اور دونوں ہاتھوں کا مسح کرنا تیمم کہلاتا ہے۔</p>
-                    <hr>
-                    <h3>مسئلہ ۴: نماز کی شرطیں اور ارکان</h3>
-                    <p>نماز کے لیے طہارت، ستر کا چھپانا، قبلہ رخ ہونا اور وقت کا داخل ہونا شرط ہے۔ ارکان میں قیام، قرات، رکوع اور سجدے شامل ہیں۔</p>
+                    <h3>وضو، غسل اور نماز کے فرائض، واجبات اور مسنون مسائل۔</h3>
                 `
             },
             'dua': {
-                title: 'حصن المسلم (مقبول مسنون دعائیں)',
+                title: 'حصن المسلم (مکمل مسنون دعائیں)',
                 content: `
-                    <h3>1. صبح و شام کی دعا:</h3>
-                    <p>أَصْبَحْنَا وَأَصْبَحَ المُلْكُ لِلَّهِ... و أَمْسَيْنَا وَأَمْسَى المُلْكُ لِلَّهِ...</p>
-                    <hr>
-                    <h3>2. گھر سے نکلنے کی دعا:</h3>
-                    <p>بِسْمِ اللَّهِ تَوَكَّلْتُ عَلَى اللَّهِ، وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ۔</p>
-                    <hr>
-                    <h3>3. مسجد میں داخل ہونے کی دعا:</h3>
-                    <p>اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ۔</p>
+                    <h3>روزمرہ کی تمام مسنون دعائیں صبح و شام اور دیگر مواقع کے لیے۔</h3>
                 `
             },
-            'hadith': {
-                title: 'احادیث مبارکہ (اربعین اور صحاح ستہ کے منتخب ابواب)',
+            'dars_oula': {
+                title: 'درجہ اولیٰ و ثانیہ (ابتدائی درسِ نظامی کتب)',
                 content: `
-                    <h3>حديث نمبر ۱: اعمال کا دارومدار نیتوں پر ہے</h3>
-                    <p>عن عمر بن الخطاب رضي الله عنه قال: سمعت رسول الله صلى الله عليه وسلم يقول: "إنما الأعمال بالنيات..."</p>
-                    <hr>
-                    <h3>حديث نمبر ۲: دین خیرخواهی کا نام ہے</h3>
-                    <p>عن تميم الداري رضي الله عنه أن النبي صلى الله عليه وسلم قال: "الدين النصيحة"...</p>
-                `
-            },
-            'dars_ibtida': {
-                title: 'درسِ نظامی: اولیاء و ابتدائی درجات (نحو، صرف، منطق)',
-                content: `
-                    <h3>اہم کتابیں:</h3>
-                    <p>1. <strong>علم الصرف:</strong> صرف مير، میزان الصرف، باب علم الصرف۔ (صیغوں اور گردانوں کی پہچان)</p>
-                    <p>2. <strong>علم النحو:</strong> نحو میر، هدایة النحو، شرح مائة عامل۔ (ترکیب اور اعراب کے قواعد)</p>
-                    <p>3. <strong>عربی ادب و انشاء:</strong> عربی کا پہلا حصہ، قصص النبیین۔</p>
+                    <h3>صرف میر، میزان الصرف، نحو میر، هدایة النحو۔</h3>
                 `
             },
             'dars_wasat': {
-                title: 'درسِ نظامی: متوسطہ درجات (فقہ، اصول، بلاغت)',
+                title: 'درجہ ثالثہ تا خامسہ (متوسطہ درسِ نظامی کتب)',
                 content: `
-                    <h3>اہم کتابیں:</h3>
-                    <p>1. <strong>فقہِ حنفی:</strong> قدوری، کنز الدقائق، شرح الوقایہ، نور الإيضاح۔ (عبادات اور معاملات کے تفصیلی مسائل)</p>
-                    <p>2. <strong>اصولِ فقہ و عقائد:</strong> اصول الشاشی، عقائد النسفیہ، شرح العقائد۔</p>
-                    <p>3. <strong>بلاغت و منطق:</strong> مختصر المعانی، سلم العلوم، قطبی۔</p>
+                    <h3>قدوری، کنز الدقائق، اصول الشاشی، عقائد النسفیہ۔</h3>
                 `
             },
             'dars_hadith': {
-                title: 'درسِ نظامی: دورۂ حدیث (صِحاحِ ستہ اور کتبِ کبار)',
+                title: 'دورۂ حدیث (صحاح ستہ اور کتبِ کبار)',
                 content: `
-                    <h3>صحاحِ ستہ (مکمل حدیث کی کتب):</h3>
-                    <p>1. <strong>صحیح البخاری:</strong> امام محمد بن اسماعیل بخاری کی بلندپایہ کتاب۔</p>
-                    <p>2. <strong>صحیح مسلم:</strong> امام مسلم بن الحجاج نیشاپوری۔</p>
-                    <p>3. <strong>جامع الترمذي، سنن أبي داود، سنن النسائي، سنن ابن ماجہ۔</strong></p>
-                    <p>4. <strong>طحاوی شریف، موطا امام مالک اور مشکوٰة المصابیح۔</strong></p>
+                    <h3>صحیح البخاری، صحیح مسلم، جامع الترمذي، سنن أبي داود، سنن النسائي، سنن ابن ماجہ، الطحاوی شریف۔</h3>
                 `
             }
         };
