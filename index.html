@@ -2,567 +2,63 @@
 <html lang="ur" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مصعب بن عمیر آن لائن اکیڈمی</title>
+    <title>مصعب بن عمیر اکیڈمی - ڈیش بورڈ</title>
     <style>
-        :root {
-            --primary: #00e676;
-            --primary-dark: #00c853;
-            --secondary: #121826;
-            --accent: #ffd700;
-            --text-dark: #e0e6ed;
-            --white: #1a2238;
-            --bg-gradient: linear-gradient(135deg, #0f172a, #1e1b4b, #0f172a);
-            --card-bg: rgba(26, 34, 56, 0.95);
-            --glow-shadow: 0 0 20px rgba(0, 230, 118, 0.4);
-            --accent-glow: 0 0 15px rgba(255, 215, 0, 0.5);
-        }
-        [data-theme="light"] {
-            --primary: #0b6623;
-            --primary-dark: #044d18;
-            --secondary: #f4f9f4;
-            --accent: #d4af37;
-            --text-dark: #222222;
-            --white: #ffffff;
-            --bg-gradient: linear-gradient(135deg, #e8f5e9, #c8e6c9, #e0f2f1);
-            --card-bg: #ffffff;
-            --glow-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            --accent-glow: 0 0 10px rgba(212, 175, 55, 0.3);
-        }
-        body {
-            font-family: 'Jameel Noori Nastaleeq', 'Segoe UI', Tahoma, sans-serif;
-            background: var(--bg-gradient);
-            background-attachment: fixed;
-            color: var(--text-dark);
-            margin: 0;
-            padding: 15px;
-            padding-top: 85px;
-            min-height: 100vh;
-            transition: 0.3s;
-        }
+        :root { --primary: #00e676; --accent: #ffd700; }
+        body { background: #0f172a; color: #fff; font-family: 'Jameel Noori Nastaleeq', sans-serif; padding: 20px; }
 
-        .sticky-menu-bar {
-            position: fixed;
-            top: 0; left: 0; width: 100%;
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 999;
-            display: flex; gap: 8px; flex-wrap: wrap;
-            padding: 10px 15px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-            border-bottom: 2px solid var(--primary);
-            box-sizing: border-box; justify-content: center;
+        /* متحرک لائٹنگ بارڈر */
+        .glowing-box {
+            position: relative;
+            background: #1a2238;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border: 2px solid transparent;
+            background-clip: padding-box;
         }
+        .glowing-box::before {
+            content: '';
+            position: absolute;
+            top: -3px; bottom: -3px; left: -3px; right: -3px;
+            background: linear-gradient(45deg, var(--primary), var(--accent), var(--primary));
+            border-radius: 17px;
+            z-index: -1;
+            animation: rotate 3s linear infinite;
+        }
+        @keyframes rotate { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
 
-        #loginOverlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(15, 23, 42, 0.98);
-            backdrop-filter: blur(10px);
-            display: flex; justify-content: center; align-items: center;
-            z-index: 10000;
-        }
-        .login-box {
-            background: var(--card-bg); color: var(--text-dark);
-            padding: 35px; border-radius: 20px; text-align: center;
-            max-width: 400px; width: 90%;
-            box-shadow: 0 0 30px rgba(0, 230, 118, 0.3);
-            border: 2px solid var(--primary);
-        }
-        .login-box h2 { color: var(--primary); margin-top: 0; text-shadow: 0 0 10px rgba(0,230,118,0.5); }
-        .login-input {
-            width: 100%; padding: 12px; margin: 15px 0;
-            border: 2px solid var(--primary); border-radius: 10px;
-            font-size: 1rem; text-align: right; box-sizing: border-box;
-            background: rgba(255,255,255,0.05); color: var(--text-dark);
-        }
-        .login-btn {
-            background: linear-gradient(45deg, #00e676, #00b0ff); color: #000;
-            border: none; padding: 12px; width: 100%;
-            border-radius: 10px; font-size: 1.1rem; font-weight: bold; cursor: pointer;
-            transition: 0.3s; margin-bottom: 15px;
-            box-shadow: 0 0 15px rgba(0,230,118,0.5);
-        }
-        
-        #mainWebsite { display: none; max-width: 850px; margin: auto; }
-        
-        .madrasa-banner {
-            width: 100%; height: 260px; object-fit: contain;
-            background-color: #0b1329;
-            border-radius: 20px 20px 0 0;
-            border-bottom: 3px solid var(--accent);
-            box-shadow: var(--accent-glow);
-            display: block;
-        }
-        header {
-            background: linear-gradient(135deg, #1e293b, #0f172a);
-            color: #fff; text-align: center; padding: 25px 20px;
-            border-radius: 0 0 20px 20px; box-shadow: var(--glow-shadow);
-            margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.1);
-        }
-        header h1 { margin: 0; font-size: 2.4rem; color: var(--primary); text-shadow: 0 0 15px rgba(0,230,118,0.6); }
-        header p { font-size: 1.1rem; opacity: 0.95; margin-top: 5px; color: var(--accent); }
-
-        .card {
-            background: var(--card-bg); backdrop-filter: blur(10px);
-            color: var(--text-dark); padding: 25px; border-radius: 15px;
-            box-shadow: var(--glow-shadow); margin-bottom: 20px;
-            border-right: 5px solid var(--primary); border: 1px solid rgba(255,255,255,0.08);
-        }
-
-        .section-title {
-            color: var(--primary); font-size: 1.5rem; margin-top: 0;
-            border-bottom: 2px solid rgba(255,255,255,0.1); padding-bottom: 8px;
-        }
-        .action-chip {
-            background: var(--card-bg); color: var(--primary); border: 2px solid var(--primary);
-            padding: 6px 14px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 0.9rem;
-            box-shadow: 0 0 10px rgba(0,230,118,0.2); transition: 0.3s;
-        }
-        .action-chip:hover { background: var(--primary); color: #000; }
-
-        /* لائبریری کے اندر سرچ بار */
-        .search-container {
-            display: flex; gap: 10px; margin-bottom: 20px;
-        }
-        .search-input {
-            flex: 1; padding: 12px 15px; border: 2px solid var(--primary);
-            border-radius: 10px; font-size: 1rem; background: rgba(255,255,255,0.05);
-            color: var(--text-dark); text-align: right; font-family: inherit;
-        }
-        .search-btn {
-            background: var(--primary); color: #000; border: none; padding: 0 20px;
-            border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 1rem;
-            box-shadow: 0 0 10px rgba(0,230,118,0.4);
-        }
-
-        .category-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px; margin-top: 15px;
-        }
-        .cat-box {
-            background: rgba(255,255,255,0.04); border: 2px solid var(--primary);
-            border-radius: 15px; padding: 20px; text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: 0.3s;
-        }
-        .cat-box:hover { transform: translateY(-5px); background: rgba(0, 230, 118, 0.08); }
-        .cat-box h3 { color: var(--primary); margin-top: 0; font-size: 1.2rem; }
-        .cat-box p { font-size: 0.950rem; opacity: 0.9; margin-bottom: 15px; }
-        .cat-btn {
-            background: var(--primary); color: #000; border: none; padding: 10px 20px;
-            border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; font-size: 1rem;
-            box-shadow: 0 0 10px rgba(0,230,118,0.4); transition: 0.3s;
-        }
-        .cat-btn:hover { background: var(--accent); }
-
-        .fee-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px; margin-top: 15px;
-        }
-        .fee-box {
-            background: rgba(255,255,255,0.04); border: 2px solid var(--accent);
-            border-radius: 15px; padding: 20px; text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-        .fee-box h3 { color: var(--accent); margin-top: 0; }
-
-        /* ریڈر ونڈو */
-        #internalBookViewer {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--bg-gradient); color: var(--text-dark); z-index: 20000;
-            overflow-y: auto; padding: 25px; box-sizing: border-box; text-align: center;
-        }
-        .book-content-box {
-            font-size: 1.15rem; line-height: 2.3; max-width: 800px; margin: 20px auto;
-            text-align: right; background: var(--card-bg); color: var(--text-dark);
-            padding: 40px; border-radius: 15px; border: 2px solid var(--accent);
-            box-shadow: var(--accent-glow); max-height: 70vh; overflow-y: auto;
-        }
-        .back-btn {
-            background: var(--primary); color: #000; border: none; padding: 10px 25px; border-radius: 8px;
-            cursor: pointer; margin-bottom: 15px; font-weight: bold; font-size: 1.1rem;
-        }
-        .toggle-translation-btn {
-            background: var(--accent); color: #000; border: none; padding: 10px 20px;
-            border-radius: 8px; font-weight: bold; cursor: pointer; margin-bottom: 15px;
-            box-shadow: 0 0 10px rgba(255,215,0,0.5); font-size: 1rem;
-        }
-        
-        input[type="text"], textarea {
-            width: 100%; padding: 12px; margin: 8px 0; border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 8px; font-size: 1rem; box-sizing: border-box; text-align: right;
-            font-family: inherit; background: rgba(255,255,255,0.05); color: var(--text-dark);
-        }
-        .submit-btn {
-            background: linear-gradient(45deg, #00e676, #00b0ff); color: #000; border: none;
-            padding: 12px; width: 100%; border-radius: 8px; font-size: 1rem; font-weight: bold;
-            cursor: pointer; margin-top: 10px; box-shadow: 0 0 15px rgba(0,230,118,0.4);
-        }
-        .whatsapp-btn {
-            background: #25d366; color: #fff; text-decoration: none; display: inline-block;
-            padding: 12px 25px; border-radius: 30px; font-weight: bold; font-size: 1.1rem;
-            box-shadow: 0 0 15px rgba(37,211,102,0.4); text-align: center; width: 100%; box-sizing: border-box;
-            margin-top: 10px;
-        }
-        .review-box {
-            background: rgba(255,255,255,0.04); border-right: 4px solid var(--accent);
-            padding: 15px; border-radius: 10px; margin-bottom: 12px; text-align: right;
-        }
-        footer {
-            text-align: center; padding: 20px; background: rgba(0,0,0,0.5); color: #fff;
-            border-radius: 12px; margin-top: 30px; font-size: 0.9rem;
-        }
+        .fee-input { width: 100%; padding: 10px; margin-top: 10px; background: #000; color: #fff; border: 1px solid var(--primary); }
+        .search-dashboard { background: #1e293b; padding: 20px; border-radius: 15px; text-align: center; }
     </style>
 </head>
 <body>
 
-    <div class="sticky-menu-bar">
-        <button class="action-chip" onclick="toggleDarkMode()">🌓 ڈارک / لائٹ</button>
-        <button class="action-chip" onclick="openInternalLibrary()">📚 لائبریری و شعبہ جات</button>
-        <button class="action-chip" onclick="copySiteLink()">🔗 لنک کاپی</button>
-        <button class="action-chip" onclick="installApp()">📱 ایپ انسٹال</button>
-        <button class="action-chip" onclick="openOnlineTest()">📝 آن لائن ٹیسٹ</button>
+    <!-- فیس ادائیگی اور اسکرین شاٹ سیکشن -->
+    <div class="glowing-box">
+        <h2 style="color:var(--primary)">💳 فیس ادائیگی اور تصدیق</h2>
+        <p>اپنی فیس درج ذیل نمبر پر بھیجیں اور اسکرین شاٹ نیچے اپ لوڈ کریں:</p>
+        <div style="background:#000; padding:15px; border-radius:10px;">
+            <p><strong>ایزی پیسہ / جاز کیش:</strong> 03074974713 (رانا چمن)</p>
+        </div>
+        <br>
+        <label>📸 ادائیگی کا اسکرین شاٹ اپ لوڈ کریں:</label>
+        <input type="file" class="fee-input" accept="image/*">
+        <button style="background:var(--primary); width:100%; padding:10px; margin-top:10px; border:none; border-radius:5px;">تصدیق کے لیے بھیجیں</button>
     </div>
 
-    <div id="loginOverlay">
-        <div class="login-box">
-            <h2>خوش آمدید!</h2>
-            <p>اکیڈمی میں داخل ہونے کے لیے اپنا نام لکھیں:</p>
-            <input type="text" id="userNameInput" class="login-input" placeholder="اپنا نام یہاں لکھیں...">
-            <button class="login-btn" onclick="manualLogin()">نام سے داخل ہوں</button>
-        </div>
-    </div>
-
-    <div id="mainWebsite">
-        
-        <div style="background: var(--card-bg); border-radius: 20px; box-shadow: var(--glow-shadow); margin-bottom: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
-            <img src="https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=1200&q=80" alt="مدرسہ" class="madrasa-banner">
-            <header style="border-radius: 0; box-shadow: none; margin-bottom: 0; border: none;">
-                <h1>مصعب بن عمیر آن لائن اکیڈمی</h1>
-                <p id="welcomeUserText">قرآن مجید مع ترجمہ، قاری آڈیو، لائبریری سرچ اور درسِ نظامی کا مرکز</p>
-            </header>
-        </div>
-
-        <div class="card" id="librarySection">
-            <h2 class="section-title">📚 جامع لائبریری اور کورسز (سرچ فیچر)</h2>
-            <p>کسی بھی درسِ نظامی یا دینی کتاب کا نام نیچے سرچ کریں یا شعبہ منتخب کریں:</p>
-            
-            <div class="search-container">
-                <input type="text" id="librarySearchInput" class="search-input" placeholder="کتاب کا نام لکھیں (مثلاً: بخاری، نحو میر، قرآن)...">
-                <button class="search-btn" onclick="searchLibraryBook()">تلاش کریں</button>
-            </div>
-
-            <div class="category-grid">
-                <div class="cat-box">
-                    <h3>📖 قرآن مجید (ترجمہ سمیت)</h3>
-                    <p>متن اور بٹن کے ساتھ مکمل ترجمہ ریڈر۔</p>
-                    <button class="cat-btn" onclick="openBook('quran_translation')">قرآن ترجمہ کھولیں</button>
-                </div>
-                <div class="cat-box">
-                    <h3>🎧 مشہور قاریوں کی آڈیو</h3>
-                    <p>مختلف قاریوں کی آواز میں تلاوت سنیں۔</p>
-                    <button class="cat-btn" onclick="openBook('qari_audio')">تلاوت سنیں</button>
-                </div>
-                <div class="cat-box">
-                    <h3>🟢 شعبہ حفظ القرآن</h3>
-                    <p>پختہ حفظ، سبقی اور منزل کا بہترین شیڈول۔</p>
-                    <button class="cat-btn" onclick="openBook('hifz')">حفظ کورس کھولیں</button>
-                </div>
-                <div class="cat-box">
-                    <h3>📖 شعبہ ناظرہ قرآن</h3>
-                    <p>درست مخارج اور تجوید کے ساتھ ناظرہ کورس۔</p>
-                    <button class="cat-btn" onclick="openBook('nazra')">ناظرہ کورس کھولیں</button>
-                </div>
-                <div class="cat-box">
-                    <h3>📖 نورانی قاعدہ مکمل</h3>
-                    <p>تمام 17 تختیاں اور تجویدی قواعد مع مشق۔</p>
-                    <button class="cat-btn" onclick="openBook('qaidah')">قاعدہ کھولیں</button>
-                </div>
-                <div class="cat-box">
-                    <h3>📘 درسِ نظامی کتب (مع ترجمہ)</h3>
-                    <p>صرف میر، نحو میر، بخاری شریف وغیرہ۔</p>
-                    <button class="cat-btn" onclick="openBook('dars_oula')">کتب کھولیں</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <h2 class="section-title">❓ اہم شرعی مسائل اور پوچھ گچھ کا سیکشن</h2>
-            <p>کوئی دینی مسئلہ یا سوال پوچھنا چاہتے ہیں؟ اپنا نام اور مسئلہ نیچے لکھیں اور واٹس ایپ کے ذریعے رابطہ کریں:</p>
-            <input type="text" id="masalaName" placeholder="اپنا نام لکھیں...">
-            <textarea id="masalaText" placeholder="اپنا شرعی مسئلہ تفصیل سے یہاں لکھیں..." rows="3"></textarea>
-            <button type="button" class="submit-btn" onclick="sendMasalaToWhatsApp()">💬 واٹس ایپ پر مسئلہ پوچھیں</button>
-        </div>
-
-        <div class="card">
-            <h2 class="section-title">📞 اکیڈمی انتظامیہ سے رابطہ (واٹس ایپ نمبرز)</h2>
-            <p>داخلے، رہنمائی یا معلومات کے لیے ہمارے ذمہ داران سے رابطہ کریں:</p>
-            <div style="margin: 15px 0; background: rgba(255,255,255,0.04); padding: 15px; border-radius: 12px; border: 1px solid var(--primary);">
-                <p><strong>1. افتخار احمد (انتظامیہ):</strong> 03074974713</p>
-                <a href="https://wa.me/923074974713" target="_blank" class="whatsapp-btn" style="background:#25d366; margin-top:5px;">💬 افتخار احمد سے واٹس ایپ پر رابطہ</a>
-            </div>
-            <div style="margin: 15px 0; background: rgba(255,255,255,0.04); padding: 15px; border-radius: 12px; border: 1px solid var(--accent);">
-                <p><strong>2. حافظ عدیل احمد (نگران شعبہ):</strong> 03077207097</p>
-                <a href="https://wa.me/923077207097" target="_blank" class="whatsapp-btn" style="background:#25d366; margin-top:5px;">💬 حافظ عدیل احمد سے واٹس ایپ پر رابطہ</a>
-            </div>
-        </div>
-
-        <div class="card">
-            <h2 class="section-title">💳 فیس و ادائیگی کے طریقے</h2>
-            <p>اکیڈمی کی ماہانہ فیس جمع کروانے کے لیے درج ذیل اکاؤنٹس استعمال کریں:</p>
-            <div class="fee-grid">
-                <div class="fee-box">
-                    <h3>جاز کیش اکاؤنٹ</h3>
-                    <p><strong>نمبر:</strong> 0307-4974713<br><strong>عنوان:</strong> مصعب بن عمیر اکیڈمی</p>
-                </div>
-                <div class="fee-box">
-                    <h3>ایزی پیسہ اکاؤنٹ</h3>
-                    <p><strong>نمبر:</strong> 0307-7207097<br><strong>عنوان:</strong> حافظ عدیل احمد</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <h2 class="section-title">📝 آن لائن داخلہ / رجسٹریشن فارم</h2>
-            <form onsubmit="handleFormSubmit(event)">
-                <input type="text" id="studentName" placeholder="پورا نام لکھیں" required>
-                <input type="text" id="studentFather" placeholder="والد کا نام" required>
-                <input type="text" id="studentPhone" placeholder="رابطہ نمبر / فون نمبر" required>
-                <textarea id="studentAddress" placeholder="مکمل پتہ لکھیں" rows="3" required></textarea>
-                <button type="submit" class="submit-btn">داخلہ فارم جمع کروائیں</button>
-            </form>
-        </div>
-
-        <div class="card">
-            <h2 class="section-title">⭐ طلباء اور والدین کے تبصرے (Reviews)</h2>
-            <div class="review-box">
-                <p><strong>محمد عبداللہ:</strong> "ماشاءاللہ، اکیڈمی کا تدریسی نظام اور لائبریری سرچ فیچر انتہائی زبردست ہے۔"</p>
-            </div>
-            <div class="review-box">
-                <p><strong>قاری زبیر:</strong> "درسِ نظامی کی کتابیں بمع ترجمہ ایک ہی جگہ ملنا بہت بڑی سہولت ہے۔ جزاک اللہ!"</p>
-            </div>
-        </div>
-
-        <footer>
-            <p>&copy; 2026 مصعب بن عمیر آن لائن اکیڈمی | تمام حقوق محفوظ ہیں</p>
-        </footer>
-    </div>
-
-    <div id="internalBookViewer">
-        <button class="back-btn" onclick="closeInternalBook()">⬅ بند کریں / واپس جائیں</button>
-        <div id="extraViewerControls"></div>
-        <h2 id="viewerBookTitle" style="color:var(--primary); margin-top:15px; font-size: 2rem;">عنوان</h2>
-        <div id="viewerBookBody" class="book-content-box">مشمولات یہاں لوڈ ہو رہے ہیں...</div>
+    <!-- لائبریری ڈیش بورڈ -->
+    <div class="glowing-box search-dashboard">
+        <h2 style="color:var(--accent)">📚 لائبریری سرچ ڈیش بورڈ</h2>
+        <p>آپ کون سی کتاب یا سورت پڑھنا چاہتے ہیں؟</p>
+        <input type="text" id="libSearch" class="fee-input" placeholder="کتاب کا نام لکھیں (مثلاً: سورۃ البقرہ، قاعدہ)">
+        <button onclick="searchAction()" style="background:var(--accent); padding:10px 30px; margin-top:10px; border:none; border-radius:5px; font-weight:bold;">تلاش شروع کریں</button>
     </div>
 
     <script>
-        window.onload = function() {
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
-            
-            const savedUser = localStorage.getItem('academy_username');
-            if (savedUser) {
-                activateUser(savedUser);
-            }
-        }
-
-        function manualLogin() {
-            const name = document.getElementById('userNameInput').value.trim();
-            if(name !== "") {
-                localStorage.setItem('academy_username', name);
-                activateUser(name);
-            } else {
-                alert("براہ کرم اپنا نام درج کریں۔");
-            }
-        }
-
-        function activateUser(name) {
-            document.getElementById('loginOverlay').style.display = 'none';
-            document.getElementById('mainWebsite').style.display = 'block';
-            document.getElementById('welcomeUserText').innerText = "خوش آمدید، " + name + " | مصعب بن عمیر آن لائن اکیڈمی";
-        }
-
-        function toggleDarkMode() {
-            const html = document.documentElement;
-            if (html.getAttribute('data-theme') === 'light') {
-                html.removeAttribute('data-theme');
-                localStorage.setItem('theme', 'dark');
-            } else {
-                html.setAttribute('data-theme', 'light');
-                localStorage.setItem('theme', 'light');
-            }
-        }
-
-        function copySiteLink() {
-            navigator.clipboard.writeText(window.location.href);
-            alert("ویب سائٹ کا لنک کاپی ہو گیا ہے!");
-        }
-
-        function installApp() {
-            alert("ایپ انسٹالیشن فیچر: اپنے براؤزر کے مینو سے 'Add to Home Screen' پر کلک کریں۔");
-        }
-
-        function openOnlineTest() {
-            alert("آن لائن ٹیسٹ کا پورٹل جلد فعال کیا جائے گا۔");
-        }
-
-        function handleFormSubmit(e) {
-            e.preventDefault();
-            alert("مبارک ہو! آپ کا رجسٹریشن فارم کامیابی کے ساتھ جمع ہو گیا ہے۔");
-            e.target.reset();
-        }
-
-        function sendMasalaToWhatsApp() {
-            const name = document.getElementById('masalaName').value.trim();
-            const text = document.getElementById('masalaText').value.trim();
-            if(name === "" || text === "") {
-                alert("براہ کرم اپنا نام اور مسئلہ دونوں درج کریں۔");
-                return;
-            }
-            const msg = `مفتی صاحب! میرا نام ${name} ہے، میرا مسئلہ یہ ہے:\n${text}`;
-            const url = `https://wa.me/923074974713?text=${encodeURIComponent(msg)}`;
-            window.open(url, '_blank');
-        }
-
-        /* لائبریری اور کتب کا مکمل ڈیٹا بیس */
-        const booksData = {
-            'quran_translation': {
-                title: 'قرآن مجید (متن اور اردو ترجمہ)',
-                hasTranslation: true,
-                content: `
-                    <div class="quran-verse">
-                        <p style="font-size: 1.4rem; color: var(--accent); font-weight: bold;">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
-                        <p class="translation-text" style="display:none; color: var(--primary); margin-top: 5px;">شروع کرتا ہوں اللہ کے نام سے جو بڑا مہربان نہایت رحم والا ہے۔</p>
-                    </div><hr>
-                    <div class="quran-verse">
-                        <p style="font-size: 1.4rem; color: var(--accent); font-weight: bold;">الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ (2) الرَّحْمَٰنِ الرَّحِيمِ (3) مَالِكِ يَوْمِ الدِّينِ (4)</p>
-                        <p class="translation-text" style="display:none; color: var(--primary); margin-top: 5px;">تمام تعریفیں اللہ کے لیے ہیں جو تمام جہانوں کا پالنے والا ہے، بڑا مہربان نہایت رحم والا، جزا کے دن (قیامت) کا مالک ہے۔</p>
-                    </div><hr>
-                    <div class="quran-verse">
-                        <p style="font-size: 1.4rem; color: var(--accent); font-weight: bold;">إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ (5) اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ (6)</p>
-                        <p class="translation-text" style="display:none; color: var(--primary); margin-top: 5px;">ہم صرف تیری ہی عبادت کرتے ہیں اور صرف تجھی سے مدد مانگتے ہیں۔ ہمیں سیدھا راستہ دکھا۔</p>
-                    </div>
-                `
-            },
-            'qari_audio': {
-                title: 'قاری حضرات کی تلاوت (آڈیو سنیں)',
-                hasTranslation: false,
-                content: `
-                    <h3>مشہور قاریوں کی آڈیو تلاوت</h3>
-                    <div style="margin: 15px 0; padding: 15px; background: rgba(255,255,255,0.04); border-radius: 10px;">
-                        <p><strong>1. قاری عبد الرحمن السدیس (امام حرم مکہ):</strong></p>
-                        <audio controls style="width:100%; margin-top: 5px;">
-                            <source src="https://download.quranicaudio.com/quran/abdurrahmaan_as-sudais/001.mp3" type="audio/mpeg">
-                            آپ کا براؤزر آڈیو کو سپورٹ نہیں کرتا۔
-                        </audio>
-                    </div>
-                    <div style="margin: 15px 0; padding: 15px; background: rgba(255,255,255,0.04); border-radius: 10px;">
-                        <p><strong>2. قاری مشاری بن راشد العفاسی:</strong></p>
-                        <audio controls style="width:100%; margin-top: 5px;">
-                            <source src="https://download.quranicaudio.com/quran/mishary_rashid_al_afasy/001.mp3" type="audio/mpeg">
-                            آپ کا براؤزر آڈیو کو سپورٹ نہیں کرتا۔
-                        </audio>
-                    </div>
-                `
-            },
-            'hifz': {
-                title: 'شعبہ حفظ القرآن الکریم',
-                hasTranslation: false,
-                content: `<h3>حفظ القرآن کا طریقہ کار</h3><p>سبق، سبقی اور منزل کے ذریعے حفظ کی پختگی کا بہترین نظام۔ پارہ ۱ تا ۳۰ کا مکمل سکرولنگ مواد۔</p>`
-            },
-            'nazra': {
-                title: 'شعبہ ناظره قرآن مجید',
-                hasTranslation: false,
-                content: `<h3>ناظرہ قرآن کورس</h3><p>درست مخارج اور تجوید کے ساتھ صفہ بہ صفحہ ناظرہ پڑھنے کی مشق۔</p>`
-            },
-            'qaidah': {
-                title: 'نورانی قاعدہ (مکمل)',
-                hasTranslation: false,
-                content: `<h3>نورانی قاعدہ تمام ۱۷ تختیاں</h3><p>حروف مفردات، مرکبات، حرکات، تنوین اور تمام تجویدی قاعدے۔</p>`
-            },
-            'dars_oula': {
-                title: 'درسِ نظامی کتب (مع اردو ترجمہ و تشریح)',
-                hasTranslation: true,
-                content: `
-                    <div class="quran-verse">
-                        <h3>1. نحو میر / صرف میر (عربی متن)</h3>
-                        <p style="color: var(--accent);">اَلْکَلِمَةُ لَفْظٌ وُضِعَ لِمَعْنًى مُفْرَدٍ...</p>
-                        <p class="translation-text" style="display:none; color: var(--primary); margin-top: 5px;"><strong>ترجمہ و تشریح:</strong> کلمہ وہ لفظ ہے جو ایک اکیلے معنی کے لیے بنایا گیا ہو۔</p>
-                    </div><hr>
-                    <div class="quran-verse">
-                        <h3>2. صحیح البخاری (انتخاب احادیث مع ترجمہ)</h3>
-                        <p style="color: var(--accent);">حَدَّثَنَا الْحُمَيْدِيُّ عَبْدُ اللَّهِ بْنُ الزُّبَيْرِ قَالَ: حَدَّثَنَا سُفْيَانُ...</p>
-                        <p class="translation-text" style="display:none; color: var(--primary); margin-top: 5px;"><strong>ترجمہ:</strong> ہم سے حمیدی عبداللہ بن زبیر نے بیان کیا، انہوں نے کہا ہم سے سفیان نے بیان کیا...</p>
-                    </div>
-                `
-            }
-        };
-
-        /* لائبریری سرچ فنکشن */
-        function searchLibraryBook() {
-            const query = document.getElementById('librarySearchInput').value.trim().toLowerCase();
-            if(query === "") {
-                alert("براہ کرم سرچ کرنے کے لیے کتاب کا نام درج کریں۔");
-                return;
-            }
-
-            // سادہ اور موثر سرچ کا طریقہ
-            if(query.includes('قرآن') || query.includes('quran')) {
-                openBook('quran_translation');
-            } else if(query.includes('بخاری') || query.includes('نحو') || query.includes('صرف') || query.includes('درس') || query.includes('کتاب')) {
-                openBook('dars_oula');
-            } else if(query.includes('قاعدہ') || query.includes('تختیاں')) {
-                openBook('qaidah');
-            } else if(query.includes('حفظ')) {
-                openBook('hifz');
-            } else if(query.includes('ناظرہ')) {
-                openBook('nazra');
-            } else if(query.includes('آڈیو') || query.includes('قاری')) {
-                openBook('qari_audio');
-            } else {
-                // اگر براہ راست میچ نہ ہو تو ڈیفॉल्ट کتب دکھا دیں
-                document.getElementById('viewerBookTitle').innerText = "تلاش کردہ کتاب: " + query;
-                document.getElementById('viewerBookBody').innerHTML = `<h3>مطلوبہ کتاب کا مواد</h3><p>آپ کی سرچ کردہ کتاب "<strong>${query}</strong>" کے اسباق، متن اور ترجمہ کا ڈیٹا یہاں سکرولنگ فارمیٹ میں موجود ہے۔</p>`;
-                document.getElementById('extraViewerControls').innerHTML = `<button class="toggle-translation-btn" onclick="toggleTranslation()">🔄 اردو ترجمہ دکھائیں / چھپائیں</button>`;
-                document.getElementById('internalBookViewer').style.display = 'block';
-                window.scrollTo(0, 0);
-            }
-        }
-
-        function openBook(bookKey) {
-            const book = booksData[bookKey];
-            if(book) {
-                document.getElementById('viewerBookTitle').innerText = book.title;
-                document.getElementById('viewerBookBody').innerHTML = book.content;
-                
-                const extraControls = document.getElementById('extraViewerControls');
-                if(book.hasTranslation) {
-                    extraControls.innerHTML = `<button class="toggle-translation-btn" onclick="toggleTranslation()">🔄 اردو ترجمہ دکھائیں / چھپائیں</button>`;
-                } else {
-                    extraControls.innerHTML = '';
-                }
-
-                document.getElementById('internalBookViewer').style.display = 'block';
-                window.scrollTo(0, 0);
-            }
-        }
-
-        function toggleTranslation() {
-            const elements = document.querySelectorAll('.translation-text');
-            elements.forEach(el => {
-                if (el.style.display === 'none') {
-                    el.style.display = 'block';
-                } else {
-                    el.style.display = 'none';
-                }
-            });
-        }
-
-        function closeInternalBook() {
-            document.getElementById('internalBookViewer').style.display = 'none';
-        }
-
-        function openInternalLibrary() {
-            const lib = document.getElementById('librarySection');
-            lib.scrollIntoView({ behavior: 'smooth' });
+        function searchAction() {
+            let val = document.getElementById('libSearch').value;
+            if(val) { alert("تلاش کیا جا رہا ہے: " + val); }
         }
     </script>
 </body>
