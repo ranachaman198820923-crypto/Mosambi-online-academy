@@ -4,102 +4,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="pageTitle">مصعب بن عمیر آن لائن اکیڈمی</title>
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
         :root { --primary: #00e676; --accent: #ffd700; --card-bg: rgba(26, 34, 56, 0.9); --text-dark: #e0e6ed; }
         body { font-family: 'Jameel Noori Nastaleeq', sans-serif; background: linear-gradient(135deg, #0f172a, #1e1b4b); color: var(--text-dark); margin: 0; padding: 15px; }
-        .glowing-card { background: var(--card-bg); padding: 20px; border-radius: 20px; border: 2px solid var(--primary); box-shadow: 0 0 20px rgba(0,230,118,0.4); margin-bottom: 20px; }
+        .glowing-card { background: var(--card-bg); padding: 20px; border-radius: 20px; border: 2px solid var(--primary); box-shadow: 0 0 20px rgba(0,230,118,0.4); margin-bottom: 20px; text-align: center; }
         .prayer-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        .prayer-table th, .prayer-table td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); text-align: center; }
+        .prayer-table th, .prayer-table td { padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); text-align: center; }
         .prayer-table th { color: var(--primary); }
         .btn { background: var(--primary); color: #000; padding: 10px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin: 5px; }
     </style>
 </head>
 <body>
 
-<!-- لاگ ان سیکشن (آپ کا پرانا سٹائل) -->
-<div id="loginOverlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:#0f172a; display:flex; justify-content:center; align-items:center; z-index:9999;">
-    <div class="glowing-card" style="text-align:center;">
-        <h2 id="loginText">خوش آمدید، برائے مہربانی لاگ ان کریں</h2>
-        <input type="text" id="userNameInput" placeholder="اپنا نام لکھیں..." style="padding:10px; width:80%; margin-bottom:15px; border-radius:8px; text-align:right;">
-        <button onclick="manualLogin()" class="btn">داخل ہوں</button>
-    </div>
-</div>
-
-<!-- مین ویب سائٹ (آپ کا پرانا سارا ڈیزائن اور ترتیب) -->
-<div id="mainWebsite" style="display:none; max-width:850px; margin:auto;">
+<div style="max-width:850px; margin:auto;">
     
-    <!-- زبان تبدیل کرنے کا بٹن (نیا فیچر) -->
+    <!-- زبان تبدیل کرنے کا بٹن -->
     <div style="text-align: left; margin-bottom: 10px;">
         <button onclick="toggleLanguage()" class="btn" style="background:#00b0ff; color:#fff;">🌐 English / اردو</button>
     </div>
 
-    <!-- ایپ انسٹالیشن کا بٹن (نیا فیچر) -->
-    <div class="glowing-card" id="installCard" style="display:none; text-align:center;">
-        <button id="installAppBtn" class="btn" style="background:#ffd700; width:100%; padding:15px; font-size:1.1rem;" onclick="installPWA()">📲 اکیڈمی ایپ موبائل میں انسٹال کریں</button>
+    <!-- آپ کا پرانا لائیو کلاس کا کاؤنٹ ڈاؤن باکس -->
+    <div class="glowing-card">
+        <h2 style="color:var(--primary);" id="liveTitle">🔴 اگلی لائیو کلاس کا وقت</h2>
+        <p id="liveSub">اگلی آن لائن کلاس شروع ہونے میں باقی وقت:</p>
+        <div id="countdownTimer" style="background:#0f172a; border:2px solid #ff5252; padding:15px; border-radius:12px; font-size:1.4rem; color:#ff5252; font-weight:bold; margin:15px 0;">22 گھنٹے، 21 منٹ، 37 سیکنڈ باقی</div>
+        <button onclick="window.open('https://meet.google.com/')" class="btn" style="background:var(--primary); width:100%; padding:12px; font-size:1.1rem;" id="liveBtn">لائیو کلاس جوائن کریں ➔</button>
     </div>
 
-    <!-- خودکار نماز ٹائم ٹیبل (بشمول تہجد، اشراق اور تمام اوقات) -->
+    <!-- آپ کا پرانا آج کا فرمان / حدیث مبارکہ باکس -->
+    <div class="glowing-card" style="border: 2px dashed var(--accent);">
+        <h2 style="color:var(--accent);" id="hadithTitle">✨ آج کا فرمان / حدیث مبارکہ</h2>
+        <p style="font-size:1.20rem; line-height:1.8;" id="hadithText">"تم میں سے بہترین وہ ہے جو قرآن سیکھے اور سکھائے۔"</p>
+        <p style="font-size:0.9rem; opacity:0.8;" id="hadithRef">(صحیح بخاری)</p>
+    </div>
+
+    <!-- اکیڈمی کا نام اور بینر والا پرانا لک -->
     <div class="glowing-card">
-        <h2 style="color:var(--primary); text-align:center;" id="prayerTitle">🕌 نماز کے اوقات (مقامی وقت)</h2>
-        <p id="locationText" style="text-align:center; font-size:0.9rem;"></p>
+        <h1 style="color:var(--primary); font-size: 2.2rem; text-shadow: 0 0 10px var(--primary);" id="academyName">مصعب بن عمیر آن لائن اکیڈمی</h1>
+        <p style="font-size: 1.1rem;" id="academySub">قرآن پاک اور دینی تعلیم کا پریمیم و جدید مرکز</p>
+    </div>
+
+    <!-- نیا فیچر: خودکار نماز کا ٹائم ٹیبل -->
+    <div class="glowing-card">
+        <h2 style="color:var(--primary);" id="prayerTitle">🕌 نماز کے اوقات (مقامی وقت)</h2>
+        <p id="locationText" style="font-size:0.9rem;">لوکیشن لوڈ ہو رہی ہے...</p>
         <table class="prayer-table">
             <thead><tr><th id="thPrayer">نماز</th><th id="thStart">وقتِ شروع</th><th id="thEnd">وقتِ ختم</th></tr></thead>
             <tbody id="prayerTableBody"></tbody>
         </table>
     </div>
 
-    <!-- 1. ڈیجیٹل تسبیح (نیا فیچر) -->
-    <div class="glowing-card" style="text-align:center;">
+    <!-- نیا فیچر: ڈیجیٹل تسبیح -->
+    <div class="glowing-card">
         <h2 style="color:var(--primary);">📿 ڈیجیٹل تسبیح</h2>
         <h1 id="tasbeehCount" style="color:var(--accent); font-size:2.5rem; margin:10px 0;">0</h1>
         <button class="btn" onclick="incrementTasbeeh()">تسبیح شمار کریں (+1)</button>
         <button class="btn" style="background:#ff5252; color:#fff;" onclick="resetTasbeeh()">ری سیٹ</button>
     </div>
 
-    <!-- 2. روزانہ کی قرآنی آیت (نیا فیچر) -->
-    <div class="glowing-card" style="text-align:center;">
-        <h2 style="color:var(--primary);">📖 آج کی قرآنی آیت</h2>
-        <p style="font-size:1.2rem; line-height:1.8;">"اِنَّ الصَّلَاۃَ کَانَتۡ عَلَی الۡمُؤۡمِنِیۡنَ کِتَابًا مَّوۡقُوۡتًا"</p>
-        <p style="font-size:0.9rem; opacity:0.8;">"بے شک نماز مسلمانوں پر مقررہ وقت پر فرض ہے۔"</p>
-    </div>
-
-    <!-- 3. قبلہ سمت گائیڈ (نیا فیچر) -->
-    <div class="glowing-card" style="text-align:center;">
-        <h2>🧭 قبلہ رخ کی معلومات</h2>
-        <p>اپنے موبائل کا رخ مغرب کی طرف یا نقشے کے مطابق سیدھا رکھ کر نماز ادا کریں۔</p>
-    </div>
-
-    <!-- رابطہ برائے مسائل (آپ کے پرانے واٹس ایپ نمبرز اور کیٹیگری) -->
-    <div class="glowing-card" style="text-align:center;">
+    <!-- رابطہ سیکشن (پرانے نمبرز اور بٹن) -->
+    <div class="glowing-card">
         <h2 style="color:var(--primary);" id="contactTitle">رابطہ برائے مسائل</h2>
-        <button onclick="window.open('https://wa.me/923074974713')" class="btn">رابطہ: افتخار احمد (03074974713)</button>
-        <button onclick="window.open('https://wa.me/923077207097')" class="btn" style="background:#00b0ff; color:#fff;">رابطہ: حافظ عدیل احمد (03077207097)</button>
+        <button onclick="window.open('https://wa.me/923074974713')" class="btn" style="width:100%;">رابطہ: افتخار احمد (03074974713)</button>
+        <button onclick="window.open('https://wa.me/923077207097')" class="btn" style="background:#00b0ff; color:#fff; width:100%;">رابطہ: حافظ عدیل احمد (03077207097)</button>
     </div>
 </div>
 
 <script>
-    // ایپ انسٹالیشن کا سسٹم
-    let deferredPrompt;
-    window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-        document.getElementById('installCard').style.display = 'block';
-    });
-
-    function installPWA() {
-        if (deferredPrompt) {
-            deferredPrompt.prompt();
-            deferredPrompt.userChoice.then((choiceResult) => {
-                if (choiceResult.outcome === 'accepted') {
-                    document.getElementById('installCard').style.display = 'none';
-                }
-                deferredPrompt = null;
-            });
-        }
-    }
-
-    // تسبیح کا فنکشن
+    // تسبیح کا سسٹم
     let tCount = 0;
     function incrementTasbeeh() {
         tCount++;
@@ -110,7 +82,7 @@
         document.getElementById('tasbeehCount').innerText = tCount;
     }
 
-    // خودکار نماز اوقات حاصل کرنے کا فنکشن
+    // خودکار نماز اوقات
     async function fetchPrayerTimes() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(async (pos) => {
@@ -118,14 +90,11 @@
                 const lon = pos.coords.longitude;
                 const date = new Date().toISOString().slice(0, 10);
                 const url = `https://api.aladhan.com/v1/timings/${date}?latitude=${lat}&longitude=${lon}&method=2`;
-                
                 try {
                     const res = await fetch(url);
                     const data = await res.json();
                     const t = data.data.timings;
-                    
-                    document.getElementById('locationText').innerText = "آپ کا موجودہ زون / شہر: " + data.data.meta.timezone;
-                    
+                    document.getElementById('locationText').innerText = "زون: " + data.data.meta.timezone;
                     const prayers = [
                         {name: "تہجد", start: "03:00 AM", end: t.Fajr},
                         {name: "فجر", start: t.Fajr, end: "طلوع آفتاب"},
@@ -135,33 +104,22 @@
                         {name: "مغرب", start: t.Maghrib, end: t.Isha},
                         {name: "عشاء", start: t.Isha, end: "03:00 AM"}
                     ];
-
                     let html = "";
                     prayers.forEach(p => {
                         html += `<tr><td>${p.name}</td><td>${p.start}</td><td>${p.end}</td></tr>`;
                     });
                     document.getElementById('prayerTableBody').innerHTML = html;
                 } catch (err) {
-                    document.getElementById('prayerTableBody').innerHTML = `<tr><td colspan="3">انٹرنیٹ کنکشن چیک کریں، اوقات لوڈ نہیں ہو سکے۔</td></tr>`;
+                    document.getElementById('prayerTableBody').innerHTML = `<tr><td colspan="3">انٹرنیٹ کنکشن چیک کریں۔</td></tr>`;
                 }
             }, () => {
-                document.getElementById('locationText').innerText = "براہ کرم لوکیشن کی اجازت آن کریں تاکہ درست وقت آ سکے۔";
+                document.getElementById('locationText').innerText = "براہ کرم لوکیشن کی اجازت آن کریں۔";
             });
         }
     }
+    fetchPrayerTimes();
 
-    function manualLogin() {
-        const name = document.getElementById('userNameInput').value.trim();
-        if(name !== "") {
-            document.getElementById('loginOverlay').style.display = 'none';
-            document.getElementById('mainWebsite').style.display = 'block';
-            fetchPrayerTimes();
-        } else {
-            alert("براہ کرم اپنا نام درج کریں۔");
-        }
-    }
-
-    // زبان بدلنے کا فنکشن (اردو / انگلش)
+    // زبان بدلنے کا فنکشن
     let currentLang = 'ur';
     function toggleLanguage() {
         const htmlTag = document.getElementById('htmlTag');
@@ -170,8 +128,14 @@
             htmlTag.setAttribute('dir', 'ltr');
             htmlTag.setAttribute('lang', 'en');
             document.getElementById('pageTitle').innerText = "Musab bin Umair Online Academy";
-            document.getElementById('loginText').innerText = "Welcome, Please Login";
-            document.getElementById('userNameInput').placeholder = "Enter your name...";
+            document.getElementById('liveTitle').innerText = "🔴 Next Live Class Time";
+            document.getElementById('liveSub').innerText = "Time remaining for next online class:";
+            document.getElementById('liveBtn').innerText = "Join Live Class ➔";
+            document.getElementById('hadithTitle').innerText = "✨ Today's Hadith";
+            document.getElementById('hadithText').innerText = "\"The best among you are those who learn the Quran and teach it.\"";
+            document.getElementById('hadithRef').innerText = "(Sahih Bukhari)";
+            document.getElementById('academyName').innerText = "Musab bin Umair Online Academy";
+            document.getElementById('academySub').innerText = "Premium & Modern Center for Quranic & Religious Education";
             document.getElementById('prayerTitle').innerText = "🕌 Prayer Timings (Local)";
             document.getElementById('thPrayer').innerText = "Prayer";
             document.getElementById('thStart').innerText = "Start Time";
@@ -182,8 +146,14 @@
             htmlTag.setAttribute('dir', 'rtl');
             htmlTag.setAttribute('lang', 'ur');
             document.getElementById('pageTitle').innerText = "مصعب بن عمیر آن لائن اکیڈمی";
-            document.getElementById('loginText').innerText = "خوش آمدید، برائے مہربانی لاگ ان کریں";
-            document.getElementById('userNameInput').placeholder = "اپنا نام لکھیں...";
+            document.getElementById('liveTitle').innerText = "🔴 اگلی لائیو کلاس کا وقت";
+            document.getElementById('liveSub').innerText = "اگلی آن لائن کلاس شروع ہونے میں باقی وقت:";
+            document.getElementById('liveBtn').innerText = "لائیو کلاس جوائن کریں ➔";
+            document.getElementById('hadithTitle').innerText = "✨ آج کا فرمان / حدیث مبارکہ";
+            document.getElementById('hadithText').innerText = "\"تم میں سے بہترین وہ ہے جو قرآن سیکھے اور سکھائے۔\"";
+            document.getElementById('hadithRef').innerText = "(صحیح بخاری)";
+            document.getElementById('academyName').innerText = "مصعب بن عمیر آن لائن اکیڈمی";
+            document.getElementById('academySub').innerText = "قرآن پاک اور دینی تعلیم کا پریمیم و جدید مرکز";
             document.getElementById('prayerTitle').innerText = "🕌 نماز کے اوقات (مقامی وقت)";
             document.getElementById('thPrayer').innerText = "نماز";
             document.getElementById('thStart').innerText = "وقتِ شروع";
