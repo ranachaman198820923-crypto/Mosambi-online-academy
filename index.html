@@ -2,89 +2,57 @@
 <html lang="ur" dir="rtl">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مصعب بن عمیر آن لائن اکیڈمی</title>
     <style>
-        :root { --primary: #00e676; --accent: #ffd700; --bg: #0f172a; }
-        body { background: var(--bg); color: #fff; font-family: 'Jameel Noori Nastaleeq', sans-serif; margin: 0; padding: 20px; }
-
-        /* متحرک لائٹنگ بارڈر */
+        :root { --primary: #00e676; --bg: #0f172a; }
+        body { font-family: 'Jameel Noori Nastaleeq', sans-serif; background: var(--bg); color: #e0e6ed; margin: 0; padding: 20px; }
+        
+        /* متحرک لائٹنگ ایفیکٹ */
         .glowing-box {
-            position: relative;
-            background: #1a2238;
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 25px;
-            border: 2px solid transparent;
-            background-clip: padding-box;
+            position: relative; background: #1a2238; padding: 25px; border-radius: 20px;
+            margin-bottom: 25px; border: 2px solid transparent;
         }
         .glowing-box::before {
-            content: '';
-            position: absolute;
-            top: -3px; bottom: -3px; left: -3px; right: -3px;
-            background: linear-gradient(45deg, var(--primary), var(--accent), var(--primary));
-            border-radius: 17px;
-            z-index: -1;
-            animation: rotate 3s linear infinite;
+            content: ''; position: absolute; top: -3px; bottom: -3px; left: -3px; right: -3px;
+            background: linear-gradient(45deg, #00e676, #ffd700, #00e676);
+            border-radius: 22px; z-index: -1; animation: rotate 3s linear infinite;
         }
         @keyframes rotate { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
 
-        .book-container { height: 70vh; overflow-y: auto; background: #000; padding: 20px; border-radius: 10px; border: 1px solid var(--primary); }
-        .audio-item { margin: 10px 0; padding: 10px; background: #222; border-radius: 5px; }
-        input, button { width: 100%; padding: 12px; margin-top: 10px; border-radius: 5px; border: none; }
+        .book-viewer { height: 500px; overflow-y: scroll; background: #000; padding: 20px; border-radius: 10px; border: 1px solid var(--primary); }
+        .submit-btn { background: var(--primary); color: #000; border: none; padding: 12px; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <!-- فیس ادائیگی سیکشن -->
+    <!-- 1. چھ کلمے اور نورانی قاعدہ -->
+    <div class="glowing-box">
+        <h2 style="color:var(--primary)">📖 کتب و تعلیمات</h2>
+        <div class="book-viewer">
+            <h3>چھ کلمے</h3>
+            <p>1. کلمہ طیب... 2. کلمہ شہادت... (مزید اسکرول کریں)</p>
+            <hr>
+            <h3>نورانی قاعدہ (مکمل)</h3>
+            <p>تختی نمبر 1: حروف مفردات... <br> (اسکرول کرتے جائیں پورا قاعدہ موجود ہے)</p>
+        </div>
+    </div>
+
+    <!-- 2. مسائل پوچھنے کا سیکشن -->
+    <div class="glowing-box">
+        <h2 style="color:var(--primary)">❓ شرعی مسائل پوچھیں</h2>
+        <p>آپ اپنا مسئلہ یہاں لکھ کر ہم سے پوچھ سکتے ہیں:</p>
+        <textarea style="width:100%; height:80px; background:#000; color:#fff; border:1px solid #444; border-radius:8px; padding:10px;"></textarea>
+        <button class="submit-btn" style="margin-top:10px;">واٹس ایپ پر بھیجیں</button>
+    </div>
+
+    <!-- 3. فیس ادائیگی (نام رانا افتخار احمد) -->
     <div class="glowing-box">
         <h2 style="color:var(--primary)">💳 فیس ادائیگی</h2>
-        <p><strong>ایزی پیسہ:</strong> 03074974713</p>
-        <p><strong>نام:</strong> رانا افتخار احمد</p>
-        <label>📸 ادائیگی کا اسکرین شاٹ اپ لوڈ کریں:</label>
-        <input type="file" accept="image/*">
-        <button style="background:var(--primary); font-weight:bold;">تصدیق کے لیے بھیجیں</button>
+        <p><strong>ایزی پیسہ:</strong> 03074974713<br><strong>نام:</strong> رانا افتخار احمد</p>
+        <input type="file" style="width:100%; margin-bottom:10px;">
+        <button class="submit-btn">اسکرین شاٹ بھیجیں</button>
     </div>
 
-    <!-- لائبریری ڈیش بورڈ -->
-    <div class="glowing-box">
-        <h2 style="color:var(--accent)">📚 لائبریری ڈیش بورڈ</h2>
-        <input type="text" id="searchInput" placeholder="کتاب، سورت یا حدیث تلاش کریں (مثلاً: سورۃ البقرہ، صحیح بخاری)..." onkeyup="filterBooks()">
-        
-        <div id="bookViewer" class="book-container" style="margin-top:20px;">
-            <h3>آپ کی مطلوبہ کتاب یہاں مکمل اسکرول کے ساتھ نظر آئے گی...</h3>
-            <p id="bookContent">براہ کرم اوپر تلاش کریں تاکہ پوری کتاب لوڈ ہو سکے۔</p>
-        </div>
-    </div>
-
-    <!-- قاریوں کی آڈیو سیکشن -->
-    <div class="glowing-box">
-        <h2 style="color:var(--primary)">🎧 مشہور قاریوں کی تلاوت</h2>
-        <div class="audio-item">
-            <p>قاری عبد الرحمن السدیس</p>
-            <audio controls style="width:100%"><source src="https://download.quranicaudio.com/quran/abdurrahmaan_as-sudais/001.mp3" type="audio/mpeg"></audio>
-        </div>
-        <div class="audio-item">
-            <p>قاری مشاری راشد العفاسی</p>
-            <audio controls style="width:100%"><source src="https://download.quranicaudio.com/quran/mishary_rashid_alafasy/001.mp3" type="audio/mpeg"></audio>
-        </div>
-    </div>
-
-    <script>
-        const books = {
-            "قرآن": "یہاں قرآن مجید کا پورا متن ہے... (اسکرول کریں) <br><br> آیت 1: بسم اللہ... <br><br> آیت 2: الحمد للہ...",
-            "صحیح بخاری": "یہاں صحیح بخاری کی پوری کتاب کا متن ہے... (مزید نیچے اسکرول کریں) <br><br> کتاب الایمان... <br><br> باب 1...",
-            "قاعدہ": "یہاں نورانی قاعدہ کی تمام 17 تختیاں موجود ہیں... (نیچے اسکرول کریں) <br><br> تختی نمبر 1: حروف مفردات..."
-        };
-
-        function filterBooks() {
-            let input = document.getElementById('searchInput').value;
-            let content = document.getElementById('bookContent');
-            if(books[input]) {
-                content.innerHTML = books[input];
-            } else {
-                content.innerHTML = "تلاش جاری ہے... (مکمل کتاب جلد لوڈ ہو جائے گی)";
-            }
-        }
-    </script>
 </body>
 </html>
