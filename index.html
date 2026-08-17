@@ -42,18 +42,26 @@
         /* مین ویب سائٹ */
         #main-content { display: none; }
 
-        header { background: linear-gradient(135deg, var(--primary), #053b22); color: var(--accent); padding: 35px 15px; }
+        header { background: linear-gradient(135deg, var(--primary), #053b22); color: var(--accent); padding: 30px 15px; }
         header h1 { font-size: 2.2rem; margin-bottom: 5px; }
         header p { color: #fff; font-size: 1rem; }
 
-        nav { background: #053b22; display: flex; justify-content: center; gap: 15px; padding: 12px; flex-wrap: wrap; }
-        nav a, nav button { color: white; text-decoration: none; font-weight: bold; background: none; border: none; cursor: pointer; font-size: 1rem; }
-        nav button:hover, nav a:hover { color: var(--accent); }
+        /* ٹیب نیویگیشن (بڑے بٹن) */
+        nav { background: #053b22; display: flex; justify-content: center; gap: 10px; padding: 12px; flex-wrap: wrap; }
+        .tab-btn { 
+            color: white; background: rgba(255,255,255,0.1); border: 1px solid var(--accent); 
+            padding: 10px 18px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1rem; transition: 0.3s;
+        }
+        .tab-btn:hover, .tab-btn.active { background: var(--accent); color: #000; }
 
         .container { width: 90%; max-width: 900px; margin: auto; padding: 20px 0; }
         
+        /* الگ الگ صفحات/ٹیبز */
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
         .card { 
-            background: var(--card-bg); padding: 25px; margin: 20px 0; 
+            background: var(--card-bg); padding: 25px; margin: 15px 0; 
             border-radius: 12px; border-top: 4px solid var(--primary); 
             box-shadow: 0 4px 12px rgba(0,0,0,0.08); 
         }
@@ -61,16 +69,20 @@
         .btn-whatsapp { 
             display: inline-block; background: #25D366; color: white; 
             padding: 14px 28px; border-radius: 50px; text-decoration: none; 
-            font-weight: bold; font-size: 1.1rem; margin-top: 15px; 
+            font-weight: bold; font-size: 1.1rem; margin-top: 15px; border: none; cursor: pointer;
         }
 
-        .select-box {
-            width: 100%; max-width: 350px; padding: 10px; margin: 10px 0;
+        .select-box, .input-box, .textarea-box {
+            width: 100%; max-width: 400px; padding: 12px; margin: 10px 0;
             border-radius: 6px; border: 1px solid #ccc; font-size: 16px;
         }
 
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px; margin-top: 15px; }
-        .course-item { padding: 15px; border: 1px solid #ddd; border-radius: 8px; background: rgba(0,0,0,0.02); }
+        .course-item { padding: 20px; border: 1px solid #ddd; border-radius: 8px; background: rgba(0,0,0,0.02); }
+
+        .easypaisa-box {
+            background: #e8f5e9; border: 2px dashed #2e7d32; padding: 15px; border-radius: 10px; margin-top: 15px; color: #1b5e20;
+        }
 
         .fee-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
         .fee-table th, .fee-table td { padding: 12px; border: 1px solid #ddd; text-align: center; }
@@ -83,8 +95,8 @@
     <div id="login-overlay">
         <div class="login-box">
             <h2>مصعب بن عمیر آن لائن اکیڈمی</h2>
-            <p>ویب سائٹ کھولنے کے لیے پاسورڈ درج کریں:</p>
-            <input type="password" id="password-input" placeholder="پاسورڈ لکھیں">
+            <p>ویب سائٹ میں داخل ہونے کے لیے پاسورڈ درج کریں:</p>
+            <input type="password" id="password-input" placeholder="پاسورڈ (1234)">
             <button onclick="checkPassword()">لاگ ان کریں</button>
             <p id="error-msg">غلط پاسورڈ! دوبارہ کوشش کریں۔</p>
         </div>
@@ -97,105 +109,128 @@
             <p>گھر بیٹھے معیاری، تجوید کے ساتھ اور مستند دینی تعلیم حاصل کریں</p>
         </header>
 
+        <!-- ٹیب بٹنز (ہر سیکشن الگ کھولنے کے لیے) -->
         <nav>
-            <a href="#trial">مفت ٹرائل</a>
-            <a href="#quran-player">تلاوتِ قرآن</a>
-            <a href="#courses">کورسز</a>
-            <a href="#fees">فیس کاؤنٹر</a>
-            <button onclick="toggleDarkMode()">🌓 نائٹ موڈ</button>
-            <button onclick="logout()">🔑 لاگ آؤٹ</button>
+            <button class="tab-btn active" onclick="openTab('trial', this)">🎁 مفت ٹرائل</button>
+            <button class="tab-btn" onclick="openTab('quran', this)">📖 تلاوتِ قرآن</button>
+            <button class="tab-btn" onclick="openTab('courses', this)">📚 ہمارے کورسز</button>
+            <button class="tab-btn" onclick="openTab('fees', this)">💳 فیس و ایزی پیسہ</button>
+            <button class="tab-btn" onclick="openTab('masla', this)">❓ مسئلہ پوچھیں</button>
+            <button class="tab-btn" onclick="toggleDarkMode()">🌓 موڈ</button>
+            <button class="tab-btn" style="border-color: red;" onclick="logout()">🔑 لاگ آؤٹ</button>
         </nav>
 
         <div class="container">
-            <!-- 1. مفت ٹرائل کلاس -->
-            <div class="card" id="trial">
-                <h2>3 دن کی مفت ٹرائل کلاس حاصل کریں!</h2>
-                <p>تجربہ کار اور سند یافتہ اساتذہ سے آن لائن تعلیم حاصل کریں۔ ابھی داخلہ لیں!</p>
-                <a href="https://wa.me/923074974713" class="btn-whatsapp" target="_blank">💬 واٹس ایپ پر رابطہ کریں (03074974713)</a>
-            </div>
-
-            <!-- 2. تلاوتِ قرآن پاک (مکمل قرآن و تمام قاری) -->
-            <div class="card" id="quran-player">
-                <h2>تلاوتِ قرآن پاک سنیں (مکمل قرآن)</h2>
-                <p>اپنی پسند کے قاری اور سورت کا انتخاب کریں:</p>
-                
-                <div>
-                    <label><b>قاری منتخب کریں:</b></label><br>
-                    <select id="reciter-select" class="select-box" onchange="updateAudio()">
-                        <option value="https://server7.mp3quran.net/basit/">قاری عبد الباسط عبد الصمد</option>
-                        <option value="https://server11.mp3quran.net/shur/">قاری سعود الشریم</option>
-                        <option value="https://server11.mp3quran.net/sds/">قاری عبدالرحمن السدیس</option>
-                        <option value="https://server8.mp3quran.net/afs/">قاری مشاری العفاسی</option>
-                        <option value="https://server7.mp3quran.net/s_gmd/">قاری سعد الغامدی</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label><b>سورت منتخب کریں:</b></label><br>
-                    <select id="surah-select" class="select-box" onchange="updateAudio()"></select>
-                </div>
-
-                <div style="margin-top: 15px;">
-                    <audio id="quran-audio" controls style="width: 100%; max-width: 450px;">
-                        آپ کا براؤزر آڈیو کو سپورٹ نہیں کرتا۔
-                    </audio>
+            
+            <!-- 1. مفت ٹرائل ٹیب -->
+            <div id="trial" class="tab-content active">
+                <div class="card">
+                    <h2>3 دن کی مفت ٹرائل کلاس حاصل کریں!</h2>
+                    <p style="margin-top:10px;">تجربہ کار اور سند یافتہ اساتذہ سے آن لائن تعلیم حاصل کریں۔ ابھی اپنی مفت ٹرائل بک کروائیں۔</p>
+                    <a href="https://wa.me/923074974713?text=السلام%20علیکم!%20مجھے%203%20دن%20کی%20مفت%20ٹرائل%20کلاس%20چاہیے۔" class="btn-whatsapp" target="_blank">💬 واٹس ایپ پر ٹرائل حاصل کریں</a>
                 </div>
             </div>
 
-            <!-- 3. ہمارے کورسز -->
-            <div class="card" id="courses">
-                <h2>ہمارے آن لائن کورسز</h2>
-                <div class="grid">
-                    <div class="course-item">
-                        <h3>ناظرہ قرآن کریم</h3>
-                        <p>تجوید و مخارج کے بنیادی قواعد کے ساتھ قرآن پاک سیکھیں۔</p>
+            <!-- 2. تلاوتِ قرآن ٹیب -->
+            <div id="quran" class="tab-content">
+                <div class="card">
+                    <h2>تلاوتِ قرآن پاک (مکمل قرآن)</h2>
+                    <p>اپنی پسند کے قاری اور سورت کا انتخاب کریں:</p>
+                    
+                    <div style="margin-top:15px;">
+                        <label><b>قاری منتخب کریں:</b></label><br>
+                        <select id="reciter-select" class="select-box" onchange="updateAudio()">
+                            <option value="https://server7.mp3quran.net/basit/">قاری عبد الباسط عبد الصمد</option>
+                            <option value="https://server11.mp3quran.net/shur/">قاری سعود الشریم</option>
+                            <option value="https://server11.mp3quran.net/sds/">قاری عبدالرحمن السدیس</option>
+                            <option value="https://server8.mp3quran.net/afs/">قاری مشاری العفاسی</option>
+                            <option value="https://server7.mp3quran.net/s_gmd/">قاری سعد الغامدی</option>
+                        </select>
                     </div>
-                    <div class="course-item">
-                        <h3>حفظِ قرآن کریم</h3>
-                        <p>مکمل یا منتخب سورتوں کو آسان طریقے سے یاد کریں۔</p>
+
+                    <div>
+                        <label><b>سورت منتخب کریں:</b></label><br>
+                        <select id="surah-select" class="select-box" onchange="updateAudio()"></select>
                     </div>
-                    <div class="course-item">
-                        <h3>دینی معلومات و نماز</h3>
-                        <p>نماز، مسنون دعائیں، طہارت اور بنیادی اسلام سیکھیں۔</p>
+
+                    <div style="margin-top: 15px;">
+                        <audio id="quran-audio" controls style="width: 100%; max-width: 450px;"></audio>
                     </div>
                 </div>
             </div>
 
-            <!-- 4. فیس کاؤنٹر (علیحدہ) -->
-            <div class="card" id="fees">
-                <h2>فیس کاؤنٹر و تفصیلات</h2>
-                <table class="fee-table">
-                    <thead>
-                        <tr>
-                            <th>کورس کا نام</th>
-                            <th>ہفتہ وار دن</th>
-                            <th>ماہانہ فیس</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>ناظرہ قرآن (بنیادی)</td>
-                            <td>5 دن (پیر تا جمعہ)</td>
-                            <td>مناسب و معقول</td>
-                        </tr>
-                        <tr>
-                            <td>حفظِ قرآن</td>
-                            <td>5 دن (پیر تا جمعہ)</td>
-                            <td>مناسب و معقول</td>
-                        </tr>
-                        <tr>
-                            <td>دعائیں و نماز کورس</td>
-                            <td>3 دن</td>
-                            <td>خاص رعایت</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <!-- 3. کورسز ٹیب -->
+            <div id="courses" class="tab-content">
+                <div class="card">
+                    <h2>ہمارے آن لائن کورسز</h2>
+                    <div class="grid">
+                        <div class="course-item">
+                            <h3>1. ناظرہ قرآن کریم</h3>
+                            <p>تجوید و مخارج کے بنیادی قواعد کے ساتھ قرآن پاک پڑھنا سیکھیں۔</p>
+                        </div>
+                        <div class="course-item">
+                            <h3>2. حفظِ قرآن کریم</h3>
+                            <p>مکمل یا منتخب سورتوں کو آسان اور جدید طریقہ کار سے یاد کریں۔</p>
+                        </div>
+                        <div class="course-item">
+                            <h3>3. دینی معلومات و نماز</h3>
+                            <p>طہارت، مسنون دعائیں، مسنون مسائل اور مکمل نماز کی عملی تربیت۔</p>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            <!-- 4. فیس کاؤنٹر و ایزی پیسہ ٹیب -->
+            <div id="fees" class="tab-content">
+                <div class="card">
+                    <h2>فیس کاؤنٹر و ادائیگی</h2>
+                    <table class="fee-table">
+                        <thead>
+                            <tr>
+                                <th>کورس کا نام</th>
+                                <th>ہفتہ وار دن</th>
+                                <th>ماہانہ فیس</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>ناظرہ قرآن (بنیادی)</td>
+                                <td>5 دن (پیر تا جمعہ)</td>
+                                <td>مناسب و معقول</td>
+                            </tr>
+                            <tr>
+                                <td>حفظِ قرآن</td>
+                                <td>5 دن (پیر تا جمعہ)</td>
+                                <td>مناسب و معقول</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="easypaisa-box">
+                        <h3>💳 ایزی پیسہ اکاؤنٹ کی تفصیلات</h3>
+                        <p style="font-size: 18px; font-weight: bold; margin-top: 5px;">ایزی پیسہ نمبر: 03074974713</p>
+                        <p>فیس جمع کروانے کے بعد سکرین شاٹ واٹس ایپ پر شیئر کریں۔</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. مسئلہ / سوال پوچھیں ٹیب -->
+            <div id="masla" class="tab-content">
+                <div class="card">
+                    <h2>کوئی شرعی مسئلہ یا سوال پوچھیں</h2>
+                    <p>اپنا نام اور سوال نیچے لکھ کر بھیجیں۔ آپ کو براہِ راست واٹس ایپ پر جواب دے دیا جائے گا۔</p>
+                    
+                    <input type="text" id="user-name" class="input-box" placeholder="آپ کا نام"><br>
+                    <textarea id="user-question" class="textarea-box" rows="4" placeholder="اپنا مسئلہ یا سوال یہاں تحریر کریں..."></textarea><br>
+                    <button class="btn-whatsapp" onclick="sendQuestion()">📩 مسئلہ بھیجیں (واٹس ایپ)</button>
+                </div>
+            </div>
+
         </div>
     </div>
 
     <script>
-        // سورتوں کی لسٹ خودکار بنانے کا کوڈ
+        // سورتوں کی لسٹ
         const surahs = [
             "1. الفاتحة", "2. البقرة", "3. آل عمران", "4. النساء", "5. المائدة", "6. الأنعام", "7. الأعراف", "8. الأنفال", "9. التوبة", "10. يونس",
             "11. هود", "12. يوسف", "13. الرعد", "14. إبراهيم", "15. الحجر", "16. النحل", "17. الإسراء", "18. الكهف", "19. مريم", "20. طه",
@@ -205,7 +240,7 @@
             "51. الذاريات", "52. الطور", "53. النجم", "54. القمر", "55. الرحمن", "56. الواقعة", "57. الحديد", "58. المجادلة", "59. الحشر", "60. الممتحنة",
             "61. الصف", "62. الجمعة", "63. المنافقون", "64. التغابن", "65. الطلاق", "66. التحريم", "67. الملك", "68. القلم", "69. الحاقة", "70. المعارج",
             "71. نوح", "72. الجن", "73. المزمل", "74. المدثر", "75. القيامة", "76. الإنسان", "77. المرسلات", "78. النبأ", "79. النازعات", "80. عبس",
-            "81. التکوير", "82. الانفطار", "83. المطففين", "84. الانشقاق", "85. البروج", "86. الطارق", "87. الأعلى", "88. الغاشية", "89. الفجر", "90. البلد",
+            "81. التكوير", "82. الانفطار", "83. المطففين", "84. الانشقاق", "85. البروج", "86. الطارق", "87. الأعلى", "88. الغاشية", "89. الفجر", "90. البلد",
             "91. الشمس", "92. الليل", "93. الضحى", "94. الشرح", "95. التين", "96. العلق", "97. القدر", "98. البينة", "99. الزلزلة", "100. العاديات",
             "101. القارعة", "102. التكاثر", "103. العصر", "104. الهمزة", "105. الفيل", "106. قريش", "107. الماعون", "108. الكوثر", "109. الكافرون", "110. النصر",
             "111. المسد", "112. الإخلاص", "113. الفلق", "114. الناس"
@@ -225,15 +260,33 @@
             const surah = document.getElementById("surah-select").value;
             const audioPlayer = document.getElementById("quran-audio");
             audioPlayer.src = reciter + surah;
-            audioPlayer.play();
+        }
+        updateAudio();
+
+        // ٹیب تبدیل کرنے کا فنکشن
+        function openTab(tabId, btn) {
+            let contents = document.querySelectorAll('.tab-content');
+            contents.forEach(c => c.classList.remove('active'));
+            
+            let buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(b => b.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            btn.classList.add('active');
         }
 
-        // ابتدائی تلاوت سیٹ کریں
-        updateAudio();
+        // لاگ ان خودکار یاد رکھنے کا کوڈ
+        window.onload = function() {
+            if (localStorage.getItem("isLoggedIn") === "true") {
+                document.getElementById("login-overlay").style.display = "none";
+                document.getElementById("main-content").style.display = "block";
+            }
+        };
 
         function checkPassword() {
             let userPassword = document.getElementById("password-input").value;
             if (userPassword === "1234") {
+                localStorage.setItem("isLoggedIn", "true");
                 document.getElementById("login-overlay").style.display = "none";
                 document.getElementById("main-content").style.display = "block";
             } else {
@@ -241,14 +294,27 @@
             }
         }
 
+        function logout() {
+            localStorage.removeItem("isLoggedIn");
+            document.getElementById("main-content").style.display = "none";
+            document.getElementById("login-overlay").style.display = "flex";
+            document.getElementById("password-input").value = "";
+        }
+
         function toggleDarkMode() {
             document.body.classList.toggle("dark-mode");
         }
 
-        function logout() {
-            document.getElementById("main-content").style.display = "none";
-            document.getElementById("login-overlay").style.display = "flex";
-            document.getElementById("password-input").value = "";
+        // مسئلہ بھیجنے کا فنکشن
+        function sendQuestion() {
+            let name = document.getElementById("user-name").value;
+            let question = document.getElementById("user-question").value;
+            if (name === "" || question === "") {
+                alert("برائے مہربانی اپنا نام اور سوال درج کریں۔");
+                return;
+            }
+            let message = `السلام علیکم!%0Aنام: ${encodeURIComponent(name)}%0Aسوال/مسئلہ: ${encodeURIComponent(question)}`;
+            window.open(`https://wa.me/923074974713?text=${message}`, '_blank');
         }
     </script>
 
