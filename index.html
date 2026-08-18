@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مصعب بن عمیر آن لائن اکیڈمی</title>
+    <title>مصعب بن عمیر رضی اللہ عنہ آن لائن اکیڈمی</title>
     <style>
         :root {
             --primary: #00e676;
@@ -122,7 +122,7 @@
             border-radius: 0 0 20px 20px; box-shadow: var(--glow-shadow);
             margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.1);
         }
-        header h1 { margin: 0; font-size: 2.4rem; color: var(--primary); text-shadow: 0 0 15px rgba(0,230,118,0.6); }
+        header h1 { margin: 0; font-size: 2.2rem; color: var(--primary); text-shadow: 0 0 15px rgba(0,230,118,0.6); }
         header p { font-size: 1.1rem; opacity: 0.95; margin-top: 5px; color: var(--accent); }
 
         .card {
@@ -240,7 +240,7 @@
     <!-- نوٹس بورڈ (چلتی ہوئی پٹی) -->
     <div class="marquee-container">
         <marquee behavior="scroll" direction="right" scrollamount="5">
-            📢 خوش آمدید! مصعب بن عمیر آن لائن اکیڈمی میں نئے کورسز کا آغاز ہو چکا ہے۔ آج ہی داخلہ لیں اور گھر بیٹھے قرآن پاک حفظ و ناظرہ سیکھیں۔ 
+            📢 خوش آمدید! مصعب بن عمیر رضی اللہ عنہ آن لائن اکیڈمی میں نئے کورسز کا آغاز ہو چکا ہے۔ آج ہی داخلہ لیں اور گھر بیٹھے قرآن پاک حفظ و ناظرہ سیکھیں۔ 
         </marquee>
     </div>
 
@@ -270,19 +270,19 @@
         <div style="background: var(--card-bg); border-radius: 20px; box-shadow: var(--glow-shadow); margin-bottom: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
             <img src="https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=1200&q=80" alt="مدرسہ اور جامع مسجد" class="madrasa-banner">
             <header style="border-radius: 0; box-shadow: none; margin-bottom: 0; border: none;">
-                <h1 data-en="Musab bin Umair Online Academy">مصعب بن عمیر آن لائن اکیڈمی</h1>
+                <h1 data-en="Musab bin Umair (RA) Online Academy">مصعب بن عمیر رضی اللہ عنہ آن لائن اکیڈمی</h1>
                 <p data-en="Premium and modern center for Quranic and Islamic education">قرآن پاک اور دینی تعلیم کا پریمیم و جدید مرکز</p>
                 <div id="hijriDateBox" style="margin-top: 10px; font-size: 1rem; color: var(--accent); font-weight: bold;"></div>
             </header>
         </div>
 
-        <!-- اسلامی اور انگریزی مہینہ و تاریخ (خودکار تبدیل ہونے والا) -->
+        <!-- اسلامی اور انگریزی مہینہ و تاریخ -->
         <div class="countdown-box">
             <h4 id="dynamicMonthTitle" style="margin:0 0 5px 0; color:var(--accent);">⏳ موجودہ مہینہ اور تاریخ</h4>
             <p id="ramadanCountdownText" style="margin:0; font-weight: bold; font-size: 1.05rem;">معلومات لوڈ ہو رہی ہیں...</p>
         </div>
 
-        <!-- روزانہ کی مسنون دعا / ذکر (خودکار تبدیل ہونے والی) -->
+        <!-- روزانہ کی مسنون دعا / ذکر -->
         <div class="daily-dua-box">
             <h4 style="margin:0 0 5px 0; color:var(--accent);">🤲 روزانہ کی مسنون دعا / ذکر</h4>
             <p id="dailyDuaText" style="margin:0; font-size: 1.05rem; font-weight: bold;"></p>
@@ -335,7 +335,7 @@
 
             <div class="category-grid" style="margin-top: 15px;">
                 <div class="cat-btn" onclick="openPage('quranPage')" data-en="📖 Complete Holy Quran">📖 مکمل قرآن مجید</div>
-                <div class="cat-btn" onclick="openPage('tilawatPage')" data-en="🎧 Famous Reciters Audio">🎧 مشہور قاری تلاوت</div>
+                <div class="cat-btn" onclick="openPage('tilawatPage')" data-en="🎧 Famous Reciters Audio">🎧 عالمی قاری اور لہجے</div>
                 <div class="cat-btn" onclick="openPage('feePage')" data-en="💳 Fee & Payment">💳 فیس و ادائیگی</div>
             </div>
 
@@ -356,29 +356,34 @@
                 </div>
 
                 <input type="text" id="surahSearchInput" placeholder="سورت کا نام یہاں لکھ کر تلاش کریں..." onkeyup="filterSurahs()" style="margin-top: 15px;">
-                <div id="surahContainer" style="max-height: 400px; overflow-y: auto; padding: 5px; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; margin-top: 10px;">
+                <div id="searchStats" style="margin: 8px 0; font-size: 0.9rem; color: var(--accent); font-weight: bold;"></div>
+                <div id="surahContainer" style="max-height: 400px; overflow-y: auto; padding: 5px; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; margin-top: 5px;">
                     <p style="text-align: center; opacity:0.7;">سورتیں لوڈ ہو رہی ہیں...</p>
                 </div>
             </div>
 
-            <!-- قاری حضرات اور آڈیو تلاوت -->
+            <!-- قاری حضرات اور آڈیو تلاوت (عالمی قاری اور لہجے سرچ کرنے کی سہولت کے ساتھ) -->
             <div id="tilawatPage" class="sub-page">
                 <button class="back-btn" onclick="closePages()" data-en="⬅ Go Back">⬅ واپس جائیں</button>
-                <h3 style="color:var(--primary);" data-en="🎧 Famous Reciters (Audio Recitation)">🎧 مشہور قاری حضرات (آڈیو تلاوت)</h3>
+                <h3 style="color:var(--primary);" data-en="🎧 World Reciters & Various Styles">🎧 دنیا بھر کے قاری اور مختلف لہجے (آڈیو تلاوت)</h3>
+                
+                <div style="margin: 10px 0;">
+                    <label style="font-weight: bold; font-size: 0.95rem;">قاری یا لہجہ تلاش کریں (Search Reciter/Style):</label>
+                    <input type="text" id="reciterSearchInput" placeholder="مثلاً: السدیس، عبد الباسط، عجمی، یا لہجہ..." onkeyup="filterReciters()" style="margin-top: 5px;">
+                    <div id="reciterSearchStats" style="margin: 5px 0; font-size: 0.85rem; color: var(--accent); font-weight: bold;"></div>
+                </div>
+
                 <label style="font-weight: bold; font-size: 0.95rem;" data-en="Audio Speed:">آڈیو اسپیڈ (Speed):</label>
                 <select id="audioSpeed" onchange="changeAudioSpeed()">
                     <option value="1.0" style="background:#1a2238; color:#fff;">عام رفتار (1.0x)</option>
                     <option value="1.25" style="background:#1a2238; color:#fff;">تیز رفتار (1.25x)</option>
                     <option value="1.5" style="background:#1a2238; color:#fff;">مزید تیز (1.5x)</option>
                 </select>
-                <div class="list-item" style="margin-top: 10px;">
-                    <span>قاری عبد الرحمن السدیس</span>
-                    <button class="play-audio-btn" onclick="playRecitation('السدیس', 'https://server11.mp3quran.net/sds/001.mp3')" data-en="Listen 🔊">تلاوت سنیں 🔊</button>
+
+                <div id="recitersListContainer" style="max-height: 350px; overflow-y: auto; margin-top: 10px; padding-right: 5px;">
+                    <!-- ڈائنامک قاری لسٹ یہاں آئے گی -->
                 </div>
-                <div class="list-item">
-                    <span>قاری مشاری بن راشد العفاسی</span>
-                    <button class="play-audio-btn" onclick="playRecitation('العفاسی', 'https://server8.mp3quran.net/afs/001.mp3')" data-en="Listen 🔊">تلاوت سنیں 🔊</button>
-                </div>
+
                 <audio id="quranAudio" style="width:100%; margin-top:15px; display:none;" controls></audio>
             </div>
 
@@ -471,7 +476,7 @@
         </div>
 
         <footer>
-            <p data-en="&copy; 2026 Musab bin Umair Online Academy | All Rights Reserved">&copy; 2026 مصعب بن عمیر آن لائن اکیڈمی | تمام حقوق محفوظ ہیں</p>
+            <p data-en="&copy; 2026 Musab bin Umair (RA) Online Academy | All Rights Reserved">&copy; 2026 مصعب بن عمیر رضی اللہ عنہ آن لائن اکیڈمی | تمام حقوق محفوظ ہیں</p>
         </footer>
     </div>
 
@@ -515,12 +520,9 @@
             document.getElementById('dailyDuaText').innerText = dailyDuas[dayIndex];
 
             const now = new Date();
-            
-            // انگریزی / عیسوی تاریخ اور مہینہ
             const englishOptions = { day: 'numeric', month: 'long', year: 'numeric' };
             const englishDateFormatted = now.toLocaleDateString('ur-PK', englishOptions);
 
-            // اسلامی ہجری تاریخ اور مہینہ
             try {
                 const islamicOptions = { calendar: 'islamic-umalqura', day: 'numeric', month: 'long', year: 'numeric' };
                 const formatter = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', islamicOptions);
@@ -702,6 +704,7 @@
             }
             fetchPrayerTimes();
             loadDailyDuaAndDates();
+            loadGlobalReciters();
         }
 
         function manualLogin() {
@@ -755,7 +758,10 @@
 
         function displaySurahs(surahs) {
             const container = document.getElementById('surahContainer');
+            const stats = document.getElementById('searchStats');
             container.innerHTML = '';
+            stats.innerText = `کل سورتیں ظاہر ہو رہی ہیں: ${surahs.length}`;
+            
             surahs.forEach(surah => {
                 const div = document.createElement('div');
                 div.className = 'list-item';
@@ -773,6 +779,70 @@
                 s.number.toString().includes(query)
             );
             displaySurahs(filtered);
+        }
+
+        // عالمی قاری اور مختلف لہجے API سے لوڈ کرنے کا فنکشن
+        let allRecitersData = [];
+        async function loadGlobalReciters() {
+            try {
+                const res = await fetch('https://api.alquran.cloud/v1/edition?format=audio&type=versebyverse');
+                const data = await res.json();
+                if(data && data.data) {
+                    allRecitersData = data.data;
+                    displayReciters(allRecitersData);
+                }
+            } catch (e) {
+                document.getElementById('recitersListContainer').innerHTML = '<p style="color:red; text-align:center;">قاری حضرات کی فہرست لوڈ کرنے میں مسئلہ پیش آیا۔</p>';
+            }
+        }
+
+        function displayReciters(reciters) {
+            const container = document.getElementById('recitersListContainer');
+            const stats = document.getElementById('reciterSearchStats');
+            container.innerHTML = '';
+            stats.innerText = `دستياب کل قاری / لہجے: ${reciters.length}`;
+
+            reciters.forEach(reciter => {
+                const div = document.createElement('div');
+                div.className = 'list-item';
+                div.innerHTML = `
+                    <div>
+                        <strong>${reciter.name}</strong><br>
+                        <span style="font-size:0.8rem; color:var(--accent);">لہجہ/روایت: ${reciter.englishName} (${reciter.format})</span>
+                    </div>
+                    <button class="play-audio-btn" onclick="playGlobalRecitation('${reciter.identifier}', '${reciter.name}')">تلاوت سنیں 🔊</button>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function filterReciters() {
+            const query = document.getElementById('reciterSearchInput').value.toLowerCase();
+            const filtered = allRecitersData.filter(r => 
+                r.name.toLowerCase().includes(query) || 
+                r.englishName.toLowerCase().includes(query) ||
+                (r.identifier && r.identifier.toLowerCase().includes(query))
+            );
+            displayReciters(filtered);
+        }
+
+        async function playGlobalRecitation(identifier, reciterName) {
+            const audio = document.getElementById('quranAudio');
+            try {
+                const res = await fetch(`https://api.alquran.cloud/v1/ayah/1/${identifier}`);
+                const data = await res.json();
+                if(data && data.data && data.data.audio) {
+                    audio.src = data.data.audio;
+                    audio.style.display = 'block';
+                    audio.playbackRate = parseFloat(document.getElementById('audioSpeed').value);
+                    audio.play();
+                    alert(`${reciterName} کے لہجے میں تلاوت شروع ہو رہی ہے...`);
+                } else {
+                    alert("اس قاری کا آڈیو لنک دستیاب نہیں ہے۔");
+                }
+            } catch (e) {
+                alert("آڈیو پلے کرنے میں خرابی پیش آئی۔");
+            }
         }
 
         async function openFullSurah(number, name) {
@@ -817,15 +887,6 @@
 
         function closeSurahViewer() {
             document.getElementById('surahViewer').style.display = 'none';
-        }
-
-        function playRecitation(reciterName, audioUrl) {
-            const audio = document.getElementById('quranAudio');
-            audio.src = audioUrl;
-            audio.style.display = 'block';
-            audio.playbackRate = parseFloat(document.getElementById('audioSpeed').value);
-            audio.play();
-            alert(reciterName + ' کی آواز میں تلاوت شروع ہو رہی ہے...');
         }
 
         function changeAudioSpeed() {
