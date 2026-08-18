@@ -75,7 +75,7 @@
             justify-content: center;
         }
 
-        #loginOverlay {
+        #loginOverlay, #teacherSelectModal {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(15, 23, 42, 0.95);
@@ -83,6 +83,8 @@
             display: flex; justify-content: center; align-items: center;
             z-index: 10000;
         }
+        #teacherSelectModal { display: none; }
+        
         .login-box {
             background: var(--card-bg);
             color: var(--text-dark);
@@ -264,6 +266,17 @@
         </div>
     </div>
 
+    <!-- استاد منتخب کرنے کا پاپ اپ موڈل -->
+    <div id="teacherSelectModal">
+        <div class="login-box">
+            <h3 style="color:var(--primary); margin-top:0;">استاد محترم کا انتخاب کریں</h3>
+            <p style="font-size: 0.95rem;">براہ کرم رابطہ کرنے کے لیے استاد کا انتخاب کریں:</p>
+            <button class="submit-btn" style="background: linear-gradient(45deg, #00e676, #00b0ff); margin-bottom: 12px;" onclick="selectTeacher('923074974713', 'افتخار احمد')">👨‍🏫 استاد افتخار احمد<br><span style="font-size:0.85rem; color:#000;">(03074974713)</span></button>
+            <button class="submit-btn" style="background: linear-gradient(45deg, #00b0ff, #7c4dff);" onclick="selectTeacher('923077207097', 'حافظ عدیل احمد')">👨‍🏫 حافظ عدیل احمد<br><span style="font-size:0.85rem; color:#fff;">(03077207097)</span></button>
+            <button class="back-btn" style="width:100%; margin-top:10px; background:#444;" onclick="closeTeacherModal()">منسوخ کریں</button>
+        </div>
+    </div>
+
     <!-- اصل ویب سائٹ -->
     <div id="mainWebsite">
         
@@ -327,10 +340,10 @@
             <p data-en="What would you like to read or ask? Choose from the categories below:">آپ کیا پڑھنا یا پوچھنا چاہتے ہیں؟ نیچے دی گئی کیٹیگریز میں سے منتخب کریں:</p>
             
             <div class="category-grid">
-                <a href="https://wa.me/923074974713?text=السلام%20عليكم،%20میں%20حفظ%20قرآن%20کرنا%20چاہتا%20ہوں۔" target="_blank" class="cat-btn" data-en="📖 Want to Memorize Quran">📖 حفظ کرنا چاہتے ہیں</a>
-                <a href="https://wa.me/923074974713?text=السلام%20عليكم،%20میں%20ناظرہ%20قرآن%20پڑھنا%20چاہتا%20ہوں۔" target="_blank" class="cat-btn" data-en="📗 Read Nazra Quran">📗 ناظرہ قرآن پڑھیں</a>
-                <a href="https://wa.me/923074974713?text=السلام%20عليكم،%20مجھے%20نماز%20اور%20دعائیں%20سیکھنی%20ہیںـ" target="_blank" class="cat-btn" data-en="🤲 Prayers & Supplications">🤲 نماز اور دعائیں</a>
-                <a href="https://wa.me/923074974713?text=السلام%20عليكم،%20مجھے%20ایک%20مسئلہ%20پوچھنا%20ہے۔" target="_blank" class="cat-btn" data-en="❓ Ask a Question">❓ کوئی مسئلہ پوچھنا ہے</a>
+                <div class="cat-btn" onclick="promptTeacher('السلام علیکم، میں حفظ قرآن کرنا چاہتا ہوں۔')" data-en="📖 Want to Memorize Quran">📖 حفظ کرنا چاہتے ہیں</div>
+                <div class="cat-btn" onclick="promptTeacher('السلام علیکم، میں ناظرہ قرآن پڑھنا چاہتا ہوں۔')" data-en="📗 Read Nazra Quran">📗 ناظرہ قرآن پڑھیں</div>
+                <div class="cat-btn" onclick="promptTeacher('السلام علیکم، مجھے نماز اور دعائیں سیکھنی ہیں۔')" data-en="🤲 Prayers & Supplications">🤲 نماز اور دعائیں</div>
+                <div class="cat-btn" onclick="promptTeacher('السلام علیکم، مجھے ایک مسئلہ پوچھنا ہے۔')" data-en="❓ Ask a Question">❓ کوئی مسئلہ پوچھنا ہے</div>
             </div>
 
             <div class="category-grid" style="margin-top: 15px;">
@@ -469,8 +482,7 @@
                 <input type="text" id="askerName" placeholder="اپنا نام یہاں لکھیں...">
                 <textarea id="askerProblem" rows="4" placeholder="اپنا مسئلہ یا سوال یہاں تفصیل سے لکھیں..."></textarea>
                 <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px;">
-                    <button class="submit-btn" style="flex: 1; min-width: 200px;" onclick="sendWhatsApp1()">📲 واٹس ایپ 1 (افتخار احمد)</button>
-                    <button class="submit-btn" style="flex: 1; min-width: 200px; background: linear-gradient(45deg, #00b0ff, #7c4dff);" onclick="sendWhatsApp2()">📲 واٹس ایپ 2 (حافظ عدیل احمد)</button>
+                    <button class="submit-btn" style="flex: 1; min-width: 200px;" onclick="promptTeacherWithProblem()">📲 استاد سے واٹس ایپ پر مسئلہ پوچھیں</button>
                 </div>
             </div>
         </div>
@@ -483,6 +495,33 @@
     <script>
         let currentPrayerData = null;
         let isEnglish = false;
+        let pendingMessage = "";
+
+        function promptTeacher(msg) {
+            pendingMessage = msg;
+            document.getElementById('teacherSelectModal').style.display = 'flex';
+        }
+
+        function promptTeacherWithProblem() {
+            const name = document.getElementById('askerName').value.trim();
+            const problem = document.getElementById('askerProblem').value.trim();
+            if(name && problem) {
+                pendingMessage = `السلام علیکم، میرا نام ${name} ہے اور میرا یہ مسئلہ ہے: ${problem}`;
+                document.getElementById('teacherSelectModal').style.display = 'flex';
+            } else {
+                alert("براہ کرم اپنا نام اور مسئلہ دونوں خانے میں لکھیں۔");
+            }
+        }
+
+        function selectTeacher(phoneNo, teacherName) {
+            document.getElementById('teacherSelectModal').style.display = 'none';
+            const finalMsg = encodeURIComponent(`(${teacherName} صاحب) - ${pendingMessage}`);
+            window.open(`https://wa.me/${phoneNo}?text=${finalMsg}`, '_blank');
+        }
+
+        function closeTeacherModal() {
+            document.getElementById('teacherSelectModal').style.display = 'none';
+        }
 
         function toggleLanguage() {
             isEnglish = !isEnglish;
@@ -781,7 +820,6 @@
             displaySurahs(filtered);
         }
 
-        // عالمی قاری اور مختلف لہجے API سے لوڈ کرنے کا فنکشن
         let allRecitersData = [];
         async function loadGlobalReciters() {
             try {
@@ -929,28 +967,6 @@
             if(q2 && q2.value === 'correct') score++;
 
             document.getElementById('quizResultText').innerText = `🎉 آپ کا ٹیسٹ مکمل ہو گیا! آپ کے درست جوابات: ${score} میں سے 2`;
-        }
-
-        function sendWhatsApp1() {
-            const name = document.getElementById('askerName').value.trim();
-            const problem = document.getElementById('askerProblem').value.trim();
-            if(name && problem) {
-                const message = `السلام علیکم (استاد افتخار احمد صاحب)، میرا نام ${name} ہے اور میرا یہ مسئلہ ہے: ${problem}`;
-                window.open(`https://wa.me/923074974713?text=${encodeURIComponent(message)}`, '_blank');
-            } else {
-                alert("براہ کرم اپنا نام اور مسئلہ دونوں خانے میں لکھیں۔");
-            }
-        }
-
-        function sendWhatsApp2() {
-            const name = document.getElementById('askerName').value.trim();
-            const problem = document.getElementById('askerProblem').value.trim();
-            if(name && problem) {
-                const message = `السلام علیکم (حافظ عدیل احمد صاحب)، میرا نام ${name} ہے اور میرا یہ مسئلہ ہے: ${problem}`;
-                window.open(`https://wa.me/923077207097?text=${encodeURIComponent(message)}`, '_blank');
-            } else {
-                alert("براہ کرم اپنا نام اور مسئلہ دونوں خانے میں لکھیں۔");
-            }
         }
     </script>
 </body>
