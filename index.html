@@ -251,7 +251,6 @@
         <button class="action-chip" onclick="copyWebsiteLink()">🔗 لنک کاپی</button>
         <button class="action-chip" onclick="openPage('quizPage')">📝 آن لائن ٹیسٹ</button>
         <button class="action-chip" onclick="openPage('admissionPage')">📋 داخلہ فارم</button>
-        <button class="action-chip" onclick="openPage('downloadPage')">📥 ڈاؤن لوڈز</button>
         <button class="action-chip" onclick="toggleLanguage()" id="langBtn">🇬🇧 English</button>
     </div>
 
@@ -277,9 +276,9 @@
             </header>
         </div>
 
-        <!-- اسلامی مہینہ اور تاریخ (خودکار تبدیل ہونے والا) -->
+        <!-- اسلامی اور انگریزی مہینہ و تاریخ (خودکار تبدیل ہونے والا) -->
         <div class="countdown-box">
-            <h4 id="dynamicMonthTitle" style="margin:0 0 5px 0; color:var(--accent);">⏳ اسلامی مہینہ اور آج کی تاریخ</h4>
+            <h4 id="dynamicMonthTitle" style="margin:0 0 5px 0; color:var(--accent);">⏳ موجودہ مہینہ اور تاریخ</h4>
             <p id="ramadanCountdownText" style="margin:0; font-weight: bold; font-size: 1.05rem;">معلومات لوڈ ہو رہی ہیں...</p>
         </div>
 
@@ -330,8 +329,8 @@
             <div class="category-grid">
                 <a href="https://wa.me/923074974713?text=السلام%20عليكم،%20میں%20حفظ%20قرآن%20کرنا%20چاہتا%20ہوں۔" target="_blank" class="cat-btn" data-en="📖 Want to Memorize Quran">📖 حفظ کرنا چاہتے ہیں</a>
                 <a href="https://wa.me/923074974713?text=السلام%20عليكم،%20میں%20ناظرہ%20قرآن%20پڑھنا%20چاہتا%20ہوں۔" target="_blank" class="cat-btn" data-en="📗 Read Nazra Quran">📗 ناظرہ قرآن پڑھیں</a>
-                <a href="https://wa.me/923074974713?text=السلام%20عليكم،%20मुझे%20نماز%20اور%20دعائیں%20سیکھنی%20ہیںـ" target="_blank" class="cat-btn" data-en="🤲 Prayers & Supplications">🤲 نماز اور دعائیں</a>
-                <a href="https://wa.me/923074974713?text=السلام%20عليكم،%20मुझे%20ایک%20مسئلہ%20پوچھنا%20ہے۔" target="_blank" class="cat-btn" data-en="❓ Ask a Question">❓ کوئی مسئلہ پوچھنا ہے</a>
+                <a href="https://wa.me/923074974713?text=السلام%20عليكم،%20مجھے%20نماز%20اور%20دعائیں%20سیکھنی%20ہیںـ" target="_blank" class="cat-btn" data-en="🤲 Prayers & Supplications">🤲 نماز اور دعائیں</a>
+                <a href="https://wa.me/923074974713?text=السلام%20عليكم،%20مجھے%20ایک%20مسئلہ%20پوچھنا%20ہے۔" target="_blank" class="cat-btn" data-en="❓ Ask a Question">❓ کوئی مسئلہ پوچھنا ہے</a>
             </div>
 
             <div class="category-grid" style="margin-top: 15px;">
@@ -340,7 +339,7 @@
                 <div class="cat-btn" onclick="openPage('feePage')" data-en="💳 Fee & Payment">💳 فیس و ادائیگی</div>
             </div>
 
-            <!-- واٹس ایپ چینل جوائن بٹن (آفیشل لنک کے ساتھ) -->
+            <!-- واٹس ایپ چینل جوائن بٹن -->
             <div style="margin-top: 15px; text-align: center;">
                 <a href="https://whatsapp.com/channel/0029Vaf4Jxu59PwNdXYB3i0r" target="_blank" class="submit-btn" style="background: linear-gradient(45deg, #25D366, #128C7E); color: #fff; text-decoration: none; display: block; text-align: center; font-size: 1.1rem; padding: 14px;">
                     📢 الجامعہ مصعب بن عمیر رضی اللہ تعالیٰ عنہ سمبڑیال مولوالی واٹس ایپ چینل جوائن کریں
@@ -427,20 +426,6 @@
                 </div>
             </div>
 
-            <!-- ڈاؤن لوڈز سیکشن -->
-            <div id="downloadPage" class="sub-page">
-                <button class="back-btn" onclick="closePages()" data-en="⬅ Go Back">⬅ واپس جائیں</button>
-                <h3 style="color:var(--primary);" data-en="📥 Downloads Section (PDFs & Books)">📥 ڈاؤن لوڈز سیکشن (اسلامی کتب و پی ڈی ایف)</h3>
-                <div class="list-item">
-                    <span>نورانی قاعدہ (PDF)</span>
-                    <a href="#" onclick="alert('ڈاؤن لوڈ کا عمل جلد شروع ہو گا!')" class="play-audio-btn" style="text-decoration:none;" data-en="Download 📥">ڈاؤن لوڈ 📥</a>
-                </div>
-                <div class="list-item">
-                    <span>مسنون دعاؤں کاچہ (PDF)</span>
-                    <a href="#" onclick="alert('ڈاؤن لوڈ کا عمل جلد شروع ہو گا!')" class="play-audio-btn" style="text-decoration:none;" data-en="Download 📥">ڈاؤن لوڈ 📥</a>
-                </div>
-            </div>
-
             <!-- آن لائن ٹیسٹ اور کوئز کا صفحہ -->
             <div id="quizPage" class="sub-page">
                 <button class="back-btn" onclick="closePages()" data-en="⬅ Go Back">⬅ واپس جائیں</button>
@@ -494,7 +479,6 @@
         let currentPrayerData = null;
         let isEnglish = false;
 
-        // اردو سے انگریزی اور انگریزی سے اردو زبان بدلنے کا فنکشن
         function toggleLanguage() {
             isEnglish = !isEnglish;
             const langBtn = document.getElementById('langBtn');
@@ -518,7 +502,6 @@
             });
         }
 
-        // روزانہ خودکار تبدیل ہونے والی مسنون دعائیں
         const dailyDuas = [
             "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ (البقرہ: 201)",
             "اللَّهُمَّ إِنِّى أَسْأَلُكَ عِلْمًا نَافِعًا، وَرِزْقًا طَيِّبًا، وَعَمَلاً مُتَقَبَّلاً",
@@ -527,34 +510,37 @@
             "رَبِّ اغْفِرْ وَارْحَمْ وَأَنْتَ خَيْرُ الرَّاحِمِينَ (المؤمنون: 118)"
         ];
 
-        function loadDailyDuaAndHijri() {
-            // دن کے حساب سے دعا سیٹ کرنا
+        function loadDailyDuaAndDates() {
             const dayIndex = new Date().getDate() % dailyDuas.length;
             document.getElementById('dailyDuaText').innerText = dailyDuas[dayIndex];
 
-            // اسلامی ہجری تاریخ اور مہینے کا خودکار نظام (روزانہ بدلنے والا)
+            const now = new Date();
+            
+            // انگریزی / عیسوی تاریخ اور مہینہ
+            const englishOptions = { day: 'numeric', month: 'long', year: 'numeric' };
+            const englishDateFormatted = now.toLocaleDateString('ur-PK', englishOptions);
+
+            // اسلامی ہجری تاریخ اور مہینہ
             try {
-                const options = { calendar: 'islamic-umalqura', day: 'numeric', month: 'long', year: 'numeric' };
-                const formatter = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', options);
-                const parts = formatter.formatToParts(new Date());
+                const islamicOptions = { calendar: 'islamic-umalqura', day: 'numeric', month: 'long', year: 'numeric' };
+                const formatter = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', islamicOptions);
+                const parts = formatter.formatToParts(now);
                 
                 let currentHijriMonth = "";
-                let fullHijriDateFormatted = formatter.format(new Date());
+                let fullHijriDateFormatted = formatter.format(now);
 
                 for (let part of parts) {
                     if (part.type === 'month') currentHijriMonth = part.value;
                 }
 
                 document.getElementById('hijriDateBox').innerText = `🌙 اسلامی تاریخ: ${fullHijriDateFormatted}`;
-
-                // متحرک مہینے اور روزانہ کی تاریخ کاؤنٹ ڈاؤن باکس میں
                 document.getElementById('dynamicMonthTitle').innerText = `⏳ موجودہ اسلامی مہینہ: ${currentHijriMonth}`;
-                document.getElementById('ramadanCountdownText').innerText = `📅 آج کی تاریخ: ${fullHijriDateFormatted} | اکیڈمی میں ماہِ ${currentHijriMonth} کی مبارک ساعتیں جاری ہیں۔`;
+                document.getElementById('ramadanCountdownText').innerText = `🌙 ہجری: ${fullHijriDateFormatted} | 📅 عیسوی: ${englishDateFormatted}`;
 
             } catch (e) {
                 document.getElementById('hijriDateBox').innerText = `🌙 اسلامی اکیڈمی پورٹل`;
-                document.getElementById('dynamicMonthTitle').innerText = `⏳ اسلامی مہینہ اور تاریخ`;
-                document.getElementById('ramadanCountdownText').innerText = `🌙 عبادت اور قرآن سیکھنے کا بہترین وقت!`;
+                document.getElementById('dynamicMonthTitle').innerText = `⏳ موجودہ مہینہ اور تاریخ`;
+                document.getElementById('ramadanCountdownText').innerText = `📅 عیسوی تاریخ: ${englishDateFormatted}`;
             }
         }
 
@@ -715,7 +701,7 @@
                 activateUser(savedUser);
             }
             fetchPrayerTimes();
-            loadDailyDuaAndHijri();
+            loadDailyDuaAndDates();
         }
 
         function manualLogin() {
@@ -743,7 +729,7 @@
         }
 
         function closePages() {
-            const pages = ['quranPage', 'tilawatPage', 'feePage', 'quizPage', 'admissionPage', 'downloadPage'];
+            const pages = ['quranPage', 'tilawatPage', 'feePage', 'quizPage', 'admissionPage'];
             pages.forEach(id => {
                 document.getElementById(id).style.display = 'none';
             });
