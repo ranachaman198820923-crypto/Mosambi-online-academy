@@ -277,10 +277,10 @@
             </header>
         </div>
 
-        <!-- رمضان اور اگلی بابرکت گھڑی کا کاؤنٹ ڈاؤن -->
+        <!-- اسلامی مہینہ اور تاریخ (خودکار تبدیل ہونے والا) -->
         <div class="countdown-box">
-            <h4 style="margin:0 0 5px 0; color:var(--accent);">⏳ رمضان المبارک کاؤنٹ ڈاؤن</h4>
-            <p id="ramadanCountdownText" style="margin:0; font-weight: bold; font-size: 1.05rem;">لینڈنگ ٹائم لوڈ ہو رہا ہے...</p>
+            <h4 id="dynamicMonthTitle" style="margin:0 0 5px 0; color:var(--accent);">⏳ اسلامی مہینہ اور آج کی تاریخ</h4>
+            <p id="ramadanCountdownText" style="margin:0; font-weight: bold; font-size: 1.05rem;">معلومات لوڈ ہو رہی ہیں...</p>
         </div>
 
         <!-- روزانہ کی مسنون دعا / ذکر (خودکار تبدیل ہونے والی) -->
@@ -340,10 +340,10 @@
                 <div class="cat-btn" onclick="openPage('feePage')" data-en="💳 Fee & Payment">💳 فیس و ادائیگی</div>
             </div>
 
-            <!-- واٹس ایپ کمیونٹی گروپ جوائن بٹن -->
+            <!-- واٹس ایپ چینل جوائن بٹن (آفیشل لنک کے ساتھ) -->
             <div style="margin-top: 15px; text-align: center;">
-                <a href="https://chat.whatsapp.com/YOUR_COMMUNITY_LINK_HERE" target="_blank" class="submit-btn" style="background: linear-gradient(45deg, #25D366, #128C7E); color: #fff; text-decoration: none; display: block; text-align: center; font-size: 1.1rem; padding: 14px;">
-                    📢 جوائن واٹس ایپ کمیونٹی گروپ (Join WhatsApp Community)
+                <a href="https://whatsapp.com/channel/0029Vaf4Jxu59PwNdXYB3i0r" target="_blank" class="submit-btn" style="background: linear-gradient(45deg, #25D366, #128C7E); color: #fff; text-decoration: none; display: block; text-align: center; font-size: 1.1rem; padding: 14px;">
+                    📢 الجامعہ مصعب بن عمیر رضی اللہ تعالیٰ عنہ سمبڑیال مولوالی واٹس ایپ چینل جوائن کریں
                 </a>
             </div>
 
@@ -532,26 +532,29 @@
             const dayIndex = new Date().getDate() % dailyDuas.length;
             document.getElementById('dailyDuaText').innerText = dailyDuas[dayIndex];
 
-            // اسلامی ہجری تاریخ معلوم کرنا
+            // اسلامی ہجری تاریخ اور مہینے کا خودکار نظام (روزانہ بدلنے والا)
             try {
                 const options = { calendar: 'islamic-umalqura', day: 'numeric', month: 'long', year: 'numeric' };
-                const hijriDate = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', options).format(new Date());
-                document.getElementById('hijriDateBox').innerText = `🌙 اسلامی تاریخ: ${hijriDate}`;
+                const formatter = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', options);
+                const parts = formatter.formatToParts(new Date());
+                
+                let currentHijriMonth = "";
+                let fullHijriDateFormatted = formatter.format(new Date());
+
+                for (let part of parts) {
+                    if (part.type === 'month') currentHijriMonth = part.value;
+                }
+
+                document.getElementById('hijriDateBox').innerText = `🌙 اسلامی تاریخ: ${fullHijriDateFormatted}`;
+
+                // متحرک مہینے اور روزانہ کی تاریخ کاؤنٹ ڈاؤن باکس میں
+                document.getElementById('dynamicMonthTitle').innerText = `⏳ موجودہ اسلامی مہینہ: ${currentHijriMonth}`;
+                document.getElementById('ramadanCountdownText').innerText = `📅 آج کی تاریخ: ${fullHijriDateFormatted} | اکیڈمی میں ماہِ ${currentHijriMonth} کی مبارک ساعتیں جاری ہیں۔`;
+
             } catch (e) {
                 document.getElementById('hijriDateBox').innerText = `🌙 اسلامی اکیڈمی پورٹل`;
-            }
-
-            // رمضان کاؤنٹ ڈاؤن (فرض کریں اگلا رمضان تخمینہ)
-            const now = new Date();
-            let ramadanYear = now.getFullYear();
-            // تخمینہ رمضان تاریخ 2026/2027
-            const ramadanDate = new Date(ramadanYear, 1, 18); // تخمینہ
-            const diffTime = ramadanDate - now;
-            if(diffTime > 0) {
-                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                document.getElementById('ramadanCountdownText').innerText = `🌙 اگلے رمضان المبارک میں تقریباً ${diffDays} دن باقی ہیں!`;
-            } else {
-                document.getElementById('ramadanCountdownText').innerText = `🌙 رمضان المبارک کا بابرکت مہینہ جاری ہے!`;
+                document.getElementById('dynamicMonthTitle').innerText = `⏳ اسلامی مہینہ اور تاریخ`;
+                document.getElementById('ramadanCountdownText').innerText = `🌙 عبادت اور قرآن سیکھنے کا بہترین وقت!`;
             }
         }
 
