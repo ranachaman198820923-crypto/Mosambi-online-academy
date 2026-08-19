@@ -91,7 +91,6 @@
         .ayah-card { background: rgba(255,255,255,0.05); padding: 15px; margin: 10px 0; border-radius: 10px; font-size: 1.3rem; line-height: 2.2; }
         .trans-text { color: var(--accent); font-size: 1rem; display: none; margin-top: 5px; border-top: 1px dashed rgba(255,255,255,0.2); padding-top: 5px; }
 
-        /* خفیہ اے آئی پینل سٹائل */
         #secretAIPanel { display: none; background: #1e1b4b; border: 3px dashed var(--accent); padding: 20px; border-radius: 15px; margin-top: 25px; box-shadow: 0 0 25px rgba(255,215,0,0.3); }
     </style>
 </head>
@@ -103,11 +102,12 @@
         </marquee>
     </div>
 
+    <!-- ٹاپ بار (جس میں آنکھ کا خفیہ نشان اور دیگر بٹن ہیں) -->
     <div class="top-bar">
+        <button class="chip" onclick="openViewerTracker()" title="وزٹرز کی ہسٹری دیکھیں" style="background:var(--accent); color:#000;">👁️ ویورز</button>
         <button class="chip" onclick="navigator.clipboard.writeText(window.location.href); alert('لنک کاپی ہو گیا!');">🔗 لنک کاپی</button>
         <button class="chip" onclick="toggleTheme()">🌙 تھیم بدلو</button>
-        <!-- یہاں ڈبل کلک کرنے سے خفیہ پاسورڈ مانگا جائے گا -->
-        <button class="chip" ondblclick="openSecretAIPanel()" style="background:var(--accent); color:#000;" title="خفیہ اے آئی کھولنے کے لیے ڈبل کلک کریں">⚙️ خفیہ اے آئی پینل (ডبل کلک)</button>
+        <button class="chip" ondblclick="openSecretAIPanel()" style="background:#1e1b4b; color:var(--accent);">⚙️ اے آئی پینل</button>
     </div>
 
     <!-- لاگ ان -->
@@ -179,7 +179,7 @@
             </div>
         </div>
 
-        <!-- 🔗 واٹس ایپ گروپ سیکشن (یہاں واٹس ایپ گروپ لنک خود بخود ظاہر یا ایڈٹ ہوگا) -->
+        <!-- 🔗 واٹس ایپ گروپ سیکشن -->
         <div class="section-card" id="whatsappGroupCard" style="border-color: #25d366; display: none;">
             <h3 class="section-title" style="color: #25d366;">💬 اکیڈمی کا آفیشل واٹس ایپ گروپ</h3>
             <p>ہمارے واٹس ایپ گروپ میں شامل ہونے کے لیے نیچے دیے گئے بٹن پر کلک کریں:</p>
@@ -220,19 +220,17 @@
         </div>
 
 
-        <!-- ================= خفیہ اے آئی ایڈیٹر ڈبہ (صرف پاسورڈ سے ظاہر ہوگا) ================= -->
+        <!-- ================= خفیہ اے آئی ایڈیٹر ڈبہ ================= -->
         <div id="secretAIPanel">
             <h3 style="margin-top:0; color:var(--accent);">🤖 رانا چمن کا ماسٹر لائیو AI ایڈیٹر</h3>
-            <p style="font-size:0.9rem; line-height:1.6;">یہاں جو چاہیں حکم لکھیں (مثلاً: *"میرا واٹس ایپ گروپ کا لنک https://chat.whatsapp.com/... یہاں لگا دو"* یا *"بیک گراؤنڈ نیا سٹائل کر دو"*):</p>
+            <p style="font-size:0.9rem; line-height:1.6;">یہاں جو چاہیں حکم لکھیں (مثلاً واٹس ایپ گروپ کا لنک یا نیا سٹائل):</p>
             <textarea id="aiCommandInput" class="input-box" rows="3" placeholder="اپنا حکم یہاں اردو یا انگلش میں لکھیں..."></textarea>
-            <button class="main-btn" style="background:var(--accent); color:#000;" onclick="runSmartAIUpdate()">اے آئی سے کوڈ میں تبدیلی کروائیں ⚡</button>
+            <button class="main-btn" style="background:var(--accent); color:#000;" onclick="runSmartAIUpdate()">تبدیلی کروائیں ⚡</button>
             <button class="main-btn" style="background:#444; margin-top:8px;" onclick="document.getElementById('secretAIPanel').style.display='none'">بند کریں ❌</button>
         </div>
 
 
         <!-- ================= SUB PAGES ================= -->
-
-        <!-- قرآن انڈیکس -->
         <div id="quranIndexPage" class="sub-page">
             <button class="back-btn" onclick="closeAllPages()">⬅ مین مینو پر واپس جائیں</button>
             <h3 style="color:var(--primary)">📖 مکمل قرآن مجید (114 سورتیں)</h3>
@@ -241,7 +239,6 @@
             </div>
         </div>
 
-        <!-- آڈیو صفحہ -->
         <div id="audioPage" class="sub-page">
             <button class="back-btn" onclick="closeAllPages()">⬅ مین مینو پر واپس جائیں</button>
             <h3 style="color:var(--primary)">🎧 آڈیو تلاوت قرآن</h3>
@@ -255,16 +252,14 @@
             <audio id="mainAudio" controls style="width:100%; margin-top:15px; display:none;"></audio>
         </div>
 
-        <!-- سٹوڈنٹ ٹیسٹ صفحہ -->
         <div id="studentTestPage" class="sub-page">
             <button class="back-btn" onclick="closeAllPages()">⬅ مین مینو پر واپس جائیں</button>
             <h3 style="color:var(--primary)">📝 آن لائن ٹیسٹ سکرین</h3>
             <div id="activeTestArea" style="background:rgba(255,255,255,0.04); padding:15px; border-radius:10px;">
-                <p>کوئی نیا ٹیسٹ فی الحال موجود نہیں۔ استاد محترم ڈیش بورڈ سے ٹیسٹ جاری کریں گے۔</p>
+                <p>کوئی نیا ٹیسٹ فی الحال موجود نہیں۔</p>
             </div>
         </div>
 
-        <!-- داخلہ فارم -->
         <div id="admissionPage" class="sub-page">
             <button class="back-btn" onclick="closeAllPages()">⬅ واپس جائیں</button>
             <h3 style="color:var(--primary)">📋 داخلہ فارم</h3>
@@ -273,34 +268,17 @@
             <button class="main-btn" onclick="submitAdmission()">واٹس ایپ پر داخلہ بھیجیں 📲</button>
         </div>
 
-        <!-- فیس صفحہ -->
         <div id="feePage" class="sub-page">
             <button class="back-btn" onclick="closeAllPages()">⬅ واپس جائیں</button>
             <h3 style="color:var(--accent); text-align:center;">💳 اکاؤنٹ کی تفصیلات</h3>
             <p style="text-align:center; font-size:1.2rem;">نام: <strong>رانا افتخار احمد</strong><br>ایزی پیسہ اکاؤنٹ: <strong>03074974713</strong></p>
         </div>
 
-        <!-- سوال صفحہ -->
         <div id="questionPage" class="sub-page">
             <button class="back-btn" onclick="closeAllPages()">⬅ واپس جائیں</button>
             <h3 style="color:var(--primary)">❓ استاد سے مسئلہ پوچھیں</h3>
             <textarea id="questionText" class="input-box" rows="4" placeholder="اپنا سوال یا مسئلہ یہاں تفصیل سے لکھیں..."></textarea>
             <button class="main-btn" onclick="sendQuestion()">استاد کو واٹس ایپ پر بھیجیں</button>
-        </div>
-
-
-        <!-- ================= ایڈمن کوئز کریٹر پینل (خفیہ) ================= -->
-        <div id="adminQuizModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:30000; justify-content:center; align-items:center; overflow-y:auto; padding:20px;">
-            <div class="login-box" style="max-width:500px;">
-                <h3 style="color:var(--accent)">⚙️ ایڈمن کوئز / ٹیسٹ میکر ڈیش بورڈ</h3>
-                <p style="font-size:0.9rem;">یہاں نیا سوال لکھیں جو بچوں کے ٹیسٹ باکس میں شو ہو گا:</p>
-                <input type="text" id="adminQ" class="input-box" placeholder="سوال درج کریں (مثلاً: وضو کے کتنے فرض ہیں؟)">
-                <input type="text" id="adminOpt1" class="input-box" placeholder="آپشن 1 (مثلاً: تین)">
-                <input type="text" id="adminOpt2" class="input-box" placeholder="آپشن 2 (مثلاً: چار)">
-                <input type="text" id="adminOpt3" class="input-box" placeholder="آپشن 3 (مثلاً: پانچ)">
-                <button class="main-btn" style="background:var(--accent); color:#000;" onclick="publishTestToStudents()">ٹیسٹ پبلش کریں 🚀</button>
-                <button class="main-btn" style="background:#444; margin-top:10px;" onclick="document.getElementById('adminQuizModal').style.display='none'">بند کریں</button>
-            </div>
         </div>
 
         <footer style="text-align:center; padding:20px; margin-top:30px; opacity:0.7; font-size:0.9rem;">
@@ -322,19 +300,21 @@
 
         window.onload = function() {
             let user = localStorage.getItem('academy_user');
-            if(user) { activateWebsite(user); }
-            else { document.getElementById('loginOverlay').style.display = 'flex'; }
+            if(user) { 
+                activateWebsite(user); 
+                trackVisitor(user); // وزٹر ٹریک کریں جب نام موجود ہو
+            } else { 
+                document.getElementById('loginOverlay').style.display = 'flex'; 
+            }
             
             let savedNotice = localStorage.getItem('academy_notice');
             if(savedNotice) document.getElementById('noticeDisplay').innerText = savedNotice;
 
-            // پرانی محفوظ شدہ اے آئی تبدیلیاں اور واٹس ایپ گروپ لوڈ کریں
             let savedAIStyle = localStorage.getItem('custom_ai_css');
             if(savedAIStyle) { document.getElementById('dynamicStyle').innerHTML += `\n` + savedAIStyle; }
 
             let savedGroupLink = localStorage.getItem('academy_whatsapp_group');
             if(savedGroupLink) {
-                document.getElementById('whatsappGroupLinkBtn.href').href = savedGroupLink; // handled via direct assignment below
                 let btn = document.getElementById('whatsappGroupLinkBtn');
                 btn.href = savedGroupLink;
                 document.getElementById('whatsappGroupCard').style.display = 'block';
@@ -344,10 +324,47 @@
             loadActiveTestForStudent();
         };
 
+        // 👁️ وزٹر ٹریکنگ سسٹم (نام، تاریخ اور وقت محفوظ کرنے کے لیے)
+        function trackVisitor(name) {
+            let visitors = JSON.parse(localStorage.getItem('academy_visitors_log') || '[]');
+            let now = new Date();
+            let dateStr = now.toLocaleDateString('ur-PK'); // تاریخ
+            let timeStr = now.toLocaleTimeString('ur-PK'); // وقت
+            
+            // چیک کریں کہ ایک ہی بندہ بار بار ایک منٹ میں نہ ریکارڈ ہو جائے، یا ہر بار نیا ویو سیو ہو
+            visitors.push({
+                name: name,
+                date: dateStr,
+                time: timeStr
+            });
+            localStorage.setItem('academy_visitors_log', JSON.stringify(visitors));
+        }
+
+        // 👁️ آنکھ والے بٹن کا فنکشن (پاسورڈ مانگ کر وزٹرز دکھانے کے لیے)
+        function openViewerTracker() {
+            let pass = prompt("خفیہ وزٹرز لسٹ دیکھنے کے لیے پاسورڈ درج کریں:");
+            if(pass === "chaman786") {
+                let visitors = JSON.parse(localStorage.getItem('academy_visitors_log') || '[]');
+                if(visitors.length === 0) {
+                    alert("ابھی تک کسی نے ویب سائٹ نہیں دیکھی۔");
+                    return;
+                }
+                
+                let report = "👁️ ویب سائٹ وزٹرز کی مکمل ہسٹری:\n\n";
+                visitors.forEach((v, index) => {
+                    report += `${index + 1}. نام: ${v.name}\n   📅 تاریخ: ${v.date}\n   ⏰ وقت: ${v.time}\n-------------------\n`;
+                });
+                alert(report);
+            } else {
+                alert("غلط پاسورڈ!");
+            }
+        }
+
         function loginUser() {
             let name = document.getElementById('userNameInput').value.trim();
             if(name) {
                 localStorage.setItem('academy_user', name);
+                trackVisitor(name); // لاگ ان کرتے ہی ویو سیو ہو جائے گا
                 activateWebsite(name);
             } else { alert('پہلے اپنا نام لکھیں!'); }
         }
@@ -393,7 +410,6 @@
             } else { alert("غلط پاسورڈ!"); }
         }
 
-        // خفیہ اے آئی پینل پاسورڈ کے ساتھ ظاہر کرنے کا فنکشن
         function openSecretAIPanel() {
             let pass = prompt("خفیہ اے آئی پینل کھولنے کے لیے پاسورڈ درج کریں:");
             if(pass === "chaman786") {
@@ -479,7 +495,6 @@
             audio.play().catch(e => alert("آڈیو چلانے میں مسئلہ ہے، براہ کرم دوبارہ کوشش کریں۔"));
         }
 
-        // یہ سمارٹ اے آئی فنکشن آپ کے لکھے گئے ہر حکم (جیسے واٹس ایپ گروپ لنک یا کوئی بھی کوڈ) کو خود بخود ویب سائٹ میں فٹ کر دیتا ہے
         function runSmartAIUpdate() {
             let cmd = document.getElementById('aiCommandInput').value.trim();
             if(!cmd) {
@@ -488,10 +503,7 @@
             }
 
             let lower = cmd.toLowerCase();
-
-            // چیک کریں کہ کیا یوزر نے واٹس ایپ گروپ کا لنک یا نام دیا ہے
             if(lower.includes('واٹس ایپ') || lower.includes('whatsapp') || lower.includes('group') || lower.includes('گروپ') || lower.includes('http')) {
-                // لنک نکالنے کی کوشش کریں
                 let words = cmd.split(' ');
                 let linkFound = words.find(w => w.startsWith('http') || w.includes('whatsapp.com'));
                 
@@ -503,26 +515,19 @@
                     document.getElementById('whatsappGroupLinkBtn').href = linkFound;
                     document.getElementById('whatsappGroupCard').style.display = 'block';
                     localStorage.setItem('academy_whatsapp_group', linkFound);
-                    alert("ماشاءاللہ! واٹس ایپ گروپ کا لنک کامیابی سے ویب سائٹ کے اندر ایڈ کر دیا گیا ہے!");
+                    alert("ماشاءاللہ! واٹس ایپ گروپ کا لنک کامیابی سے ایڈ کر دیا گیا ہے!");
                 } else {
-                    alert("لنک درست نہیں ملا، براہ کرم لنک کے ساتھ دوبارہ کوشش کریں۔");
+                    alert("لنک درست نہیں ملا۔");
                 }
             } else {
-                // اگر کوئی اور سٹائل یا تبدیلی کا حکم ہو
                 let customStyle = cmd;
                 document.getElementById('dynamicStyle').innerHTML += `\n` + customStyle;
                 localStorage.setItem('custom_ai_css', customStyle);
-                alert("ماشاءاللہ! آپ کا حکم ویب سائٹ پر لاگو کر دیا گیا ہے!");
+                alert("ماشاءاللہ! آپ کا حکم لاگو کر دیا گیا ہے!");
             }
 
             document.getElementById('aiCommandInput').value = "";
             document.getElementById('secretAIPanel').style.display = 'none';
-        }
-
-        function openAdminQuizPanel() {
-            if(prompt("ایڈمن پاسورڈ درج کریں:") === "chaman786") {
-                document.getElementById('adminQuizModal').style.display = 'flex';
-            } else { alert("غلط پاسورڈ!"); }
         }
 
         function publishTestToStudents() {
@@ -535,7 +540,6 @@
                 let testData = { q, options: [o1, o2, o3] };
                 localStorage.setItem('academy_active_test', JSON.stringify(testData));
                 alert("ٹیسٹ کامیابی سے پبلش کر دیا گیا ہے!");
-                document.getElementById('adminQuizModal').style.display = 'none';
                 loadActiveTestForStudent();
             } else { alert("سوال اور کم از کم دو آپشنز لازمی لکھیں!"); }
         }
@@ -547,7 +551,7 @@
                 let test = JSON.parse(savedTest);
                 window.currentTestQuestion = test.q;
                 let html = `<h4 style="color:var(--accent);">${test.q}</h4>`;
-                test.options.forEach((opt, idx) => {
+                test.options.forEach((opt) => {
                     if(opt) {
                         html += `<label style="display:block; margin:8px 0; cursor:pointer;"><input type="radio" name="studentAns" value="${opt}"> ${opt}</label>`;
                     }
