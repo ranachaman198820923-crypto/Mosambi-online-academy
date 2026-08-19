@@ -220,7 +220,7 @@
             padding: 6px 20px; border-radius: 8px; display: inline-block; margin: 10px 0;
             border: 1px solid #ff5252;
         }
-        input[type="text"], input[type="file"], textarea, select {
+        input[type="text"], input[type="file"], input[type="password"], textarea, select {
             width: 100%; padding: 12px; margin: 8px 0; border: 1px solid rgba(255,255,255,0.2);
             border-radius: 8px; font-size: 1rem; box-sizing: border-box; text-align: right;
             font-family: inherit; background: rgba(255,255,255,0.05); color: var(--text-dark);
@@ -294,12 +294,21 @@
             </header>
         </div>
 
-        <!-- نیا واٹس ایپ کنٹرولڈ نوٹس بورڈ سیکشن -->
+        <!-- واٹس ایپ پاسورڈ سے محفوظ نوٹس بورڈ سیکشن -->
         <div class="card" style="border-right-color: #25D366; background: rgba(37, 211, 102, 0.05);">
-            <h3 style="color: #25D366; margin-top:0;">📢 واٹس ایپ کنٹرولڈ نوٹس بورڈ</h3>
-            <p style="font-size: 0.9rem; opacity: 0.9;">یہاں نیا نوٹس لکھ کر واٹس ایپ کے ذریعے اکیڈمی گروپ یا استاد کو بھیجیں اور کنٹرول کریں:</p>
-            <textarea id="whatsappNoticeInput" rows="3" placeholder="نوٹس بورڈ کے لیے نیا پیغام یہاں تحریر کریں..."></textarea>
-            <button class="submit-btn" style="background: linear-gradient(45deg, #25D366, #128C7E); color: #fff;" onclick="sendNoticeViaWhatsApp()">واٹس ایپ پر نوٹس اپڈیٹ کریں 📲</button>
+            <h3 style="color: #25D366; margin-top:0;">📢 واٹس ایپ کنٹرولڈ نوٹس بورڈ (صرف منتظم کے لیے)</h3>
+            <p style="font-size: 0.9rem; opacity: 0.9;">نوٹس تبدیل کرنے کے لیے پہلے پاسورڈ درج کریں:</p>
+            
+            <div id="noticeLockBox">
+                <input type="password" id="adminNoticePassword" placeholder="منتظم کا خفیہ پاسورڈ درج کریں...">
+                <button class="submit-btn" style="background: #444; color: #fff;" onclick="verifyNoticeAdmin()">پاسورڈ تصدیق کریں 🔓</button>
+            </div>
+
+            <div id="noticeEditorArea" style="display:none; margin-top: 10px;">
+                <p style="color: var(--primary); font-size: 0.85rem; font-weight: bold;">✅ رسائی منظور ہو گئی ہے! اب نیا نوٹس لکھیں:</p>
+                <textarea id="whatsappNoticeInput" rows="3" placeholder="نوٹس بورڈ کے لیے نیا پیغام یہاں تحریر کریں..."></textarea>
+                <button class="submit-btn" style="background: linear-gradient(45deg, #25D366, #128C7E); color: #fff;" onclick="sendNoticeViaWhatsApp()">واٹس ایپ پر نوٹس اپڈیٹ کریں 📲</button>
+            </div>
         </div>
 
         <!-- اسلامی اور انگریزی مہینہ و تاریخ -->
@@ -381,8 +390,8 @@
                     🎧 عالمی قاری اور لہجے
                 </div>
                 <div class="cat-btn" onclick="openPage('feePage')" data-en="💳 Fee & Payment">
-                    <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=400&q=80" alt="فیس و ادائیگی">
-                    💳 فیس و ادائیگی
+                    <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=400&q=80" alt="دینی اسباق و فیس">
+                    💳 فیس و معاونت
                 </div>
             </div>
 
@@ -432,7 +441,7 @@
                 <audio id="quranAudio" style="width:100%; margin-top:15px; display:none;" controls></audio>
             </div>
 
-            <!-- فیس اور ادائیگی -->
+            <!-- فیس اور ادائیگی (دینی اسباق کے ساتھ) -->
             <div id="feePage" class="sub-page">
                 <button class="back-btn" onclick="closePages()" data-en="⬅ Go Back">⬅ واپس جائیں</button>
                 <div class="easypaisa-box">
@@ -446,6 +455,18 @@
                         <p style="color: #000; font-size: 0.85rem; margin: 5px 0 0 0; font-weight: bold;">ایزی پیسہ اسکین کیو آر کوڈ</p>
                     </div>
                 </div>
+                
+                <!-- دینی اسباق اور تعلیمی تفصیلات -->
+                <div style="margin-top: 20px; background: rgba(255,255,255,0.03); border: 1px solid var(--primary); padding: 15px; border-radius: 10px;">
+                    <h4 style="color:var(--primary); margin-top:0;">📚 طالب علم کے روزانہ کے دینی اسباق کی تفصیل</h4>
+                    <p style="font-size: 0.95rem; line-height: 1.8;">
+                        • ناظرہ و حفظ قرآن پاک کا روزانہ سبق<br>
+                        • تجوید و مخارج کی درستگی کی مشق<br>
+                        • مسنون دعائیں، کلمے اور نماز کا عملی طریقہ<br>
+                        • روزانہ کی ایک حدیث مبارکہ کا حفظ و فہم
+                    </p>
+                </div>
+
                 <div style="margin-top: 15px;">
                     <h4 style="color:var(--primary);" data-en="🧾 Fee Receipt & Student Profile">🧾 فیس رسید اور طالب علم پروفائل</h4>
                     <input type="text" id="stdName" placeholder="اپنا نام یہاں لکھیں">
@@ -528,6 +549,17 @@
         let currentPrayerData = null;
         let isEnglish = false;
         let pendingMessage = "";
+
+        // واٹس ایپ نوٹس کے لیے پاسورڈ تصدیق کا فنکشن
+        function verifyNoticeAdmin() {
+            const pass = document.getElementById('adminNoticePassword').value.trim();
+            if (pass === "chaman786") {
+                document.getElementById('noticeLockBox').style.display = 'none';
+                document.getElementById('noticeEditorArea').style.display = 'block';
+            } else {
+                alert("غلط پاسورڈ! صرف منتظم (رانا چمن) ہی نوٹس تبدیل کر سکتا ہے۔");
+            }
+        }
 
         // واٹس ایپ کے ذریعے نوٹس اپڈیٹ کرنے کا فنکشن
         function sendNoticeViaWhatsApp() {
