@@ -41,7 +41,6 @@
             transition: 0.3s;
         }
 
-        /* اصلی چلتی ہوئی پٹی (Marquee) جو ہمیشہ ویسے ہی چلے گی */
         .marquee-container {
             position: fixed;
             top: 0;
@@ -56,7 +55,6 @@
             font-size: 0.95rem;
         }
 
-        /* اسٹکی مینو بار */
         .sticky-menu-bar {
             position: fixed;
             top: 35px;
@@ -244,7 +242,7 @@
 </head>
 <body>
 
-    <!-- اصلی چلتی ہوئی پٹی (Marquee) جو ہمیشہ چلتی رہے گی -->
+    <!-- اصلی چلتی ہوئی پٹی -->
     <div class="marquee-container">
         <marquee behavior="scroll" direction="right" scrollamount="5">
             📢 خوش آمدید! مصعب بن عمیر رضی اللہ عنہ آن لائن اکیڈمی میں نئے کورسز کا آغاز ہو چکا ہے۔ آج ہی داخلہ لیں اور گھر بیٹھے قرآن پاک حفظ و ناظرہ سیکھیں۔ 
@@ -265,7 +263,7 @@
     <div id="loginOverlay">
         <div class="login-box">
             <h2>خوش آمدید!</h2>
-            <p>اکیڈمی میں داخل ہونے کے لیے اپنا نام لکھیں:</p>
+            <p>رانا چمن، اکیڈمی میں داخل ہونے کے لیے اپنا نام لکھیں:</p>
             <input type="text" id="userNameInput" class="login-input" placeholder="اپنا نام یہاں لکھیں...">
             <button class="login-btn" onclick="manualLogin()">نام سے داخل ہوں</button>
         </div>
@@ -294,20 +292,24 @@
             </header>
         </div>
 
-        <!-- واٹس ایپ پاسورڈ سے محفوظ نوٹس بورڈ سیکشن -->
-        <div class="card" style="border-right-color: #25D366; background: rgba(37, 211, 102, 0.05);">
-            <h3 style="color: #25D366; margin-top:0;">📢 واٹس ایپ کنٹرولڈ نوٹس بورڈ (صرف منتظم کے لیے)</h3>
-            <p style="font-size: 0.9rem; opacity: 0.9;">نوٹس تبدیل کرنے کے لیے پہلے پاسورڈ درج کریں:</p>
-            
+        <!-- ویب سائٹ پر براہ راست ظاہر ہونے والا نوٹس بورڈ (پاسورڈ کنٹرولڈ) -->
+        <div class="card" style="border-right-color: var(--accent); background: rgba(255, 215, 0, 0.05);">
+            <h3 style="color: var(--accent); margin-top:0;">📢 اکیڈمی کا تازہ ترین نوٹس بورڈ</h3>
+            <div id="displayNoticeBox" style="font-size: 1.1rem; font-weight: bold; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 8px; margin-bottom: 15px; border-right: 4px solid var(--accent); line-height: 1.6;">
+                خوش آمدید! اکیڈمی میں نئے سیشن کا آغاز ہو چکا ہے۔ تمام طلباء بروقت اپنے اسباق مکمل کریں۔
+            </div>
+
+            <!-- پاسورڈ اور ایڈیٹر سیکشن -->
             <div id="noticeLockBox">
-                <input type="password" id="adminNoticePassword" placeholder="منتظم کا خفیہ پاسورڈ درج کریں...">
+                <p style="font-size: 0.9rem; opacity: 0.9; margin-bottom: 5px;">نوٹس تبدیل کرنے کے لیے خفیہ پاسورڈ درج کریں:</p>
+                <input type="password" id="adminNoticePassword" placeholder="خفیہ پاسورڈ درج کریں...">
                 <button class="submit-btn" style="background: #444; color: #fff;" onclick="verifyNoticeAdmin()">پاسورڈ تصدیق کریں 🔓</button>
             </div>
 
             <div id="noticeEditorArea" style="display:none; margin-top: 10px;">
-                <p style="color: var(--primary); font-size: 0.85rem; font-weight: bold;">✅ رسائی منظور ہو گئی ہے! اب نیا نوٹس لکھیں:</p>
-                <textarea id="whatsappNoticeInput" rows="3" placeholder="نوٹس بورڈ کے لیے نیا پیغام یہاں تحریر کریں..."></textarea>
-                <button class="submit-btn" style="background: linear-gradient(45deg, #25D366, #128C7E); color: #fff;" onclick="sendNoticeViaWhatsApp()">واٹس ایپ پر نوٹس اپڈیٹ کریں 📲</button>
+                <p style="color: var(--primary); font-size: 0.85rem; font-weight: bold;">✅ رسائی منظور ہو گئی ہے! اب نیا نوٹس یہاں لکھیں:</p>
+                <textarea id="websiteNoticeInput" rows="3" placeholder="نوٹس بورڈ کے لیے نیا پیغام یہاں تحریر کریں..."></textarea>
+                <button class="submit-btn" style="background: linear-gradient(45deg, #00e676, #00b0ff); color: #000;" onclick="updateWebsiteNoticeDirectly()">فوری نوٹس اپڈیٹ کریں ✨</button>
             </div>
         </div>
 
@@ -366,8 +368,9 @@
                     <img src="https://images.unsplash.com/photo-1609599006353-e629aaabfeae?auto=format&fit=crop&w=400&q=80" alt="حفظ قرآن">
                     📖 حفظ کرنا چاہتے ہیں
                 </div>
+                <!-- یہاں ناظرہ قرآن کے لیے بچوں کی خوبصورت تصویر لگائی گئی ہے -->
                 <div class="cat-btn" onclick="promptTeacher('السلام علیکم، میں ناظرہ قرآن پڑھنا چاہتا ہوں۔')" data-en="📗 Read Nazra Quran">
-                    <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=400&q=80" alt="ناظرہ قرآن">
+                    <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=400&q=80" alt="بچے قرآن پڑھ رہے ہیں">
                     📗 ناظرہ قرآن پڑھیں
                 </div>
                 <div class="cat-btn" onclick="promptTeacher('السلام علیکم، مجھے نماز اور دعائیں سیکھنی ہیں۔')" data-en="🤲 Prayers & Supplications">
@@ -550,27 +553,30 @@
         let isEnglish = false;
         let pendingMessage = "";
 
-        // واٹس ایپ نوٹس کے لیے پاسورڈ تصدیق کا فنکشن
+        // پاسورڈ تصدیق اور ویب سائٹ پر نوٹس اپڈیٹ کرنے کا فنکشن
         function verifyNoticeAdmin() {
             const pass = document.getElementById('adminNoticePassword').value.trim();
             if (pass === "chaman786") {
                 document.getElementById('noticeLockBox').style.display = 'none';
                 document.getElementById('noticeEditorArea').style.display = 'block';
+                alert("پاسورڈ درست ہے! اب نیا نوٹس لکھ کر اپڈیٹ کریں۔");
             } else {
-                alert("غلط پاسورڈ! صرف منتظم (رانا چمن) ہی نوٹس تبدیل کر سکتا ہے۔");
+                alert("غلط پاسورڈ! صرف رانا چمن ہی نوٹس تبدیل کر سکتا ہے۔");
             }
         }
 
-        // واٹس ایپ کے ذریعے نوٹس اپڈیٹ کرنے کا فنکشن
-        function sendNoticeViaWhatsApp() {
-            const noticeText = document.getElementById('whatsappNoticeInput').value.trim();
-            if (noticeText === "") {
-                alert("براہ کرم نوٹس والے خانے میں کچھ تحریر لکھیں۔");
+        function updateWebsiteNoticeDirectly() {
+            const newText = document.getElementById('websiteNoticeInput').value.trim();
+            if (newText === "") {
+                alert("براہ کرم نیا نوٹس درج کریں");
                 return;
             }
-            const encodedMsg = encodeURIComponent(`📢 اکیڈمی کا نیا نوٹس بورڈ اپڈیٹ:\n\n${noticeText}`);
-            window.open(`https://wa.me/923074974713?text=${encodedMsg}`, '_blank');
-            document.getElementById('whatsappNoticeInput').value = "";
+            // ویب سائٹ پر نوٹس تبدیل کریں
+            document.getElementById('displayNoticeBox').innerText = newText;
+            // براؤزر میں محفوظ کریں تاکہ ریفریش کرنے پر بھی قائم رہے
+            localStorage.setItem('saved_academy_notice', newText);
+            document.getElementById('websiteNoticeInput').value = "";
+            alert("✅ نوٹس بورڈ کامیابی کے ساتھ اپڈیٹ کر دیا گیا ہے!");
         }
 
         function promptTeacher(msg) {
@@ -633,6 +639,12 @@
         function loadDailyDuaAndDates() {
             const dayIndex = new Date().getDate() % dailyDuas.length;
             document.getElementById('dailyDuaText').innerText = dailyDuas[dayIndex];
+
+            // محفوظ شدہ نوٹس لوڈ کریں اگر موجود ہو
+            const savedNotice = localStorage.getItem('saved_academy_notice');
+            if (savedNotice) {
+                document.getElementById('displayNoticeBox').innerText = savedNotice;
+            }
 
             const now = new Date();
             const englishOptions = { day: 'numeric', month: 'long', year: 'numeric' };
