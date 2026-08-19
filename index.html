@@ -2,89 +2,92 @@
 <html lang="ur" dir="rtl">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مصعب بن عمیر رضی اللہ عنہ آن لائن اکیڈمی</title>
-    <style id="dynamicStyle">
-        :root { --primary: #00e676; --bg-gradient: linear-gradient(135deg, #0f172a, #1e1b4b); }
-        body { font-family: 'Jameel Noori Nastaleeq', sans-serif; background: var(--bg-gradient); color: #fff; margin: 0; padding-top: 100px; min-height: 100vh; text-align: center; }
-        .top-bar { position: fixed; top: 0; width: 100%; background: #000; padding: 10px; display: flex; justify-content: center; gap: 15px; z-index: 1000; }
-        .chip { background: #1a2238; color: var(--primary); border: 1px solid var(--primary); padding: 5px 15px; border-radius: 20px; cursor: pointer; }
-        .card { background: rgba(255,255,255,0.1); padding: 20px; margin: 10px; border-radius: 15px; border: 1px solid var(--primary); }
-        .admin-panel { display: none; background: #2c3e50; padding: 20px; border-radius: 15px; margin: 10px; border: 2px dashed #ffd700; }
-        .input-box { width: 90%; padding: 10px; margin: 10px 0; border-radius: 5px; }
+    <!-- یہاں آپ کا وہی پرانا سٹائل موجود ہے -->
+    <style>
+        :root { --primary: #00e676; --secondary: #121826; --accent: #ffd700; --text-dark: #e0e6ed; --card-bg: rgba(26, 34, 56, 0.9); --bg-gradient: linear-gradient(135deg, #0f172a, #1e1b4b, #0f172a); }
+        body { font-family: 'Jameel Noori Nastaleeq', sans-serif; background: var(--bg-gradient); color: var(--text-dark); margin: 0; padding-top: 80px; min-height: 100vh; }
+        .top-bar { position: fixed; top: 0; width: 100%; background: #000; z-index: 1000; display: flex; justify-content: center; gap: 10px; padding: 10px; border-bottom: 2px solid var(--primary); }
+        .chip { background: #1a2238; color: var(--primary); border: 1px solid var(--primary); padding: 5px 15px; border-radius: 20px; cursor: pointer; font-weight: bold; }
+        #mainWebsite { max-width: 850px; margin: auto; padding: 15px; }
+        .section-card { background: var(--card-bg); border: 2px solid rgba(0,230,118,0.3); border-radius: 15px; padding: 20px; margin-bottom: 20px; }
+        .action-tile { background: rgba(255,255,255,0.04); border: 2px solid var(--primary); color: var(--primary); padding: 15px; border-radius: 12px; text-align: center; cursor: pointer; margin: 10px 0; }
+        .secret-panel { display: none; background: #1e1b4b; border: 3px dashed var(--accent); padding: 20px; border-radius: 15px; margin-top: 20px; }
+        .input-box { width: 100%; padding: 10px; margin: 10px 0; border-radius: 8px; border: 1px solid var(--primary); background: #000; color: #fff; }
         .main-btn { background: var(--primary); color: #000; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <!-- ٹاپ بار (آنکھ اور اے آئی بٹن کے ساتھ) -->
+    <!-- ٹاپ بار (خفیہ بٹنوں کے ساتھ) -->
     <div class="top-bar">
-        <button class="chip" onclick="openViewerTracker()">👁️ ویورز دیکھیں</button>
-        <button class="chip" ondblclick="openSecretAIPanel()">⚙️ اے آئی مینیجر</button>
-        <button class="chip" onclick="copyLink()">🔗 کاپی لنک</button>
+        <button class="chip" onclick="openViewerTracker()">👁️</button> <!-- خفیہ آنکھ کا نشان -->
+        <button class="chip" onclick="navigator.clipboard.writeText(window.location.href); alert('لنک کاپی ہو گیا!');">🔗</button>
+        <button class="chip" ondblclick="openSecretAIPanel()">⚙️</button> <!-- اے آئی پینل -->
     </div>
 
-    <!-- مین ویب سائٹ -->
     <div id="mainWebsite">
         <h1>مصعب بن عمیر رضی اللہ عنہ آن لائن اکیڈمی</h1>
-        
-        <!-- اے آئی خفیہ پینل -->
-        <div id="secretAIPanel" class="admin-panel">
-            <h3>🤖 رانا چمن کا ان لمیٹڈ AI کنٹرولر</h3>
-            <textarea id="aiCommand" class="input-box" placeholder="جو ویب سائٹ میں تبدیل کرنا ہے یہاں لکھیں..."></textarea>
-            <button class="main-btn" onclick="executeAI()">تبدیل کریں ⚡</button>
+
+        <!-- خفیہ اے آئی پینل (جو صرف پاسورڈ سے کھلے گا) -->
+        <div id="secretAIPanel" class="secret-panel">
+            <h3>🤖 اے آئی کنٹرولر (اپنی سوچ لکھیں)</h3>
+            <textarea id="aiCommandInput" class="input-box" placeholder="جو تبدیلی کرنی ہے لکھیں..."></textarea>
+            <button class="main-btn" onclick="runSmartAIUpdate()">تبدیل کریں ⚡</button>
         </div>
 
-        <!-- ویورز ٹریکر خفیہ پینل -->
-        <div id="viewerPanel" class="admin-panel">
-            <h3>👁️ وزٹرز کی ہسٹری</h3>
-            <div id="viewerList" style="text-align: right;"></div>
+        <!-- پرانی کیٹگریز اور بٹنز -->
+        <div class="section-card">
+            <h3>💳 فیس اکاؤنٹ</h3>
+            <p>ایزی پیسہ: 03074974713 (رانا افتخار احمد)</p>
         </div>
 
-        <!-- پرانی خصوصیات -->
-        <div class="card">
-            <h3>💳 فیس اکاؤنٹ (رانا افتخار احمد)</h3>
-            <p>ایزی پیسہ: 03074974713</p>
+        <div class="section-card">
+            <h3>📚 ہمارے کورسز</h3>
+            <div class="action-tile" onclick="alert('حفظ کورس میں خوش آمدید')">📖 حفظ کورس</div>
+            <div class="action-tile" onclick="alert('ناظرہ کورس میں خوش آمدید')">📗 ناظرہ کورس</div>
         </div>
         
-        <div class="card">
-            <h3>📝 آن لائن ٹیسٹ</h3>
-            <button class="main-btn" onclick="alert('ٹیسٹ جاری ہے...')">ٹیسٹ حل کریں</button>
+        <div class="section-card">
+            <h3>🎧 آڈیو قرآن مجید</h3>
+            <audio controls style="width:100%;">
+                <source src="https://server11.mp3quran.net/sds/001.mp3" type="audio/mpeg">
+            </audio>
         </div>
     </div>
 
     <script>
-        // وزٹرز ٹریکر لاجک
+        // وزٹر ٹریکنگ (نام محفوظ کرنا)
+        let name = localStorage.getItem('academy_user') || "نامعلوم";
+        let logs = JSON.parse(localStorage.getItem('website_logs') || '[]');
+        logs.push({ name: name, time: new Date().toLocaleTimeString() });
+        localStorage.setItem('website_logs', JSON.stringify(logs));
+
+        // خفیہ آنکھ فنکشن
         function openViewerTracker() {
-            if(prompt("پاسورڈ لکھیں:") === "chaman786") {
-                document.getElementById('viewerPanel').style.display = 'block';
-                let logs = JSON.parse(localStorage.getItem('academy_visitors') || '[]');
-                document.getElementById('viewerList').innerHTML = logs.map(v => `<p>${v.name} - ${v.time}</p>`).join('');
-            }
+            if(prompt("پاسورڈ درج کریں:") === "chaman786") {
+                let logs = JSON.parse(localStorage.getItem('website_logs') || '[]');
+                alert("ویب سائٹ وزٹرز:\n" + logs.map(l => l.name + " (" + l.time + ")").join('\n'));
+            } else { alert("غلط پاسورڈ!"); }
         }
 
-        // اے آئی کنٹرولر لاجک (بغیر قید)
+        // اے آئی پینل فنکشن
         function openSecretAIPanel() {
-            if(prompt("پاسورڈ لکھیں:") === "chaman786") {
+            if(prompt("پاسورڈ درج کریں:") === "chaman786") {
                 document.getElementById('secretAIPanel').style.display = 'block';
             }
         }
 
-        function executeAI() {
-            let cmd = document.getElementById('aiCommand').value;
-            // یہ حصہ ویب سائٹ کے کسی بھی حصے کو بدلنے کی صلاحیت رکھتا ہے
-            let newElement = document.createElement('div');
-            newElement.className = 'card';
-            newElement.innerHTML = `<h3>${cmd}</h3>`;
-            document.getElementById('mainWebsite').appendChild(newElement);
-            alert("ماشاءاللہ! تبدیلی لاگو کر دی گئی ہے۔");
+        // اے آئی سے ویب سائٹ تبدیل کرنا
+        function runSmartAIUpdate() {
+            let cmd = document.getElementById('aiCommandInput').value;
+            let div = document.createElement('div');
+            div.className = 'section-card';
+            div.innerHTML = `<h3>نیو اپڈیٹ</h3><p>${cmd}</p>`;
+            document.getElementById('mainWebsite').appendChild(div);
+            alert("ویب سائٹ اپڈیٹ ہو گئی!");
         }
-
-        function copyLink() {
-            navigator.clipboard.writeText(window.location.href);
-            alert("لنک کاپی ہو گیا!");
-        }
-        
-        // یہاں آپ کے پرانے باقی فنکشنز بھی کام کریں گے...
     </script>
 </body>
 </html>
