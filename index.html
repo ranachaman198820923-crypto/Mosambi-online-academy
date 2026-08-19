@@ -1,546 +1,258 @@
 <!DOCTYPE html>
-<html lang="ur" dir="rtl" id="html-root">
+<html lang="ur" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الجامعہ مصعب بن عمیر رضی اللہ تعالیٰ عنہ سمبڑیال مولوالی</title>
-    
+    <title>آن لائن قاری قرآن - مکمل ویب سائٹ</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Jameel Noori Nastaleeq', 'Urdu Typesetting', Arial, sans-serif; }
-        body { background-color: #f7f9fa; color: #2c3e50; line-height: 1.8; transition: background 0.3s, color 0.3s; }
-        body.dark-mode { background-color: #121212; color: #e0e0e0; }
-        body.dark-mode .card, body.dark-mode .form-box, body.dark-mode .quran-viewer, body.dark-mode .library-section, body.dark-mode .dash-card, body.dark-mode .category-box, body.dark-mode .whatsapp-notice-box { background-color: #1e1e1e; color: #e0e0e0; border-color: #333; }
-        
-        .top-marquee { background: #d4ac0d; color: #000; padding: 8px; font-size: 1.1rem; font-weight: bold; overflow: hidden; white-space: nowrap; }
-        .top-bar { background-color: #042444; display: flex; justify-content: space-between; align-items: center; padding: 8px 20px; flex-wrap: wrap; gap: 10px; }
-        .top-btns { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
-        .lang-btn, .install-btn, .dark-btn, .copy-link-main-btn { background-color: #d4ac0d; color: #000; border: none; padding: 6px 16px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 0.95rem; }
-        .install-btn { background-color: #25d366; color: white; }
-        .copy-link-main-btn { background-color: #2980b9; color: white; }
-        .dark-btn { background-color: #34495e; color: white; }
-
-        /* مدرسے کی بڑی اور خوبصورت تصویر یہاں لگائی گئی ہے */
-        header { background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover; color: white; text-align: center; padding: 90px 20px; }
-        .madrasa-badge { background-color: #d4ac0d; color: #000; padding: 6px 20px; border-radius: 20px; font-size: 1rem; font-weight: bold; display: inline-block; margin-bottom: 15px; }
-        header h1 { font-size: 2.5rem; margin-bottom: 10px; text-shadow: 2px 2px 5px rgba(0,0,0,0.7); }
-        header p { font-size: 1.2rem; color: #f1c40f; text-shadow: 1px 1px 3px rgba(0,0,0,0.7); }
-
-        nav { background-color: #063970; display: flex; justify-content: center; flex-wrap: wrap; padding: 10px; gap: 15px; position: sticky; top: 0; z-index: 1000; }
-        nav a { color: white; text-decoration: none; font-weight: bold; font-size: 1.05rem; padding: 5px 10px; transition: 0.3s; }
-        nav a:hover { color: #d4ac0d; }
-
-        .container { max-width: 1050px; margin: 35px auto; padding: 0 20px; }
-        .section-title { text-align: center; color: #063970; margin-bottom: 30px; font-size: 2rem; position: relative; }
-        body.dark-mode .section-title { color: #4db6ac; }
-        .section-title::after { content: ''; display: block; width: 80px; height: 3px; background-color: #d4ac0d; margin: 8px auto 0; border-radius: 2px; }
-
-        /* واٹس ایپ لائیو نوٹس بورڈ */
-        .whatsapp-notice-box { background: white; border: 2px solid #25d366; border-radius: 12px; padding: 25px; margin-bottom: 40px; box-shadow: 0 5px 15px rgba(37, 211, 102, 0.15); }
-        .notice-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #25d366; padding-bottom: 10px; margin-bottom: 15px; flex-wrap: wrap; gap: 10px; }
-        .notice-content-area { font-size: 1.15rem; color: #042444; line-height: 2.1; min-height: 80px; background: #f0fdf4; padding: 15px; border-radius: 8px; border-right: 5px solid #25d366; }
-        body.dark-mode .notice-content-area { background: #1a2e22; color: #e0e0e0; }
-        
-        .admin-controls { margin-top: 15px; padding-top: 15px; border-top: 1px dashed #ccc; display: none; }
-        .admin-controls textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; margin-bottom: 10px; outline: none; resize: vertical; }
-
-        /* قرآن سیکشن */
-        .content-section-box { background: white; padding: 35px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.06); margin-bottom: 40px; border-right: 5px solid #063970; }
-        .quran-viewer { background: #fdfefe; border: 1px solid #dcdcdc; border-radius: 10px; padding: 25px; max-height: 550px; overflow-y: auto; text-align: right; }
-        .quran-ayah-item { padding: 12px; border-bottom: 1px solid #eee; margin-bottom: 10px; }
-        body.dark-mode .quran-ayah-item { border-color: #333; }
-        .arabic-ayah { font-size: 1.5rem; color: #042444; margin-bottom: 5px; line-height: 2.2; }
-        body.dark-mode .arabic-ayah { color: #f1c40f; }
-        .translation-ayah { font-size: 1.05rem; color: #117a65; font-weight: bold; display: block; }
-        body.dark-mode .translation-ayah { color: #80cbc4; }
-
-        /* 📚 درس نظامی کتب خانہ */
-        .library-section { background: white; padding: 35px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.06); margin-bottom: 40px; border-right: 5px solid #25d366; }
-        .library-categories-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
-        .lib-cat-btn { background: #f0f7f4; border: 2px solid #117a65; color: #063970; padding: 15px; border-radius: 10px; font-size: 1.05rem; font-weight: bold; cursor: pointer; text-align: center; transition: 0.3s; }
-        .lib-cat-btn.active-cat, .lib-cat-btn:hover { background: #117a65; color: white; transform: translateY(-3px); }
-        body.dark-mode .lib-cat-btn { background: #252525; color: #80cbc4; border-color: #444; }
-        body.dark-mode .lib-cat-btn.active-cat { background: #117a65; color: white; }
-
-        .book-interactive-panel { background: #fdfefe; border: 1px solid #dcdcdc; border-radius: 10px; padding: 25px; margin-top: 20px; }
-        body.dark-mode .book-interactive-panel { background: #1a1a1a; border-color: #444; }
-
-        .book-page-title { color: #117a65; font-size: 1.3rem; margin-bottom: 15px; border-bottom: 2px solid #d4ac0d; padding-bottom: 8px; font-weight: bold; }
-        .book-arabic-text { font-size: 1.4rem; color: #042444; line-height: 2.3; margin-bottom: 15px; font-weight: bold; background: #f9fbfb; padding: 15px; border-radius: 6px; border-right: 4px solid #d4ac0d; }
-        body.dark-mode .book-arabic-text { color: #f1c40f; background: #222; }
-        .book-sharh-box { background: #eaf2f8; padding: 18px; border-right: 5px solid #063970; border-radius: 6px; font-size: 1.1rem; line-height: 2; }
-        body.dark-mode .book-sharh-box { background: #2a3b4c; color: #e0e0e0; }
-
-        /* شعبہ جات کورسز (ناظرہ پر بچوں کی قرآنی تعلیم والی تصویر) */
-        .categories-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 40px; }
-        .category-box { background: white; border-radius: 12px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.08); border-bottom: 4px solid #117a65; cursor: pointer; transition: 0.3s; overflow: hidden; }
-        .category-box:hover { transform: translateY(-5px); background-color: #f0f7f4; }
-        .category-img { width: 100%; height: 160px; object-fit: cover; border-bottom: 2px solid #eee; }
-        .category-content { padding: 20px; }
-        .category-box h3 { color: #063970; margin-bottom: 8px; font-size: 1.2rem; }
-        body.dark-mode .category-box h3 { color: #80cbc4; }
-        body.dark-mode .category-box { background: #1e1e1e; }
-
-        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 40px; }
-        .dash-card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.06); border-top: 4px solid #117a65; }
-        .prayer-time-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed #eee; font-size: 1.05rem; }
-        body.dark-mode .prayer-time-row { border-color: #333; }
-
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 2000; justify-content: center; align-items: center; }
-        .modal-content { background: white; padding: 30px; border-radius: 15px; max-width: 450px; width: 90%; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.3); }
-        body.dark-mode .modal-content { background: #1e1e1e; color: #fff; }
-        .teacher-select-btn { display: block; width: 100%; background: #25d366; color: white; padding: 14px; margin: 12px 0; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: bold; cursor: pointer; text-decoration: none; }
-        .teacher-select-btn.second { background-color: #063970; }
-        .close-modal-btn { background: #e74c3c; color: white; padding: 8px 20px; border: none; border-radius: 5px; cursor: pointer; margin-top: 10px; font-weight: bold; }
-
-        .form-box { background: white; padding: 35px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.06); margin-bottom: 40px; border-right: 5px solid #d4ac0d; }
-
-        footer { background-color: #042444; color: white; text-align: center; padding: 35px 20px; margin-top: 50px; }
-        .footer-channel-btn { display: inline-block; background-color: #25d366; color: white; padding: 14px 28px; border-radius: 30px; text-decoration: none; font-weight: bold; font-size: 1.1rem; margin-bottom: 20px; }
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Urdu Typesetting', Arial, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 0;
+            direction: rtl;
+            text-align: right;
+            color: #333;
+        }
+        header {
+            background: linear-gradient(135deg, #1b4d3e, #2c6b56);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+        header p {
+            margin: 10px 0 0 0;
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        section {
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #eee;
+        }
+        section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        h2 {
+            color: #1b4d3e;
+            border-bottom: 2px solid #27ae60;
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        .notice-box {
+            background: #e8f4fd;
+            border-right: 5px solid #3498db;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 18px;
+            line-height: 1.6;
+            color: #333;
+            white-space: pre-wrap;
+        }
+        .admin-section {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        .admin-section h3 {
+            margin-top: 0;
+            color: #e74c3c;
+            font-size: 18px;
+        }
+        input[type="password"], textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0 15px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-family: inherit;
+            font-size: 16px;
+        }
+        textarea {
+            resize: vertical;
+            height: 120px;
+        }
+        button {
+            background-color: #27ae60;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-family: inherit;
+            transition: background 0.3s;
+            margin-left: 10px;
+        }
+        button:hover {
+            background-color: #219653;
+        }
+        .whatsapp-btn {
+            background-color: #25d366;
+        }
+        .whatsapp-btn:hover {
+            background-color: #1ebe5d;
+        }
+        .error-msg {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        #editPanel {
+            display: none;
+        }
+        .about-us p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #444;
+        }
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 40px;
+            font-size: 15px;
+        }
     </style>
 </head>
 <body>
 
-    <marquee class="top-marquee">خوش آمدید رانا چمن صاحب! الجامعہ مصعب بن عمیر سمبڑیال مولوالی - واٹس ایپ لائیو نوٹس بورڈ سے روزانہ دروس ملاحظہ کریں!</marquee>
-
-    <div class="top-bar">
-        <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
-            <button class="install-btn" onclick="alert('ایپ انسٹالیشن فیچر فعال ہے!')">📲 ایپ انسٹال کریں</button>
-            <button class="copy-link-main-btn" onclick="copyWebsiteLinkOnly()">🔗 ویب سائٹ کا لنک کاپی کریں</button>
-        </div>
-        <div class="top-btns">
-            <button class="dark-btn" onclick="toggleDarkMode()">🌙 ڈارک موڈ</button>
-            <button class="lang-btn" onclick="toggleLanguage()" id="langToggleBtn">English</button>
-        </div>
-    </div>
-
-    <header id="home" ondblclick="secretAdminLoginTrigger()">
-        <span class="madrasa-badge">خالص دینی اور قرآنی تعلیمی ادارہ</span>
-        <h1>الجامعہ مصعب بن عمیر رضی اللہ تعالیٰ عنہ</h1>
-        <p>سمبڑیال مولوالی - گھر بیٹھے قرآن اور درس نظامی پڑھنے کا بہترین ذریعہ</p>
+    <!-- ویب سائٹ کا ہیڈر -->
+    <header>
+        <h1>آن لائن قرآن اکیڈمی</h1>
+        <p>گھر بیٹھے قرأت، تجوید اور حفظِ قرآن کی بہترین تعلیم</p>
     </header>
-
-    <nav>
-        <a href="#home">ہوم</a>
-        <a href="#whatsapp-notice-section">واٹس ایپ لائیو نوٹس بورڈ</a>
-        <a href="#quran-audio-main-area">قرآن مجید سیکشن</a>
-        <a href="#library">درس نظامی کتب خانہ</a>
-        <a href="#categories">شعبہ جات</a>
-        <a href="#dashboard">اوقاتِ نماز</a>
-        <a href="#admission">داخلہ</a>
-    </nav>
 
     <div class="container">
 
-        <!-- واٹس ایپ لائیو نوٹس بورڈ -->
-        <div class="whatsapp-notice-box" id="whatsapp-notice-section">
-            <div class="notice-header">
-                <h3 style="color: #25d366; display: flex; align-items: center; gap: 8px;">
-                    🟢 واٹس ایپ لائیو نوٹس بورڈ (رانا چمن کا خصوصی صفحہ)
-                </h3>
-                <span style="font-size: 0.9rem; color: #555;" id="noticeTimeUpdate">آخری اپ ڈیٹ: آج</span>
-            </div>
-            <div class="notice-content-area" id="liveNoticeText">
-                "إنما الأعمال بالنيات..." — روزانہ کی تازہ ترین احادیث مبارکہ، اسباق کے پیغامات اور اہم احکام یہاں آپ کے واٹس ایپ کے ذریعے براہِ راست ظاہر ہوں گے۔
-            </div>
+        <!-- سیکشن 1: اہم نوٹس بورڈ -->
+        <section>
+            <h2>📢 اہم نوٹس بورڈ</h2>
             
-            <div class="admin-controls" id="hiddenAdminPanelBox">
-                <p style="font-weight: bold; color: #e74c3c; margin-bottom: 5px;">⚠️ رانا چمن کا خفیہ کنٹرول پینل (صرف آپ کے لیے):</p>
-                <textarea id="newNoticeInput" rows="3" placeholder="نیا سبق یا نوٹس یہاں لکھیں..."></textarea>
-                <button class="install-btn" style="background-color: #117a65;" onclick="updateLiveNoticeBoard()">نوٹس بورڈ پر براہِ راست اپ ڈیٹ کریں 🚀</button>
-            </div>
-        </div>
-
-        <!-- قرآن مجید سیکشن -->
-        <div id="quran-audio-main-area">
-            <h2 class="section-title">قرآن مجید (مکمل متن اور ترجمہ)</h2>
-            
-            <div class="content-section-box" id="quranSectionBox">
-                <div style="margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
-                    <button class="install-btn" style="background-color: #d4ac0d; color: #000;" onclick="toggleQuranTranslation()">👁️ اردو ترجمہ چھپائیں / دکھائیں۔</button>
-                    <select id="surahSelectDropdown" style="padding: 8px; border-radius: 6px; border: 1px solid #ccc; font-size: 1rem;" onchange="loadSelectedSurah(this.value)"></select>
-                </div>
-                <div class="quran-viewer" id="quranAyahsContainer">
-                    <p style="text-align:center;">براہ کرم سورت منتخب کریں...</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- 📚 درس نظامی کتب خانہ اور پیج سرچ بار -->
-        <h2 class="section-title" id="library">درس نظامی مکمل کتب خانہ (درجہ اولیٰ تا دورہ حدیث)</h2>
-        <div class="library-section">
-            <p style="text-align: center; margin-bottom: 20px;">مطلوبہ کتاب منتخب کریں اور صفحہ نمبر درج کریں (مثلاً صفحہ 150):</p>
-            
-            <div class="library-categories-grid">
-                <button class="lib-cat-btn active-cat" onclick="openLibraryBook('mizan', this)">میزان الصرف و الصیغہ (اولیٰ)</button>
-                <button class="lib-cat-btn" onclick="openLibraryBook('nahwmeer', this)">نحو میر (ثانیہ)</button>
-                <button class="lib-cat-btn" onclick="openLibraryBook('hedayaNahw', this)">هدایۃ النحو (ثالثہ)</button>
-                <button class="lib-cat-btn" onclick="openLibraryBook('quduri', this)">مختصر القدوری (فقہ)</button>
-                <button class="lib-cat-btn" onclick="openLibraryBook('bukharisharif', this)">صحیح البخاری (دورہ حدیث)</button>
+            <!-- پبلک نوٹس ڈسپلے ایریا -->
+            <div class="notice-box" id="displayNotice">
+                یہاں نیا نوٹس لوڈ ہو رہا ہے...
             </div>
 
-            <!-- کتاب کا سرچ اور ریڈنگ پینل -->
-            <div class="book-interactive-panel" id="dynamicBookPanel">
-                <div style="display: flex; gap: 15px; align-items: center; margin-bottom: 15px; flex-wrap: wrap;">
-                    <label style="font-weight: bold; color: #063970;">صفحہ نمبر درج / سرچ کریں:</label>
-                    <input type="number" id="specificBookPageInput" value="150" min="1" max="900" style="padding: 8px 12px; width: 120px; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem;" oninput="updateBookContentDisplay()">
-                </div>
-                <div id="bookRenderArea"></div>
-            </div>
-        </div>
-
-        <!-- کورسز اور شعبہ جات (ناظرہ پر بچوں کی قرآنی تعلیم والی تصویر) -->
-        <h2 class="section-title" id="categories">شعبہ جات اور کورسز</h2>
-        <div class="categories-grid">
-            <div class="category-box" onclick="openTeacherModal('حفظ قرآن مجید کا کورس')">
-                <img src="https://images.unsplash.com/photo-1584286595398-a19f2c34d065?auto=format&fit=crop&w=600&q=80" alt="حفظ قرآن" class="category-img">
-                <div class="category-content">
-                    <h3>📖 حفظ القرآن</h3>
-                    <p>گھر بیٹھے بچوں کے لیے حفظ قرآن کی بہترین سہولت</p>
-                </div>
-            </div>
-            
-            <div class="category-box" onclick="openTeacherModal('ناظرہ قرآن مجید کا کورس')">
-                <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=600&q=80" alt="بچے قرآن پڑھ رہے ہیں" class="category-img">
-                <div class="category-content">
-                    <h3>📗 ناظرہ قرآن</h3>
-                    <p>تجوید اور قواعد کے ساتھ ناظرہ قرآن کریم پڑھیں</p>
-                </div>
+            <!-- واٹس ایپ پر شیئر کرنے کا بٹن -->
+            <div style="text-align: center; margin-bottom: 20px;">
+                <button class="whatsapp-btn" onclick="shareOnWhatsApp()">واٹس ایپ پر شیئر کریں 📱</button>
             </div>
 
-            <div class="category-box" onclick="openTeacherModal('نماز اور طہارت کے مسائل')">
-                <img src="https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=600&q=80" alt="نماز کے مسائل" class="category-img">
-                <div class="category-content">
-                    <h3>🕌 نماز کے مسائل</h3>
-                    <p>نماز، طہارت اور روزمرہ کے شرعی احکام سیکھیں</p>
-                </div>
-            </div>
-
-            <div class="category-box" onclick="openTeacherModal('اہم دینی و شرعی مسائل (پوچھیں)')">
-                <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=600&q=80" alt="دینی مسائل" class="category-img">
-                <div class="category-content">
-                    <h3>❓ اہم دینی مسائل پوچھیں</h3>
-                    <p>اپنے تمام فقہی اور شرعی سوالات کے تسلی بخش جوابات پائیں</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- ڈیش بورڈ (اوقات نماز) -->
-        <div class="dashboard-grid" id="dashboard">
-            <div class="dash-card">
-                <h3 style="color: #117a65; margin-bottom: 12px; text-align: center;">📅 تاریخ و دن</h3>
-                <p id="current-date-display" style="text-align: center; font-size: 1.1rem; font-weight: bold; margin-bottom: 15px;"></p>
-                <hr style="border: 0; border-top: 1px solid #eee; margin-bottom: 15px;">
-                <h4 style="color: #063970; margin-bottom: 8px;">✨ روزانہ کی حدیث مبارکہ:</h4>
-                <p style="font-size: 1.05rem;">"إنما الأعمال بالنيات، وإنما لكل امرئ ما نوى." (تمام اعمال کا دارومدار نیتوں پر ہے)</p>
-            </div>
-
-            <div class="dash-card">
-                <h3 style="color: #117a65; margin-bottom: 12px; text-align: center;">⏰ نماز کے درست اوقات</h3>
-                <p style="font-size: 0.9rem; text-align: center; color: #555; margin-bottom: 8px;">شہر کا نام لکھیں (مثلاً: Sambrial, Lahore):</p>
-                <input type="text" id="citySearchInput" style="padding: 10px; font-size: 1rem; margin-bottom: 12px; width: 100%; border: 1px solid #ccc; border-radius: 6px;" value="Sambrial" placeholder="شہر کا نام لکھیں..." onchange="fetchPrayerTimes()">
+            <!-- ایڈمن کنٹرول پینل -->
+            <div class="admin-section">
+                <h3>🔒 ایڈمن کنٹرول (صرف رانا چمن کے لیے)</h3>
                 
-                <div id="prayerTimesList">
-                    <div class="prayer-time-row"><span>فجر</span> <strong id="p-fajr">--:--</strong></div>
-                    <div class="prayer-time-row"><span>طلوع آفتاب</span> <strong id="p-sunrise">--:--</strong></div>
-                    <div class="prayer-time-row"><span>ظہر</span> <strong id="p-dhuhr">--:--</strong></div>
-                    <div class="prayer-time-row"><span>عصر</span> <strong id="p-asr">--:--</strong></div>
-                    <div class="prayer-time-row"><span>مغرب</span> <strong id="p-maghrib">--:--</strong></div>
-                    <div class="prayer-time-row"><span>عشاء</span> <strong id="p-isha">--:--</strong></div>
+                <!-- پاسورڈ ان پٹ -->
+                <div id="loginPanel">
+                    <label for="adminPassword">پاسورڈ درج کریں:</label>
+                    <input type="password" id="adminPassword" placeholder="اپنا پن کوڈ لکھیں">
+                    <button onclick="verifyPassword()">لاگ ان کریں</button>
+                    <div id="errorMsg" class="error-msg"></div>
+                </div>
+
+                <!-- نوٹس ایڈٹ کرنے کا پینل -->
+                <div id="editPanel">
+                    <label for="newNoticeText">نیا نوٹس یہاں لکھیں:</label>
+                    <textarea id="newNoticeText" placeholder="یہاں نیا پیغام ٹائپ کریں..."></textarea>
+                    <button onclick="saveNotice()">نوٹس اپڈیٹ کریں 💾</button>
+                    <button style="background-color: #e74c3c;" onclick="logout()">لاگ آؤٹ 🔒</button>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <!-- داخلہ اور فیس -->
-        <h2 class="section-title" id="admission">داخلہ اور فیس جمع کروانے کا طریقہ</h2>
-        <div class="form-box">
-            <div style="background: #e8f8f5; border: 2px dashed #117a65; padding: 18px; border-radius: 10px; margin-bottom: 18px; text-align: right;">
-                <h4>💳 اکاؤنٹ کی تفصیلات (ایزی پیسہ):</h4>
-                <p><strong>نام:</strong> رانا افتخار احمد</p>
-                <p><strong>ایزی پیسہ اکاؤنٹ نمبر:</strong> 03074974713</p>
-            </div>
-            <div style="margin-bottom: 15px;">
-                <label style="display:block; font-weight:bold; margin-bottom:5px;">طالب علم کا نام:</label>
-                <input type="text" id="feeName" placeholder="اپنا پورا نام درج کریں" style="width:100%; padding:12px; border:1px solid #ccc; border-radius:6px;">
-            </div>
-            <div style="margin-bottom: 15px;">
-                <label style="display:block; font-weight:bold; margin-bottom:5px;">کورس کا نام:</label>
-                <input type="text" id="feeCourse" placeholder="کورس کا نام لکھیں" style="width:100%; padding:12px; border:1px solid #ccc; border-radius:6px;">
-            </div>
-            <div style="text-align: center;">
-                <button type="button" style="background-color: #25d366; color: white; padding: 12px 25px; border: none; border-radius: 25px; font-weight: bold; cursor: pointer;" onclick="submitFeeProof()">فیس کا فارم واٹس ایپ پر بھیجیں ↗</button>
-            </div>
-        </div>
+        <!-- سیکشن 2: ہمارے بارے میں / تعارف -->
+        <section class="about-us">
+            <h2>📖 خوش آمدید</h2>
+            <p>
+                ہماری آن لائن اکیڈمی میں آپ کو انتہائی آسان اور تجوید کے اصولوں کے مطابق قرآن مجید پڑھایا جاتا ہے۔ بچوں اور بڑوں کے لیے الگ الگ کورسز دستیاب ہیں۔ آپ کسی بھی وقت نوٹس بورڈ سے ہمارے اہم اعلانات چیک کر سکتے ہیں۔
+            </p>
+        </section>
 
     </div>
 
-    <!-- واٹس ایپ استاد سلیکشن ماڈل -->
-    <div id="teacherModal" class="modal-overlay">
-        <div class="modal-content">
-            <h3 style="color: #063970; margin-bottom: 15px;">رابطہ کے لیے استاد محترم کا انتخاب کریں</h3>
-            <p id="selectedCourseText" style="margin-bottom: 15px; font-weight: bold; color: #117a65;"></p>
-            <a id="teacher1Link" href="#" target="_blank" class="teacher-select-btn">
-                📱 مولانا عدیل احمد صاحب کو بھیجیں <br><small style="font-size:0.85rem;">(03077207097)</small>
-            </a>
-            <a id="teacher2Link" href="#" target="_blank" class="teacher-select-btn second">
-                📱 رانا افتخار احمد صاحب کو بھیجیں <br><small style="font-size:0.85rem;">(03074974713)</small>
-            </a>
-            <button class="close-modal-btn" onclick="closeTeacherModal()">بند کریں</button>
-        </div>
-    </div>
-
+    <!-- فوٹر -->
     <footer>
-        <button class="copy-link-main-btn" style="margin-bottom: 20px; background-color: #25d366; color: #fff;" onclick="copyWebsiteLinkOnly()">🔗 اس ویب سائٹ کا لنک کاپی کریں</button>
-        <br>
-        <a href="https://whatsapp.com/channel/0029Vaf4Jxu59PwNdXYB3i0r" target="_blank" class="footer-channel-btn">
-            📲 الجامعہ مصعب بن عمیر کا واٹس ایپ چینل فالو کریں
-        </a>
-        <p style="margin-top: 15px;">الجامعہ مصعب بن عمیر رضی اللہ تعالیٰ عنہ سمبڑیال مولوالی - جملہ حقوق محفوظ ہیں</p>
+        <p>تمام حقوق محفوظ ہیں &copy; 2026 | تیار کردہ برائے رانا چمن</p>
     </footer>
 
+    <!-- جاوا اسکرپٹ کوڈ -->
     <script>
-        function copyWebsiteLinkOnly() {
-            let currentUrl = window.location.href;
-            navigator.clipboard.writeText(currentUrl).then(function() {
-                alert("الجامعہ مصعب بن عمیر اکیڈمی کا لنک کامیابی سے کاپی ہو گیا ہے!");
-            }).catch(function(err) {
-                alert("لنک کاپی کرنے میں خامی پیش آئی: " + err);
-            });
-        }
+        // درست پاسورڈ (آپ اسے تبدیل کر سکتے ہیں مثلاً 1234 کی جگہ کوئی اور کوڈ رکھ سکتے ہیں)
+        const CORRECT_PASSWORD = "1234";
 
-        function updateDateTime() {
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById('current-date-display').innerText = new Date().toLocaleDateString('ur-PK', options);
-        }
-        updateDateTime();
-
-        function secretAdminLoginTrigger() {
-            let pass = prompt("🔐 رانا چمن مصدقہ پاسورڈ درج کریں:");
-            if(pass === "1234" || pass === "chaman" || pass === "rana") {
-                let box = document.getElementById('hiddenAdminPanelBox');
-                box.style.display = box.style.display === 'block' ? 'none' : 'block';
-                alert('خفیہ ایڈمن پینل فعال ہو گیا ہے!');
-            } else if(pass !== null) {
-                alert('غلط پاسورڈ!');
-            }
-        }
-
-        document.addEventListener('keydown', function(e) {
-            if(e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a') {
-                secretAdminLoginTrigger();
-            }
-        });
-
-        function updateLiveNoticeBoard() {
-            let text = document.getElementById('newNoticeInput').value.trim();
-            if(!text) {
-                alert('براہ کرم کچھ تحریر درج کریں!');
-                return;
-            }
-            let activeNum = "923074974713"; 
-            let fullPostData = { text: text, sender: activeNum, time: "ابھی" };
-            localStorage.setItem('rana_chaman_exclusive_notice', JSON.stringify(fullPostData));
-            document.getElementById('liveNoticeText').innerText = text;
-            document.getElementById('noticeTimeUpdate').innerText = "آخری اپ ڈیٹ: ابھی";
-            document.getElementById('newNoticeInput').value = '';
-            alert('نوٹس بورڈ کامیابی سے اپ ڈیٹ کر دیا گیا ہے!');
-        }
-
+        // پیج کھلتے ہی لوکل اسٹوریج سے نوٹس لوڈ کرنا
         window.onload = function() {
-            let savedNoticeObj = localStorage.getItem('rana_chaman_exclusive_notice');
-            if(savedNoticeObj) {
-                try {
-                    let parsed = JSON.parse(savedNoticeObj);
-                    document.getElementById('liveNoticeText').innerText = parsed.text;
-                    document.getElementById('noticeTimeUpdate').innerText = "آخری اپ ڈیٹ: محفوظ شدہ";
-                } catch(e) {
-                    document.getElementById('liveNoticeText').innerText = savedNoticeObj;
-                }
+            let savedNotice = localStorage.getItem("siteNotice");
+            if (savedNotice) {
+                document.getElementById("displayNotice").innerText = savedNotice;
+            } else {
+                let defaultText = "خوش آمدید! ابھی تک کوئی نیا نوٹس جاری نہیں کیا گیا۔";
+                document.getElementById("displayNotice").innerText = defaultText;
+                localStorage.setItem("siteNotice", defaultText);
             }
-            populateSurahDropdowns();
-            loadSelectedSurah(1);
-            openLibraryBook('bukharisharif', document.querySelectorAll('.lib-cat-btn')[4]);
-            document.getElementById('specificBookPageInput').value = 150;
-            updateBookContentDisplay();
-        }
-
-        const surahNamesList = [
-            "الفاتحة", "البقرة", "آل عمران", "النساء", "المائدة", "الأنعام", "الأعراف", "الأنفال", "التوبة", "يونس",
-            "هود", "يوسف", "الرعد", "إبراهيم", "الحجر", "النحل", "الإسراء", "الكهف", "مريم", "طه",
-            "الأنبياء", "الحج", "المؤمنون", "النور", "الفرقان", "الشعراء", "النمل", "القصص", "العنكبوت", "الروم",
-            "لقمان", "السجدة", "الأحزاب", "سبأ", "فاطر", "يس", "الصافات", "ص", "الزمر", "غافر",
-            "فصلت", "الشورى", "الزخرف", "الدخان", "الجاثية", "الأحقاف", "محمد", "الفتح", "الحجرات", "ق",
-            "الذاريات", "الطور", "النجم", "القمر", "الرحمن", "الواقعة", "الحديد", "المجادلة", "الحشر", "الممتحنة",
-            "الصف", "الجمعة", "المنافقون", "التغابن", "الطلاق", "التحريم", "الملك", "القلم", "الحاقة", "المعارج",
-            "نوح", "الجن", "المزمل", "المدثر", "القيامة", "الإنسان", "المرسلات", "النبأ", "النازعات", "عبس",
-            "التكوير", "الانفطار", "المطففين", "الانشقاق", "البروج", "الطارق", "الأعلى", "الغاشية", "الفجر", "البلد",
-            "الشمس", "اللَّيل", "الضحى", "الشرح", "التين", "العلق", "القدر", "البينة", "الزلزلة", "العاديات",
-            "القارعة", "التكاثر", "العصر", "الهمزة", "الفيل", "قريش", "الماعون", "الكوثر", "الكافرون", "النصر",
-            "المسد", "الإخلاص", "الفلق", "الناس"
-        ];
-
-        function populateSurahDropdowns() {
-            let dropdown = document.getElementById('surahSelectDropdown');
-            dropdown.innerHTML = '';
-            for(let i=0; i<surahNamesList.length; i++) {
-                let opt1 = document.createElement('option');
-                opt1.value = i + 1;
-                opt1.innerText = `سورۃ ${surahNamesList[i]} (${i+1})`;
-                dropdown.appendChild(opt1);
-            }
-        }
-
-        let currentSurahArabic = [];
-        let currentSurahUrdu = [];
-        let translationVisible = true;
-
-        async function loadSelectedSurah(surahNumber) {
-            let container = document.getElementById('quranAyahsContainer');
-            container.innerHTML = '<p style="text-align:center;">سورت اور آیات بمع ترجمہ لوڈ ہو رہی ہیں...</p>';
-            try {
-                let res = await fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}/editions/quran-uthmani,ur.jalandhry`);
-                let data = await res.json();
-                currentSurahArabic = data.data[0].ayahs;
-                currentSurahUrdu = data.data[1].ayahs;
-                renderQuranAyahs();
-            } catch(e) {
-                container.innerHTML = '<p style="text-align:center; color:red;">انٹرنیٹ کنکشن چیک کریں، قرآن کی آیات لوڈ نہیں ہو سکیں۔</p>';
-            }
-        }
-
-        function renderQuranAyahs() {
-            let container = document.getElementById('quranAyahsContainer');
-            container.innerHTML = `<h4 style="color:#063970; text-align:center; margin-bottom:15px;">قرآن مجید (متن و ترجمہ)</h4>`;
-            for(let i=0; i<currentSurahArabic.length; i++) {
-                let div = document.createElement('div');
-                div.className = 'quran-ayah-item';
-                let transDisplay = translationVisible ? 'block' : 'none';
-                div.innerHTML = `
-                    <div class="arabic-ayah">${currentSurahArabic[i].text} ﴾${currentSurahArabic[i].numberInSurah}﴿</div>
-                    <div class="translation-ayah" id="trans-${i}" style="display: ${transDisplay};">ترجمہ: ${currentSurahUrdu[i].text}</div>
-                `;
-                container.appendChild(div);
-            }
-        }
-
-        function toggleQuranTranslation() {
-            translationVisible = !translationVisible;
-            let transElements = document.querySelectorAll('.translation-ayah');
-            transElements.forEach(el => {
-                el.style.display = translationVisible ? 'block' : 'none';
-            });
-        }
-
-        function convertTo12HourFormat(time24) {
-            if(!time24) return "--:--";
-            let cleanTime = time24.split(' ')[0];
-            let parts = cleanTime.split(':');
-            let hours = parseInt(parts[0]);
-            let minutes = parts[1];
-            let period = hours >= 12 ? 'PM' : 'AM';
-            hours = hours % 12;
-            hours = hours ? hours : 12;
-            return `${hours}:${minutes} ${period}`;
-        }
-
-        async function fetchPrayerTimes() {
-            let city = document.getElementById('citySearchInput').value || 'Sambrial';
-            try {
-                let response = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(city)}&country=Pakistan&method=1`);
-                let data = await response.json();
-                if(data && data.data && data.data.timings) {
-                    let t = data.data.timings;
-                    document.getElementById('p-fajr').innerText = convertTo12HourFormat(t.Fajr);
-                    document.getElementById('p-sunrise').innerText = convertTo12HourFormat(t.Sunrise);
-                    document.getElementById('p-dhuhr').innerText = convertTo12HourFormat(t.Dhuhr);
-                    document.getElementById('p-asr').innerText = convertTo12HourFormat(t.Asr);
-                    document.getElementById('p-maghrib').innerText = convertTo12HourFormat(t.Maghrib);
-                    document.getElementById('p-isha').innerText = convertTo12HourFormat(t.Isha);
-                }
-            } catch(e) {
-                console.log("اوقات کی لوڈنگ میں خامی");
-            }
-        }
-        fetchPrayerTimes();
-
-        const booksDatabaseFull = {
-            'mizan': { name: 'میزان الصرف و علم الصیغہ (درجہ اولیٰ)' },
-            'nahwmeer': { name: 'نحو میر (درجہ ثانیہ)' },
-            'hedayaNahw': { name: 'هدایۃ النحو (درجہ ثالثہ)' },
-            'quduri': { name: 'مختصر القدوری (فقہ حنفی)' },
-            'bukharisharif': { name: 'صحیح البخاری (دورہ حدیث)' }
         };
 
-        let selectedActiveBookKey = 'bukharisharif';
-
-        function openLibraryBook(bookKey, btnElement) {
-            selectedActiveBookKey = bookKey;
-            
-            let allBtns = document.querySelectorAll('.lib-cat-btn');
-            allBtns.forEach(b => b.classList.remove('active-cat'));
-            btnElement.classList.add('active-cat');
-
-            updateBookContentDisplay();
-        }
-
-        function updateBookContentDisplay() {
-            let pageNum = parseInt(document.getElementById('specificBookPageInput').value) || 150;
-            let bookObj = booksDatabaseFull[selectedActiveBookKey];
-            let renderBox = document.getElementById('bookRenderArea');
-
-            let sampleHadithArabic = `حَدَّثَنَا عَبْدُ اللَّهِ بْنُ يُوسُفَ، قَالَ: أَخْبَرَنَا مَالِكٌ، عَنْ هِشَامِ بْنِ عُرْوَةَ، عَنْ أَبِيهِ، عَنْ عَائِشَةَ أُمِّ الْمُؤْمِنِينَ رَضِيَ اللَّهُ عَنْهَا، أَنَّ الْحَارِثَ بْنَ هِشَامٍ رَضِيَ اللَّهُ عَنْهُ سَأَلَ رَسُولَ اللَّهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ فَقَالَ: يَا رَسُولَ اللَّهِ، كَيْفَ يَأْتِيكَ الْوَحْيُ؟ فَقَالَ رَسُولُ اللَّهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ: "أَحْيَانًا يَأْتِينِى مِثْلَ صَلْصَلَةِ الْجَرَسِ، وَهُوَ أَشَدُّهُ عَلَىَّ، فَيُفْصَمُ عَنِّي وَقَدْ وَعَيْتُ عَنْهُ مَا قَالَ..." (صفحہ نمبر: ${pageNum})`;
-
-            let sampleSharhUrdu = `<strong>صفحہ نمبر ${pageNum} کی مفصل تشریح و درس:</strong> اس صفحے پر امام بخاری رحمہ اللہ نے وحی کے نزول کی کیفیات اور احکامِ شریعت کے استنباط پر بحث کی ہے۔ طالب علم کے لیے اس مقام پر سند اور متن کے بنیادی نکات واضح کر دیے گئے ہیں۔`;
-
-            if(selectedActiveBookKey === 'mizan') {
-                sampleHadithArabic = `باب الصرف واختلاف الأبنية في كتاب ${bookObj.name} - الصفحة رقم ${pageNum}: الصَّرْفُ في اللغة التغيير، وفي الاصطلاح تحويل الأصل الواحد إلى أمثلة مختلفة لتحقيق معان مقصودة...`;
-                sampleSharhUrdu = `<strong>میزان الصرف (صفحہ ${pageNum}) کی تشریح:</strong> اس صفحے پر صیغوں کی گردان اور أبواب کی پہچان کے بنیادی قواعد درج ہیں۔`;
-            } else if(selectedActiveBookKey === 'nahwmeer') {
-                sampleHadithArabic = `الكلام هو اللفظ المركب المفيد بالوضع في كتاب ${bookObj.name} - الصفحة رقم ${pageNum}: اعلم أن النحو علم يُعرف به أحوال أوواخر الكلم إعراباً وبناءً...`;
-                sampleSharhUrdu = `<strong>نحو میر (صفحہ ${pageNum}) کی تشریح:</strong> اس صفحے پر جملے کی ترکیب اور اعراب کے قواعد سمجھائے گئے ہیں۔`;
+        // پاسورڈ کی تصدیق کا فنکشن
+        function verifyPassword() {
+            let pass = document.getElementById("adminPassword").value;
+            if (pass === CORRECT_PASSWORD) {
+                document.getElementById("loginPanel").style.display = "none";
+                document.getElementById("editPanel").style.display = "block";
+                document.getElementById("errorMsg").innerText = "";
+                // پرانا متن ایڈیٹ باکس میں لے آئیں
+                document.getElementById("newNoticeText").value = document.getElementById("displayNotice").innerText;
+            } else {
+                document.getElementById("errorMsg").innerText = "غلط پاسورڈ! دوبارہ کوشش کریں۔";
             }
-
-            renderBox.innerHTML = `
-                <div class="book-page-title">📖 کتاب: ${bookObj.name} — (مطلوبہ صفحہ نمبر: ${pageNum})</div>
-                <div class="book-arabic-text">
-                    ${sampleHadithArabic}
-                </div>
-                <div class="book-sharh-box">
-                    ${sampleSharhUrdu}
-                </div>
-            `;
         }
 
-        function openTeacherModal(categoryName) {
-            document.getElementById('selectedCourseText').innerText = "منتخب کردہ شعبہ: " + categoryName;
-            let message = "السلام علیکم ورحمۃ اللہ! میں " + categoryName + " کے سلسلے میں رابطہ کرنا چاہتا ہوں۔";
-            let encodedMsg = encodeURIComponent(message);
-            document.getElementById('teacher1Link').href = "https://wa.me/923077207097?text=" + encodedMsg;
-            document.getElementById('teacher2Link').href = "https://wa.me/923074974713?text=" + encodedMsg;
-            document.getElementById('teacherModal').style.display = 'flex';
-        }
-
-        function closeTeacherModal() {
-            document.getElementById('teacherModal').style.display = 'none';
-        }
-
-        function submitFeeProof() {
-            let name = document.getElementById('feeName').value;
-            let course = document.getElementById('feeCourse').value;
-            if(!name || !course) {
-                alert('براہ کرم اپنا نام اور کورس کا نام درج کریں!');
+        // نیا نوٹس سیو کرنے کا فنکشن
+        function saveNotice() {
+            let updatedText = document.getElementById("newNoticeText").value;
+            if (updatedText.trim() === "") {
+                alert("براہ کرم خالی نوٹس شائع نہ کریں۔");
                 return;
             }
-            openTeacherModal(course + " فیس جمع کروانے کے سلسلے میں");
+            localStorage.setItem("siteNotice", updatedText);
+            document.getElementById("displayNotice").innerText = updatedText;
+            alert("نوٹس کامیابی سے اپڈیٹ ہو گیا ہے!");
         }
 
-        function toggleDarkMode() { document.body.classList.toggle('dark-mode'); }
+        // لاگ آؤٹ کا فنکشن
+        function logout() {
+            document.getElementById("adminPassword").value = "";
+            document.getElementById("editPanel").style.display = "none";
+            document.getElementById("loginPanel").style.display = "block";
+        }
 
-        let isUrdu = true;
-        function toggleLanguage() {
-            isUrdu = !isUrdu;
-            document.getElementById('html-root').setAttribute('dir', isUrdu ? 'rtl' : 'ltr');
-            document.getElementById('langToggleBtn').innerText = isUrdu ? "English" : "اردو";
+        // واٹس ایپ پر شیئر کرنے کا فنکشن
+        function shareOnWhatsApp() {
+            let noticeText = document.getElementById("displayNotice").innerText;
+            let encodedText = encodeURIComponent("📢 *اہم نوٹس (آن لائن قرآن اکیڈمی):*\n\n" + noticeText);
+            window.open("https://api.whatsapp.com/send?text=" + encodedText, "_blank");
         }
     </script>
+
 </body>
 </html>
