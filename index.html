@@ -292,15 +292,15 @@
             </header>
         </div>
 
-        <!-- ویب سائٹ پر براہ راست ظاہر ہونے والا نوٹس بورڈ (پاسورڈ کنٹرولڈ) -->
-        <div class="card" style="border-right-color: var(--accent); background: rgba(255, 215, 0, 0.05);">
-            <h3 style="color: var(--accent); margin-top:0;">📢 اکیڈمی کا تازہ ترین نوٹس بورڈ</h3>
-            <div id="displayNoticeBox" style="font-size: 1.1rem; font-weight: bold; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 8px; margin-bottom: 15px; border-right: 4px solid var(--accent); line-height: 1.6;">
+        <!-- پہلا نوٹس بورڈ (بالکل اصل حالت میں برقرار) -->
+        <div class="card" style="border-right-color: var(--accent); background: rgba(255, 215, 0, 0.05);" ondblclick="revealNoticePasswordBox()">
+            <h3 style="color: var(--accent); margin-top:0;">📢 اکیڈمی کا تازہ ترین نوٹس بورڈ <span style="font-size: 0.75rem; opacity: 0.5;">(ڈبل کلک برائے ایڈیٹر)</span></h3>
+            <div id="displayNoticeBox" style="font-size: 1.1rem; font-weight: bold; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 8px; border-right: 4px solid var(--accent); line-height: 1.6;">
                 خوش آمدید! اکیڈمی میں نئے سیشن کا آغاز ہو چکا ہے۔ تمام طلباء بروقت اپنے اسباق مکمل کریں۔
             </div>
 
-            <!-- پاسورڈ اور ایڈیٹر سیکشن -->
-            <div id="noticeLockBox">
+            <!-- خفیہ پاسورڈ اور ایڈیٹر سیکشن (پہلے سے غائب) -->
+            <div id="noticeLockBox" style="display:none; margin-top: 15px;">
                 <p style="font-size: 0.9rem; opacity: 0.9; margin-bottom: 5px;">نوٹس تبدیل کرنے کے لیے خفیہ پاسورڈ درج کریں:</p>
                 <input type="password" id="adminNoticePassword" placeholder="خفیہ پاسورڈ درج کریں...">
                 <button class="submit-btn" style="background: #444; color: #fff;" onclick="verifyNoticeAdmin()">پاسورڈ تصدیق کریں 🔓</button>
@@ -363,12 +363,11 @@
             <h2 class="section-title" id="welcomeTitle" data-en="Welcome">خوش آمدید</h2>
             <p data-en="What would you like to read or ask? Choose from the categories below:">آپ کیا پڑھنا یا پوچھنا چاہتے ہیں؟ نیچے دی گئی کیٹیگریز میں سے منتخب کریں:</p>
             
-            <div class="category-grid">
+            <div class="category-grid" id="mainCategoryGrid">
                 <div class="cat-btn" onclick="promptTeacher('السلام علیکم، میں حفظ قرآن کرنا چاہتا ہوں۔')" data-en="📖 Want to Memorize Quran">
                     <img src="https://images.unsplash.com/photo-1609599006353-e629aaabfeae?auto=format&fit=crop&w=400&q=80" alt="حفظ قرآن">
                     📖 حفظ کرنا چاہتے ہیں
                 </div>
-                <!-- یہاں ناظرہ قرآن کے لیے بچوں کی خوبصورت تصویر لگائی گئی ہے -->
                 <div class="cat-btn" onclick="promptTeacher('السلام علیکم، میں ناظرہ قرآن پڑھنا چاہتا ہوں۔')" data-en="📗 Read Nazra Quran">
                     <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=400&q=80" alt="بچے قرآن پڑھ رہے ہیں">
                     📗 ناظرہ قرآن پڑھیں
@@ -397,6 +396,9 @@
                     💳 فیس و معاونت
                 </div>
             </div>
+
+            <!-- یہاں متحرک/نئی کیٹیگریز خود بخود ظاہر ہوں گی -->
+            <div class="category-grid" id="dynamicExtraCategoriesGrid" style="margin-top: 15px;"></div>
 
             <!-- واٹس ایپ چینل جوائن بٹن -->
             <div style="margin-top: 15px; text-align: center;">
@@ -444,7 +446,7 @@
                 <audio id="quranAudio" style="width:100%; margin-top:15px; display:none;" controls></audio>
             </div>
 
-            <!-- فیس اور ادائیگی (دینی اسباق کے ساتھ) -->
+            <!-- فیس اور ادائیگی -->
             <div id="feePage" class="sub-page">
                 <button class="back-btn" onclick="closePages()" data-en="⬅ Go Back">⬅ واپس جائیں</button>
                 <div class="easypaisa-box">
@@ -459,7 +461,6 @@
                     </div>
                 </div>
                 
-                <!-- دینی اسباق اور تعلیمی تفصیلات -->
                 <div style="margin-top: 20px; background: rgba(255,255,255,0.03); border: 1px solid var(--primary); padding: 15px; border-radius: 10px;">
                     <h4 style="color:var(--primary); margin-top:0;">📚 طالب علم کے روزانہ کے دینی اسباق کی تفصیل</h4>
                     <p style="font-size: 0.95rem; line-height: 1.8;">
@@ -543,6 +544,46 @@
             </div>
         </div>
 
+        <!-- نیا خفیہ ماسٹر کنٹرول اور فیچر ایڈیٹر نوٹس بورڈ (سب سے نیچے) -->
+        <div class="card" style="border-right-color: var(--primary); background: rgba(0, 230, 118, 0.03);" ondblclick="revealMasterControlBox()">
+            <h3 style="color: var(--primary); margin-top:0;">⚙️ ویب سائٹ کا خفیہ کنٹرول اور نیا فیچر ایڈیٹر <span style="font-size: 0.75rem; opacity: 0.5;">(ডبل کلک برائے ماسٹر کنٹرول)</span></h3>
+            <div id="displayMasterBox" style="font-size: 1rem; padding: 10px; background: rgba(255,255,255,0.03); border-radius: 8px; line-height: 1.6;">
+                یہاں پاسورڈ لگا کر آپ ویب سائٹ کا رنگ تبدیل کرنے کے علاوہ نئی کیٹیگریز اور فیچرز خود ایڈ کر سکتے ہیں۔ (خفیہ زون)
+            </div>
+
+            <!-- پاسورڈ والا سیکشن -->
+            <div id="masterLockBox" style="display:none; margin-top: 15px;">
+                <p style="font-size: 0.9rem; opacity: 0.9; margin-bottom: 5px;">ماسٹر کنٹرول کھولنے کے لیے خفیہ پاسورڈ درج کریں:</p>
+                <input type="password" id="adminMasterPassword" placeholder="خفیہ پاسورڈ درج کریں...">
+                <button class="submit-btn" style="background: #444; color: #fff;" onclick="verifyMasterAdmin()">پاسورڈ تصدیق کریں 🔓</button>
+            </div>
+
+            <!-- ایڈیٹر اور کلر چینجر ایریا -->
+            <div id="masterEditorArea" style="display:none; margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px;">
+                <p style="color: var(--primary); font-size: 0.9rem; font-weight: bold;">✨ خوش آمدید رانا چمن! اب آپ ویب سائٹ میں نئے فیچرز اور کیٹیگریز ایڈ کریں:</p>
+                
+                <label style="font-size: 0.9rem; font-weight: bold;">ویب سائٹ کا بنیادی رنگ (Theme Primary Color):</label>
+                <div style="display: flex; gap: 10px; margin: 8px 0;">
+                    <button class="action-chip" style="background: #00e676; color: #000;" onclick="changeThemeColor('#00e676')">سبز (Green)</button>
+                    <button class="action-chip" style="background: #00b0ff; color: #000;" onclick="changeThemeColor('#00b0ff')">نیلا (Blue)</button>
+                    <button class="action-chip" style="background: #ff5252; color: #fff;" onclick="changeThemeColor('#ff5252')">سرخ (Red)</button>
+                    <button class="action-chip" style="background: #ffd700; color: #000;" onclick="changeThemeColor('#ffd700')">سنہری (Gold)</button>
+                </div>
+                <input type="text" id="customColorInput" placeholder="یا ہیکس کلر کوڈ لکھیں (مثلاً #00b0ff)..." style="margin-top: 5px;">
+                <button class="submit-btn" style="background: var(--primary); color:#000;" onclick="applyCustomColor()">یہ رنگ لاگو کریں 🎨</button>
+
+                <div style="margin-top: 15px;">
+                    <label style="font-size: 0.9rem; font-weight: bold;">نئی کیٹیگری یا نیا فیچر ایڈ کریں (صرف یہاں لکھیں):</label>
+                    <p style="font-size: 0.8rem; color: var(--accent); margin: 2px 0;">طریقہ: عنوان اور واٹس ایپ پیغام نیچے لکھیں (کوئی تصویر کا لنک بھی دے سکتے ہیں)</p>
+                    <input type="text" id="newCatTitle" placeholder="نئی کیٹیگری کا نام (مثلاً: ترجمہ قرآن کورس)..." style="margin-top: 5px;">
+                    <input type="text" id="newCatImg" placeholder="تصویر کا لنک (اختیاری، خالی چھوڑ سکتے ہیں)..." style="margin-top: 5px;">
+                    <textarea id="newCatMsg" rows="2" placeholder="اس بٹن پر کلک کرنے پر جو پیغام واٹس ایپ پر جائے گا وہ لکھیں..."></textarea>
+                    <button class="submit-btn" style="background: linear-gradient(45deg, #00e676, #00b0ff); color: #000;" onclick="addNewCategoryToWebsite()">نئی کیٹیگری ویب سائٹ پر لائیو کریں 🚀</button>
+                    <button class="back-btn" style="background: #ff5252; margin-top: 8px; width: 100%;" onclick="clearCustomCategories()">تمام اضافی کیٹیگریز ہٹائیں 🗑️</button>
+                </div>
+            </div>
+        </div>
+
         <footer>
             <p data-en="&copy; 2026 Musab bin Umair (RA) Online Academy | All Rights Reserved">&copy; 2026 مصعب بن عمیر رضی اللہ عنہ آن لائن اکیڈمی | تمام حقوق محفوظ ہیں</p>
         </footer>
@@ -553,7 +594,11 @@
         let isEnglish = false;
         let pendingMessage = "";
 
-        // پاسورڈ تصدیق اور ویب سائٹ پر نوٹس اپڈیٹ کرنے کا فنکشن
+        // پہلے نوٹس بورڈ کے لیے ڈبل کلک فنکشن (مکمل محفوظ و برقرار)
+        function revealNoticePasswordBox() {
+            document.getElementById('noticeLockBox').style.display = 'block';
+        }
+
         function verifyNoticeAdmin() {
             const pass = document.getElementById('adminNoticePassword').value.trim();
             if (pass === "chaman786") {
@@ -571,12 +616,93 @@
                 alert("براہ کرم نیا نوٹس درج کریں");
                 return;
             }
-            // ویب سائٹ پر نوٹس تبدیل کریں
             document.getElementById('displayNoticeBox').innerText = newText;
-            // براؤزر میں محفوظ کریں تاکہ ریفریش کرنے پر بھی قائم رہے
             localStorage.setItem('saved_academy_notice', newText);
             document.getElementById('websiteNoticeInput').value = "";
             alert("✅ نوٹس بورڈ کامیابی کے ساتھ اپڈیٹ کر دیا گیا ہے!");
+        }
+
+        // دوسرے (سب سے نیچے والے) ماسٹر کنٹرول بورڈ کے لیے ڈبل کلک فنکشن
+        function revealMasterControlBox() {
+            document.getElementById('masterLockBox').style.display = 'block';
+        }
+
+        function verifyMasterAdmin() {
+            const pass = document.getElementById('adminMasterPassword').value.trim();
+            if (pass === "chaman786") {
+                document.getElementById('masterLockBox').style.display = 'none';
+                document.getElementById('masterEditorArea').style.display = 'block';
+                alert("ماسٹر پاسورڈ درست ہے! اب آپ نئے فیچرز اور کیٹیگریز ایڈ کر سکتے ہیں۔");
+            } else {
+                alert("غلط پاسورڈ!");
+            }
+        }
+
+        function changeThemeColor(colorCode) {
+            document.documentElement.style.setProperty('--primary', colorCode);
+            localStorage.setItem('saved_theme_color', colorCode);
+            alert("✅ رنگ کامیابی کے ساتھ تبدیل کر دیا گیا ہے!");
+        }
+
+        function applyCustomColor() {
+            const color = document.getElementById('customColorInput').value.trim();
+            if(color) {
+                changeThemeColor(color);
+            } else {
+                alert("براہ کرم کلر کوڈ درج کریں۔");
+            }
+        }
+
+        // نئی کیٹیگریز یا فیچرز خود بخود ویب سائٹ پر ایڈ کرنے کا فنکشن
+        function addNewCategoryToWebsite() {
+            const title = document.getElementById('newCatTitle').value.trim();
+            let img = document.getElementById('newCatImg').value.trim();
+            const msg = document.getElementById('newCatMsg').value.trim();
+
+            if(!title || !msg) {
+                alert("براہ کرم کم از کم کیٹیگری کا نام اور واٹس ایپ پیغام ضرور لکھیں۔");
+                return;
+            }
+
+            if(!img) {
+                img = "https://images.unsplash.com/photo-1609599006353-e629aaabfeae?auto=format&fit=crop&w=400&q=80"; // ڈیفالٹ تصویر
+            }
+
+            let customCats = JSON.parse(localStorage.getItem('saved_custom_categories') || '[]');
+            customCats.push({ title: title, img: img, msg: msg });
+            localStorage.setItem('saved_custom_categories', JSON.stringify(customCats));
+
+            document.getElementById('newCatTitle').value = "";
+            document.getElementById('newCatImg').value = "";
+            document.getElementById('newCatMsg').value = "";
+
+            loadCustomCategories();
+            alert("✨ شاندار! نئی کیٹیگری کامیابی کے ساتھ ویب سائٹ کے اندر ایڈ کر دی گئی ہے!");
+        }
+
+        function loadCustomCategories() {
+            const container = document.getElementById('dynamicExtraCategoriesGrid');
+            container.innerHTML = "";
+            let customCats = JSON.parse(localStorage.getItem('saved_custom_categories') || '[]');
+
+            customCats.forEach(cat => {
+                const btn = document.createElement('div');
+                btn.className = 'cat-btn';
+                btn.onclick = () => promptTeacher(cat.msg);
+                btn.innerHTML = `
+                    <img src="${cat.img}" alt="${cat.title}">
+                    ⭐ ${cat.title}
+                `;
+                container.appendChild(btn);
+            });
+        }
+
+        function clearCustomCategories() {
+            if(confirm("کیا آپ واقعی تمام اضافی کیٹیگریز کو ہٹانا چاہتے ہیں؟")) {
+                localStorage.removeItem('saved_custom_categories');
+                loadCustomCategories();
+                alert("تمام اضافی کیٹیگریز صاف کر دی گئی ہیں۔");
+            }
         }
 
         function promptTeacher(msg) {
@@ -640,11 +766,18 @@
             const dayIndex = new Date().getDate() % dailyDuas.length;
             document.getElementById('dailyDuaText').innerText = dailyDuas[dayIndex];
 
-            // محفوظ شدہ نوٹس لوڈ کریں اگر موجود ہو
+            // محفوظ شدہ نوٹس اور کلرز لوڈ کریں
             const savedNotice = localStorage.getItem('saved_academy_notice');
             if (savedNotice) {
                 document.getElementById('displayNoticeBox').innerText = savedNotice;
             }
+
+            const savedColor = localStorage.getItem('saved_theme_color');
+            if (savedColor) {
+                document.documentElement.style.setProperty('--primary', savedColor);
+            }
+
+            loadCustomCategories();
 
             const now = new Date();
             const englishOptions = { day: 'numeric', month: 'long', year: 'numeric' };
