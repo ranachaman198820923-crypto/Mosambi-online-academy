@@ -289,7 +289,7 @@
         </footer>
     </div>
 
-    <!-- فل سکرین قرآن ویور (مع اردو ترجمہ بٹن) -->
+    <!-- فل سکرین قرآن ویور (مع ترجمہ بٹن) -->
     <div id="quranViewerPage">
         <button class="back-btn" style="width:auto; margin:10px;" onclick="document.getElementById('quranViewerPage').style.display='none'">⬅ واپس جائیں</button>
         <h2 id="viewerSurahTitle" style="color:var(--primary); text-align:center;"></h2>
@@ -328,30 +328,24 @@
             loadActiveTestForStudent();
         };
 
-        // تمام 114 سورتوں کا ڈیٹا بیک گراؤنڈ میں لوڈ کرنا
         async function fetchAllSurahs() {
             try {
                 let res = await fetch('https://api.alquran.cloud/v1/surah');
                 let data = await res.json();
                 allSurahsData = data.data;
 
-                // قرآن انڈیکس لسٹ بھریں
                 let box = document.getElementById('surahListContainer');
                 box.innerHTML = '';
-                
-                // آڈیو سلیکٹر لسٹ بھریں
                 let audioSelect = document.getElementById('audioSurahSelect');
                 audioSelect.innerHTML = '';
 
                 allSurahsData.forEach(s => {
-                    // انڈیکس آئ템
                     let div = document.createElement('div');
                     div.className = 'list-item';
                     div.innerHTML = `<span>${s.number}. ${s.name} (${s.englishName}) - [${s.revelationType}]</span> <span style="font-size:0.85rem; color:var(--primary);">آیات: ${s.numberOfAyahs} ➔</span>`;
                     div.onclick = () => openFullSurahWithTranslation(s.number, s.name);
                     box.appendChild(div);
 
-                    // آڈیو ڈراپ ڈاؤن آئٹم
                     let opt = document.createElement('option');
                     opt.value = s.number;
                     opt.text = `${s.number}. سورۃ ${s.name} (${s.englishName})`;
@@ -362,7 +356,6 @@
             }
         }
 
-        // وزٹر ٹریکنگ سسٹم
         function trackVisitor(name) {
             let visitors = JSON.parse(localStorage.getItem('academy_visitors_log') || '[]');
             let now = new Date();
@@ -461,20 +454,20 @@
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent(pendingMsg)}`, '_blank');
         }
 
-        // کسی بھی سورت کی آیات اور ترجمہ لوڈ کرنے کا فنکشن
+        // بہترڈ اور 100% درست ترجمہ لوڈ کرنے کا فنکشن (متبادل مضبوط API کے ساتھ)
         async function openFullSurahWithTranslation(num, name) {
             document.getElementById('viewerSurahTitle').innerText = "سورۃ " + name;
             let c = document.getElementById('ayahsContainer');
-            c.innerHTML = "<p style='color:var(--accent);'>آیات اور ترجمہ لوڈ ہو رہا ہے، براہ کرم انتظار کریں...</p>";
+            c.innerHTML = "<p style='color:var(--accent);'>آیات اور اردو ترجمہ لوڈ ہو رہا ہے، براہ کرم انتظار کریں...</p>";
             document.getElementById('quranViewerPage').style.display = 'block';
 
             try {
-                let [resAr, resUr] = await Promise.all([
-                    fetch(`https://api.alquran.cloud/v1/surah/${num}`),
-                    fetch(`https://api.alquran.cloud/v1/surah/${num}/ur.jalandhry`)
-                ]);
-                let dataAr = await resAr.json();
-                let dataUr = await resUr.json();
+                // اب ہم قرآن اور اس کا اردو ترجمہ ایک ساتھ ایک ہی سورس سے بالکل درست طریقے سے لائیں گے
+                let res = await fetch(`https://api.alquran.cloud/v1/surah/${num}/editions/quran-uthmani,ur.jalandhry`);
+                let data = await res.json();
+
+                let ayahsAr = data.data[0].ayahs;
+                let ayahsUr = data.data[1].ayahs;
 
                 c.innerHTML = '';
                 
@@ -488,25 +481,21 @@
                     c.appendChild(bsm);
                 }
 
-                for(let i=0; i<dataAr.data.ayahs.length; i++) {
-                    let ayahAr = dataAr.data.ayahs[i];
-                    let ayahUr = dataAr.data.ayahs[i];
-
+                for(let i=0; i<ayahsAr.length; i++) {
                     let card = document.createElement('div');
                     card.className = 'ayah-card';
                     card.innerHTML = `
-                        <div>${ayahAr.text} <span style="color:var(--primary); font-size:1.1rem;">﴿${ayahAr.numberInSurah}﴾</span></div>
+                        <div>${ayahsAr[i].text} <span style="color:var(--primary); font-size:1.1rem;">﴿${ayahsAr[i].numberInSurah}﴾</span></div>
                         <button onclick="toggleTrans(this)" style="background:var(--primary); color:#000; font-weight:bold; border:none; padding:6px 14px; border-radius:6px; font-size:0.85rem; cursor:pointer; margin-top:10px;">ترجمہ دکھائیں</button>
-                        <div class="trans-text">${ayahUr.text}</div>
+                        <div class="trans-text">${ayahsUr[i].text}</div>
                     `;
                     c.appendChild(card);
                 }
             } catch(e) { 
-                c.innerHTML = "<p>ڈیٹا لوڈ کرنے میں انٹرنیٹ کا مسئلہ پیش آیا۔ دوبارہ کوشش کریں۔</p>"; 
+                c.innerHTML = "<p>ڈیٹا لوڈ کرنے میں انٹرنیٹ کا مسئلہ پیش آیا۔ براہ کرم دوبارہ کوشش کریں۔</p>"; 
             }
         }
 
-        // ترجمہ دکھانے یا چھپانے کا بٹن فنکشن
         function toggleTrans(btn) {
             let t = btn.nextElementSibling;
             if(t.style.display === "block") {
@@ -522,16 +511,11 @@
             }
         }
 
-        // تمام 114 سورتوں کی آڈیو پلے کرنے کا فنکشن (صفر کی فارمیٹنگ کے ساتھ جیسے 001، 036، 114)
         function playAudioStream() {
             let selectElem = document.getElementById('audioSurahSelect');
             let surahNum = selectElem.value;
-            
-            // نمبر کو 3 ہندسوں میں تبدیل کرنا (مثلاً 1 بن جائے گا 001 اور 36 بن جائے گا 036)
             let formattedNum = String(surahNum).padStart(3, '0');
-            
             let audio = document.getElementById('mainAudio');
-            // دنیا کے بہترین فری قاری (مہر المعقیلی یا سدیس) کا سرور لنک
             audio.src = `https://server11.mp3quran.net/sds/${formattedNum}.mp3`;
             audio.style.display = 'block';
             audio.play().catch(e => alert("آڈیو چلانے میں مسئلہ ہے، براہ کرم انٹرنیٹ کنکشن چیک کریں۔"));
@@ -570,20 +554,6 @@
 
             document.getElementById('aiCommandInput').value = "";
             document.getElementById('secretAIPanel').style.display = 'none';
-        }
-
-        function publishTestToStudents() {
-            let q = document.getElementById('adminQ').value;
-            let o1 = document.getElementById('adminOpt1').value;
-            let o2 = document.getElementById('adminOpt2').value;
-            let o3 = document.getElementById('adminOpt3').value;
-
-            if(q && o1 && o2) {
-                let testData = { q, options: [o1, o2, o3] };
-                localStorage.setItem('academy_active_test', JSON.stringify(testData));
-                alert("ٹیسٹ کامیابی سے پبلش کر دیا گیا ہے!");
-                loadActiveTestForStudent();
-            } else { alert("سوال اور کم از کم دو آپشنز لازمی لکھیں!"); }
         }
 
         function loadActiveTestForStudent() {
