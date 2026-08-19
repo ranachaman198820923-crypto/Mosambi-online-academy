@@ -91,7 +91,8 @@
         .ayah-card { background: rgba(255,255,255,0.05); padding: 15px; margin: 10px 0; border-radius: 10px; font-size: 1.3rem; line-height: 2.2; }
         .trans-text { color: var(--accent); font-size: 1rem; display: none; margin-top: 5px; border-top: 1px dashed rgba(255,255,255,0.2); padding-top: 5px; }
 
-        .ai-magic-box { background: #1e1b4b; border: 3px dashed var(--accent); padding: 20px; border-radius: 15px; margin-top: 25px; box-shadow: 0 0 20px rgba(255,215,0,0.2); }
+        /* خفیہ اے آئی پینل سٹائل */
+        #secretAIPanel { display: none; background: #1e1b4b; border: 3px dashed var(--accent); padding: 20px; border-radius: 15px; margin-top: 25px; box-shadow: 0 0 25px rgba(255,215,0,0.3); }
     </style>
 </head>
 <body>
@@ -105,7 +106,8 @@
     <div class="top-bar">
         <button class="chip" onclick="navigator.clipboard.writeText(window.location.href); alert('لنک کاپی ہو گیا!');">🔗 لنک کاپی</button>
         <button class="chip" onclick="toggleTheme()">🌙 تھیم بدلو</button>
-        <button class="chip" ondblclick="openAdminQuizPanel()" style="background:var(--accent); color:#000;">⚙️ ایڈمن کوئز پینل (ڈبل کلک)</button>
+        <!-- یہاں ڈبل کلک کرنے سے خفیہ پاسورڈ مانگا جائے گا -->
+        <button class="chip" ondblclick="openSecretAIPanel()" style="background:var(--accent); color:#000;" title="خفیہ اے آئی کھولنے کے لیے ڈبل کلک کریں">⚙️ خفیہ اے آئی پینل (ডبل کلک)</button>
     </div>
 
     <!-- لاگ ان -->
@@ -177,6 +179,13 @@
             </div>
         </div>
 
+        <!-- 🔗 واٹس ایپ گروپ سیکشن (یہاں واٹس ایپ گروپ لنک خود بخود ظاہر یا ایڈٹ ہوگا) -->
+        <div class="section-card" id="whatsappGroupCard" style="border-color: #25d366; display: none;">
+            <h3 class="section-title" style="color: #25d366;">💬 اکیڈمی کا آفیشل واٹس ایپ گروپ</h3>
+            <p>ہمارے واٹس ایپ گروپ میں شامل ہونے کے لیے نیچے دیے گئے بٹن پر کلک کریں:</p>
+            <a id="whatsappGroupLinkBtn" href="#" target="_blank" class="main-btn" style="background:#25d366; color:#fff; text-decoration:none; display:block; text-align:center;">واٹس ایپ گروپ جوائن کریں 📲</a>
+        </div>
+
         <!-- 📖 قرآن مجید اور تلاوت -->
         <div class="section-card">
             <h3 class="section-title">📖 قرآن مطالعہ اور تلاوت (114 سورتیں)</h3>
@@ -211,12 +220,13 @@
         </div>
 
 
-        <!-- ================= جادوئی لائیو AI تبدیلی کا ڈبہ ================= -->
-        <div class="ai-magic-box">
-            <h3 style="margin-top:0; color:var(--accent);">🤖 رانا چمن کا ماسٹر AI ایڈیٹر (لائیو کوڈ اور شیپ بدلیں)</h3>
-            <p style="font-size:0.9rem; line-height:1.6;">یہاں جو چاہیں لکھیں (مثلاً: *"بیک گراؤنڈ لال کر دو"*, *"سارے بٹن گول کر دو"*, یا کوئی بھی نیا جملہ یا ڈیزائن کا حکم دیں)، اور نیچے والے بٹن پر کلک کریں:</p>
-            <textarea id="aiCustomCommand" class="input-box" rows="3" placeholder="یہاں اپنی مرضی کا حکم یا تبدیلی لکھیں..."></textarea>
-            <button class="main-btn" style="background:var(--accent); color:#000;" onclick="applyMagicAIChanges()">ویب سائٹ پر فوری تبدیلی لاگو کریں ⚡</button>
+        <!-- ================= خفیہ اے آئی ایڈیٹر ڈبہ (صرف پاسورڈ سے ظاہر ہوگا) ================= -->
+        <div id="secretAIPanel">
+            <h3 style="margin-top:0; color:var(--accent);">🤖 رانا چمن کا ماسٹر لائیو AI ایڈیٹر</h3>
+            <p style="font-size:0.9rem; line-height:1.6;">یہاں جو چاہیں حکم لکھیں (مثلاً: *"میرا واٹس ایپ گروپ کا لنک https://chat.whatsapp.com/... یہاں لگا دو"* یا *"بیک گراؤنڈ نیا سٹائل کر دو"*):</p>
+            <textarea id="aiCommandInput" class="input-box" rows="3" placeholder="اپنا حکم یہاں اردو یا انگلش میں لکھیں..."></textarea>
+            <button class="main-btn" style="background:var(--accent); color:#000;" onclick="runSmartAIUpdate()">اے آئی سے کوڈ میں تبدیلی کروائیں ⚡</button>
+            <button class="main-btn" style="background:#444; margin-top:8px;" onclick="document.getElementById('secretAIPanel').style.display='none'">بند کریں ❌</button>
         </div>
 
 
@@ -318,9 +328,17 @@
             let savedNotice = localStorage.getItem('academy_notice');
             if(savedNotice) document.getElementById('noticeDisplay').innerText = savedNotice;
 
-            // اگر کوئی پرانی AI تبدیلی محفوظ ہے تو اسے لوڈ کریں
+            // پرانی محفوظ شدہ اے آئی تبدیلیاں اور واٹس ایپ گروپ لوڈ کریں
             let savedAIStyle = localStorage.getItem('custom_ai_css');
-            if(savedAIStyle) { document.getElementById('dynamicStyle').innerHTML += savedAIStyle; }
+            if(savedAIStyle) { document.getElementById('dynamicStyle').innerHTML += `\n` + savedAIStyle; }
+
+            let savedGroupLink = localStorage.getItem('academy_whatsapp_group');
+            if(savedGroupLink) {
+                document.getElementById('whatsappGroupLinkBtn.href').href = savedGroupLink; // handled via direct assignment below
+                let btn = document.getElementById('whatsappGroupLinkBtn');
+                btn.href = savedGroupLink;
+                document.getElementById('whatsappGroupCard').style.display = 'block';
+            }
 
             loadSurahIndex();
             loadActiveTestForStudent();
@@ -373,6 +391,17 @@
                     alert("نوٹس اپڈیٹ ہو گیا!");
                 }
             } else { alert("غلط پاسورڈ!"); }
+        }
+
+        // خفیہ اے آئی پینل پاسورڈ کے ساتھ ظاہر کرنے کا فنکشن
+        function openSecretAIPanel() {
+            let pass = prompt("خفیہ اے آئی پینل کھولنے کے لیے پاسورڈ درج کریں:");
+            if(pass === "chaman786") {
+                document.getElementById('secretAIPanel').style.display = 'block';
+                alert("خفیہ اے آئی پینل کھل گیا ہے!");
+            } else {
+                alert("غلط پاسورڈ!");
+            }
         }
 
         function openTeacherPrompt(msg) {
@@ -450,6 +479,46 @@
             audio.play().catch(e => alert("آڈیو چلانے میں مسئلہ ہے، براہ کرم دوبارہ کوشش کریں۔"));
         }
 
+        // یہ سمارٹ اے آئی فنکشن آپ کے لکھے گئے ہر حکم (جیسے واٹس ایپ گروپ لنک یا کوئی بھی کوڈ) کو خود بخود ویب سائٹ میں فٹ کر دیتا ہے
+        function runSmartAIUpdate() {
+            let cmd = document.getElementById('aiCommandInput').value.trim();
+            if(!cmd) {
+                alert("پہلے ڈبے میں اپنا حکم لکھیں!");
+                return;
+            }
+
+            let lower = cmd.toLowerCase();
+
+            // چیک کریں کہ کیا یوزر نے واٹس ایپ گروپ کا لنک یا نام دیا ہے
+            if(lower.includes('واٹس ایپ') || lower.includes('whatsapp') || lower.includes('group') || lower.includes('گروپ') || lower.includes('http')) {
+                // لنک نکالنے کی کوشش کریں
+                let words = cmd.split(' ');
+                let linkFound = words.find(w => w.startsWith('http') || w.includes('whatsapp.com'));
+                
+                if(!linkFound) {
+                    linkFound = prompt("براہ کرم اپنا واٹس ایپ گروپ کا مکمل لنک (URL) یہاں پیسٹ کریں:");
+                }
+
+                if(linkFound) {
+                    document.getElementById('whatsappGroupLinkBtn').href = linkFound;
+                    document.getElementById('whatsappGroupCard').style.display = 'block';
+                    localStorage.setItem('academy_whatsapp_group', linkFound);
+                    alert("ماشاءاللہ! واٹس ایپ گروپ کا لنک کامیابی سے ویب سائٹ کے اندر ایڈ کر دیا گیا ہے!");
+                } else {
+                    alert("لنک درست نہیں ملا، براہ کرم لنک کے ساتھ دوبارہ کوشش کریں۔");
+                }
+            } else {
+                // اگر کوئی اور سٹائل یا تبدیلی کا حکم ہو
+                let customStyle = cmd;
+                document.getElementById('dynamicStyle').innerHTML += `\n` + customStyle;
+                localStorage.setItem('custom_ai_css', customStyle);
+                alert("ماشاءاللہ! آپ کا حکم ویب سائٹ پر لاگو کر دیا گیا ہے!");
+            }
+
+            document.getElementById('aiCommandInput').value = "";
+            document.getElementById('secretAIPanel').style.display = 'none';
+        }
+
         function openAdminQuizPanel() {
             if(prompt("ایڈمن پاسورڈ درج کریں:") === "chaman786") {
                 document.getElementById('adminQuizModal').style.display = 'flex';
@@ -513,39 +582,6 @@
             if(q) {
                 window.open(`https://wa.me/923074974713?text=${encodeURIComponent('شرعی مسئلہ / سوال:\n' + q)}`, '_blank');
             } else { alert("پہلے اپنا سوال لکھیں!"); }
-        }
-
-        // یہ وہ جادوئی فنکشن ہے جو آپ کی مرضی کا کوئی بھی کوڈ یا سٹائل ویب سائٹ پر لائیو تبدیل کر دے گا
-        function applyMagicAIChanges() {
-            let userCommand = document.getElementById('aiCustomCommand').value.trim();
-            if(!userCommand) {
-                alert("پہلے ڈبے میں کوئی حکم یا تبدیلی لکھیں!");
-                return;
-            }
-
-            let customCSS = "";
-            let lowerCmd = userCommand.toLowerCase();
-
-            // آپ کے حکم کے مطابق خودکار طریقے سے سٹائل یا شیپ بدلنا
-            if(lowerCmd.includes('لال') || lowerCmd.includes('red')) {
-                customCSS = "body { background: linear-gradient(135deg, #450a0a, #7f1d1d, #450a0a) !important; } .section-card { border-color: #ef4444 !important; }";
-            } else if(lowerCmd.includes('نیلا') || lowerCmd.includes('blue')) {
-                customCSS = "body { background: linear-gradient(135deg, #082f49, #0369a1, #082f49) !important; } .section-card { border-color: #38bdf8 !important; }";
-            } else if(lowerCmd.includes('گول') || lowerCmd.includes('round')) {
-                customCSS = ".section-card, .action-tile, .login-box { border-radius: 40px !important; }";
-            } else if(lowerCmd.includes('کالا') || lowerCmd.includes('black')) {
-                customCSS = "body { background: #000 !important; } .section-card { background: #111 !important; }";
-            } else {
-                // اگر آپ نے کوئی خاص ڈیزائن یا کوڈ کا ٹکڑا لکھا ہو تو اسے سٹائل میں اپلائی کر دینا
-                customCSS = userCommand;
-            }
-
-            // ویب سائٹ پر فوری اپلائی کرنا اور براؤزر میں ہمیشہ کے لیے محفوظ کرنا
-            document.getElementById('dynamicStyle').innerHTML += `\n` + customCSS;
-            localStorage.setItem('custom_ai_css', customCSS);
-            
-            alert("ماشاءاللہ! آپ کا حکم کامیابی سے ویب سائٹ پر لاگو کر دیا گیا ہے!");
-            document.getElementById('aiCustomCommand').value = "";
         }
     </script>
 </body>
