@@ -85,11 +85,12 @@
         .sub-page { display: none; background: var(--card-bg); padding: 20px; border-radius: 15px; margin-top: 15px; border: 2px solid var(--primary); }
         .back-btn { background: #c0392b; color: #fff; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; margin-bottom: 15px; font-weight: bold; width: 100%; }
 
-        .list-item { background: rgba(255,255,255,0.03); padding: 12px 15px; margin: 8px 0; border-radius: 8px; display: flex; justify-content: space-between; cursor: pointer; font-weight: bold; border-right: 4px solid var(--primary); }
+        .list-item { background: rgba(255,255,255,0.03); padding: 12px 15px; margin: 8px 0; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: bold; border-right: 4px solid var(--primary); }
+        .list-item:hover { background: rgba(0,230,118,0.1); }
         
         #quranViewerPage { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-gradient); z-index: 10000; overflow-y: auto; padding: 20px; box-sizing: border-box; }
-        .ayah-card { background: rgba(255,255,255,0.05); padding: 15px; margin: 10px 0; border-radius: 10px; font-size: 1.3rem; line-height: 2.2; }
-        .trans-text { color: var(--accent); font-size: 1rem; display: none; margin-top: 5px; border-top: 1px dashed rgba(255,255,255,0.2); padding-top: 5px; }
+        .ayah-card { background: rgba(255,255,255,0.05); padding: 15px; margin: 12px 0; border-radius: 10px; font-size: 1.4rem; line-height: 2.3; text-align: right; border-right: 4px solid var(--accent); }
+        .trans-text { color: var(--accent); font-size: 1.1rem; display: none; margin-top: 8px; border-top: 1px dashed rgba(255,255,255,0.2); padding-top: 8px; line-height: 1.8; }
 
         #secretAIPanel { display: none; background: #1e1b4b; border: 3px dashed var(--accent); padding: 20px; border-radius: 15px; margin-top: 25px; box-shadow: 0 0 25px rgba(255,215,0,0.3); }
     </style>
@@ -102,7 +103,7 @@
         </marquee>
     </div>
 
-    <!-- ٹاپ بار (جس میں آنکھ کا خفیہ نشان اور دیگر بٹن ہیں) -->
+    <!-- ٹاپ بار -->
     <div class="top-bar">
         <button class="chip" onclick="openViewerTracker()" title="وزٹرز کی ہسٹری دیکھیں" style="background:var(--accent); color:#000;">👁️ ویورز</button>
         <button class="chip" onclick="navigator.clipboard.writeText(window.location.href); alert('لنک کاپی ہو گیا!');">🔗 لنک کاپی</button>
@@ -188,15 +189,15 @@
 
         <!-- 📖 قرآن مجید اور تلاوت -->
         <div class="section-card">
-            <h3 class="section-title">📖 قرآن مطالعہ اور تلاوت (114 سورتیں)</h3>
+            <h3 class="section-title">📖 قرآن مطالعہ اور تلاوت (مکمل 114 سورتیں)</h3>
             <div class="grid-2">
                 <div class="action-tile" onclick="openPage('quranIndexPage')">
                     <img src="https://images.unsplash.com/photo-1584286595398-a19f07d1f4fe?auto=format&fit=crop&w=400&q=80">
-                    📖 مکمل قرآن (ترجمہ بٹن کے ساتھ)
+                    📖 مکمل قرآن (114 سورتیں + ترجمہ)
                 </div>
                 <div class="action-tile" onclick="openPage('audioPage')">
                     <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=400&q=80">
-                    🎧 آڈیو تلاوت (مکمل ورکنگ)
+                    🎧 آڈیو تلاوت (تمام 114 سورتیں)
                 </div>
             </div>
         </div>
@@ -231,22 +232,24 @@
 
 
         <!-- ================= SUB PAGES ================= -->
+
+        <!-- قرآن انڈیکس (مکمل 114 سورتیں) -->
         <div id="quranIndexPage" class="sub-page">
             <button class="back-btn" onclick="closeAllPages()">⬅ مین مینو پر واپس جائیں</button>
-            <h3 style="color:var(--primary)">📖 مکمل قرآن مجید (114 سورتیں)</h3>
-            <div id="surahListContainer" style="max-height: 450px; overflow-y: auto;">
+            <h3 style="color:var(--primary)">📖 مکمل قرآن مجید (تمام 114 سورتیں)</h3>
+            <p style="font-size: 0.9rem; color: var(--accent);">کسی بھی سورت پر کلک کریں تاکہ اس کی آیات اور اردو ترجمہ کھل جائے:</p>
+            <div id="surahListContainer" style="max-height: 480px; overflow-y: auto;">
                 <p>سورتیں لوڈ ہو رہی ہیں...</p>
             </div>
         </div>
 
+        <!-- آڈیو صفحہ (مکمل 114 سورتیں) -->
         <div id="audioPage" class="sub-page">
             <button class="back-btn" onclick="closeAllPages()">⬅ مین مینو پر واپس جائیں</button>
-            <h3 style="color:var(--primary)">🎧 آڈیو تلاوت قرآن</h3>
-            <select id="audioSurahSelect" class="input-box">
-                <option value="001">1. سورۃ الفاتحہ</option>
-                <option value="036">36. سورۃ یٰسین</option>
-                <option value="067">67. سورۃ الملك</option>
-                <option value="055">55. سورۃ الرحمن</option>
+            <h3 style="color:var(--primary)">🎧 آڈیو تلاوت قرآن (مکمل 114 سورتیں)</h3>
+            <p style="font-size: 0.9rem;">لسٹ میں سے اپنی پسندیدہ سورۃ منتخب کریں:</p>
+            <select id="audioSurahSelect" class="input-box" style="max-height: 200px;">
+                <!-- جاوا اسکریپٹ کے ذریعے 114 سورتیں خود بخود یہاں لوڈ ہوں گی -->
             </select>
             <button class="main-btn" onclick="playAudioStream()">تلاوت پلے کریں ▶</button>
             <audio id="mainAudio" controls style="width:100%; margin-top:15px; display:none;"></audio>
@@ -286,7 +289,7 @@
         </footer>
     </div>
 
-    <!-- فل سکرین قرآن ویور -->
+    <!-- فل سکرین قرآن ویور (مع ترجمہ بٹن) -->
     <div id="quranViewerPage">
         <button class="back-btn" style="width:auto; margin:10px;" onclick="document.getElementById('quranViewerPage').style.display='none'">⬅ واپس جائیں</button>
         <h2 id="viewerSurahTitle" style="color:var(--primary); text-align:center;"></h2>
@@ -297,12 +300,13 @@
     <script>
         let currentStudentName = "";
         let pendingMsg = "";
+        let allSurahsData = [];
 
         window.onload = function() {
             let user = localStorage.getItem('academy_user');
             if(user) { 
                 activateWebsite(user); 
-                trackVisitor(user); // وزٹر ٹریک کریں جب نام موجود ہو
+                trackVisitor(user); 
             } else { 
                 document.getElementById('loginOverlay').style.display = 'flex'; 
             }
@@ -320,27 +324,56 @@
                 document.getElementById('whatsappGroupCard').style.display = 'block';
             }
 
-            loadSurahIndex();
+            fetchAllSurahs();
             loadActiveTestForStudent();
         };
 
-        // 👁️ وزٹر ٹریکنگ سسٹم (نام، تاریخ اور وقت محفوظ کرنے کے لیے)
+        // تمام 114 سورتوں کا ڈیٹا بیک گراؤنڈ میں لوڈ کرنا
+        async function fetchAllSurahs() {
+            try {
+                let res = await fetch('https://api.alquran.cloud/v1/surah');
+                let data = await res.json();
+                allSurahsData = data.data;
+
+                // قرآن انڈیکس لسٹ بھریں
+                let box = document.getElementById('surahListContainer');
+                box.innerHTML = '';
+                
+                // آڈیو سلیکٹر لسٹ بھریں
+                let audioSelect = document.getElementById('audioSurahSelect');
+                audioSelect.innerHTML = '';
+
+                allSurahsData.forEach(s => {
+                    // انڈیکس آئ템
+                    let div = document.createElement('div');
+                    div.className = 'list-item';
+                    div.innerHTML = `<span>${s.number}. ${s.name} (${s.englishName}) - [${s.revelationType}]</span> <span style="font-size:0.85rem; color:var(--primary);">آیات: ${s.numberOfAyahs} ➔</span>`;
+                    div.onclick = () => openFullSurahWithTranslation(s.number, s.name);
+                    box.appendChild(div);
+
+                    // آڈیو ڈراپ ڈاؤن آئٹم
+                    let opt = document.createElement('option');
+                    opt.value = s.number;
+                    opt.text = `${s.number}. سورۃ ${s.name} (${s.englishName})`;
+                    audioSelect.appendChild(opt);
+                });
+            } catch(e) { 
+                document.getElementById('surahListContainer').innerHTML = "<p>انٹرنیٹ کنکشن چیک کریں!</p>"; 
+            }
+        }
+
+        // وزٹر ٹریکنگ سسٹم
         function trackVisitor(name) {
             let visitors = JSON.parse(localStorage.getItem('academy_visitors_log') || '[]');
             let now = new Date();
-            let dateStr = now.toLocaleDateString('ur-PK'); // تاریخ
-            let timeStr = now.toLocaleTimeString('ur-PK'); // وقت
-            
-            // چیک کریں کہ ایک ہی بندہ بار بار ایک منٹ میں نہ ریکارڈ ہو جائے، یا ہر بار نیا ویو سیو ہو
             visitors.push({
                 name: name,
-                date: dateStr,
-                time: timeStr
+                date: now.toLocaleDateString('ur-PK'),
+                time: now.toLocaleTimeString('ur-PK')
             });
             localStorage.setItem('academy_visitors_log', JSON.stringify(visitors));
         }
 
-        // 👁️ آنکھ والے بٹن کا فنکشن (پاسورڈ مانگ کر وزٹرز دکھانے کے لیے)
         function openViewerTracker() {
             let pass = prompt("خفیہ وزٹرز لسٹ دیکھنے کے لیے پاسورڈ درج کریں:");
             if(pass === "chaman786") {
@@ -349,7 +382,6 @@
                     alert("ابھی تک کسی نے ویب سائٹ نہیں دیکھی۔");
                     return;
                 }
-                
                 let report = "👁️ ویب سائٹ وزٹرز کی مکمل ہسٹری:\n\n";
                 visitors.forEach((v, index) => {
                     report += `${index + 1}. نام: ${v.name}\n   📅 تاریخ: ${v.date}\n   ⏰ وقت: ${v.time}\n-------------------\n`;
@@ -364,7 +396,7 @@
             let name = document.getElementById('userNameInput').value.trim();
             if(name) {
                 localStorage.setItem('academy_user', name);
-                trackVisitor(name); // لاگ ان کرتے ہی ویو سیو ہو جائے گا
+                trackVisitor(name);
                 activateWebsite(name);
             } else { alert('پہلے اپنا نام لکھیں!'); }
         }
@@ -429,26 +461,11 @@
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent(pendingMsg)}`, '_blank');
         }
 
-        async function loadSurahIndex() {
-            try {
-                let res = await fetch('https://api.alquran.cloud/v1/surah');
-                let data = await res.json();
-                let box = document.getElementById('surahListContainer');
-                box.innerHTML = '';
-                data.data.forEach(s => {
-                    let div = document.createElement('div');
-                    div.className = 'list-item';
-                    div.innerHTML = `<span>${s.number}. ${s.name} (${s.englishName})</span> <span>آیات: ${s.numberOfAyahs}</span>`;
-                    div.onclick = () => openFullSurahWithTranslation(s.number, s.name);
-                    box.appendChild(div);
-                });
-            } catch(e) { document.getElementById('surahListContainer').innerHTML = "<p>انٹرنیٹ کنکشن چیک کریں!</p>"; }
-        }
-
+        // کسی بھی سورت کی آیات اور ترجمہ لوڈ کرنے کا فنکشن
         async function openFullSurahWithTranslation(num, name) {
-            document.getElementById('viewerSurahTitle').innerText = name;
+            document.getElementById('viewerSurahTitle').innerText = "سورۃ " + name;
             let c = document.getElementById('ayahsContainer');
-            c.innerHTML = "<p>تلاوت اور ترجمہ لوڈ ہو رہا ہے...</p>";
+            c.innerHTML = "<p style='color:var(--accent);'>آیات اور ترجمہ لوڈ ہو رہا ہے، براہ کرم انتظار کریں...</p>";
             document.getElementById('quranViewerPage').style.display = 'block';
 
             try {
@@ -460,39 +477,64 @@
                 let dataUr = await resUr.json();
 
                 c.innerHTML = '';
+                
+                // بسم اللہ کا اضافہ (سورۃ التوبہ کے علاوہ)
+                if(num !== 9) {
+                    let bsm = document.createElement('div');
+                    bsm.className = 'ayah-card';
+                    bsm.style.textAlign = 'center';
+                    bsm.style.color = 'var(--primary)';
+                    bsm.innerText = 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ';
+                    c.appendChild(bsm);
+                }
+
                 for(let i=0; i<dataAr.data.ayahs.length; i++) {
                     let ayahAr = dataAr.data.ayahs[i];
-                    let ayahUr = dataUr.data.ayahs[i];
+                    let ayahUr = dataAr.data.ayahs[i];
 
                     let card = document.createElement('div');
                     card.className = 'ayah-card';
                     card.innerHTML = `
-                        <div>${ayahAr.text} ۝ (${ayahAr.numberInSurah})</div>
-                        <button onclick="toggleTrans(this)" style="background:var(--primary); border:none; padding:4px 10px; border-radius:5px; font-size:0.8rem; cursor:pointer; margin-top:8px;">ترجمہ دکھائیں/چھپائیں</button>
+                        <div>${ayahAr.text} <span style="color:var(--primary); font-size:1.1rem;">﴿${ayahAr.numberInSurah}﴾</span></div>
+                        <button onclick="toggleTrans(this)" style="background:var(--primary); color:#000; font-weight:bold; border:none; padding:6px 14px; border-radius:6px; font-size:0.85rem; cursor:pointer; margin-top:10px;">ترجمہ دکھائیں</button>
                         <div class="trans-text">${ayahUr.text}</div>
                     `;
                     c.appendChild(card);
                 }
-            } catch(e) { c.innerHTML = "<p>ڈیٹا لوڈ کرنے میں مسئلہ پیش آیا۔</p>"; }
+            } catch(e) { 
+                c.innerHTML = "<p>ڈیٹا لوڈ کرنے میں انٹرنیٹ کا مسئلہ پیش آیا۔ دوبارہ کوشش کریں۔</p>"; 
+            }
         }
 
+        // ترجمہ دکھانے یا چھپانے کا بٹن فنکشن
         function toggleTrans(btn) {
             let t = btn.nextElementSibling;
             if(t.style.display === "block") {
                 t.style.display = "none";
-                btn.innerText = "ترجمہ دکھائیں/چھپائیں";
+                btn.innerText = "ترجمہ دکھائیں";
+                btn.style.background = "var(--primary)";
+                btn.style.color = "#000";
             } else {
                 t.style.display = "block";
                 btn.innerText = "ترجمہ چھپائیں";
+                btn.style.background = "#c0392b";
+                btn.style.color = "#fff";
             }
         }
 
+        // تمام 114 سورتوں کی آڈیو پلے کرنے کا فنکشن (صفر کی فارمیٹنگ کے ساتھ جیسے 001، 036، 114)
         function playAudioStream() {
-            let s = document.getElementById('audioSurahSelect').value;
+            let selectElem = document.getElementById('audioSurahSelect');
+            let surahNum = selectElem.value;
+            
+            // نمبر کو 3 ہندسوں میں تبدیل کرنا (مثلاً 1 بن جائے گا 001 اور 36 بن جائے گا 036)
+            let formattedNum = String(surahNum).padStart(3, '0');
+            
             let audio = document.getElementById('mainAudio');
-            audio.src = `https://server11.mp3quran.net/sds/${s}.mp3`;
+            // دنیا کے بہترین فری قاری (مہر المعقیلی یا سدیس) کا سرور لنک
+            audio.src = `https://server11.mp3quran.net/sds/${formattedNum}.mp3`;
             audio.style.display = 'block';
-            audio.play().catch(e => alert("آڈیو چلانے میں مسئلہ ہے، براہ کرم دوبارہ کوشش کریں۔"));
+            audio.play().catch(e => alert("آڈیو چلانے میں مسئلہ ہے، براہ کرم انٹرنیٹ کنکشن چیک کریں۔"));
         }
 
         function runSmartAIUpdate() {
