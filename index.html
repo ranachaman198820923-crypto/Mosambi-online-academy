@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مصعب بن عمیر رضی اللہ عنہ آن لائن اکیڈمی</title>
-    <style>
+    <style id="dynamicStyle">
         :root {
             --primary: #00e676;
             --secondary: #121826;
@@ -64,7 +64,6 @@
         .banner-title { padding: 15px; background: rgba(0,0,0,0.3); }
         .banner-title h1 { margin: 0; color: var(--primary); font-size: 2rem; }
 
-        /* --- ہوم پیج کے الگ الگ واضح ڈبے --- */
         .section-card {
             background: var(--card-bg); border: 2px solid rgba(0,230,118,0.3); border-radius: 15px;
             padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
@@ -83,7 +82,6 @@
 
         .namaz-row { display: flex; justify-content: space-between; background: rgba(255,255,255,0.03); padding: 10px; margin: 6px 0; border-radius: 8px; font-weight: bold; }
 
-        /* سب پیجز */
         .sub-page { display: none; background: var(--card-bg); padding: 20px; border-radius: 15px; margin-top: 15px; border: 2px solid var(--primary); }
         .back-btn { background: #c0392b; color: #fff; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; margin-bottom: 15px; font-weight: bold; width: 100%; }
 
@@ -93,7 +91,7 @@
         .ayah-card { background: rgba(255,255,255,0.05); padding: 15px; margin: 10px 0; border-radius: 10px; font-size: 1.3rem; line-height: 2.2; }
         .trans-text { color: var(--accent); font-size: 1rem; display: none; margin-top: 5px; border-top: 1px dashed rgba(255,255,255,0.2); padding-top: 5px; }
 
-        .ai-box { background: #1e293b; border: 2px dashed var(--accent); padding: 15px; border-radius: 12px; margin-top: 20px; }
+        .ai-magic-box { background: #1e1b4b; border: 3px dashed var(--accent); padding: 20px; border-radius: 15px; margin-top: 25px; box-shadow: 0 0 20px rgba(255,215,0,0.2); }
     </style>
 </head>
 <body>
@@ -142,7 +140,7 @@
             </div>
         </div>
 
-        <!-- 📢 نوٹس بورڈ / روزانہ پوسٹ ڈبہ -->
+        <!-- 📢 نوٹس بورڈ -->
         <div class="section-card" style="border-color: var(--accent);">
             <h3 class="section-title">📢 اکیڈمی کا تازہ ترین نوٹس بورڈ</h3>
             <div id="noticeDisplay" style="font-size: 1.1rem; font-weight: bold; background: rgba(255,255,255,0.04); padding: 12px; border-radius: 8px;">
@@ -164,7 +162,7 @@
             <div class="namaz-row"><span>عشاء</span> <span>08:15 PM</span></div>
         </div>
 
-        <!-- 📚 ڈبہ 1: کورسز -->
+        <!-- 📚 کورسز -->
         <div class="section-card">
             <h3 class="section-title">📚 ہمارے آن لائن کورسز</h3>
             <div class="grid-2">
@@ -179,7 +177,7 @@
             </div>
         </div>
 
-        <!-- 📖 ڈبہ 2: قرآن مجید اور تلاوت -->
+        <!-- 📖 قرآن مجید اور تلاوت -->
         <div class="section-card">
             <h3 class="section-title">📖 قرآن مطالعہ اور تلاوت (114 سورتیں)</h3>
             <div class="grid-2">
@@ -194,15 +192,15 @@
             </div>
         </div>
 
-        <!-- 📝 ڈبہ 3: آن لائن ٹیسٹ (بچوں کے لیے) -->
+        <!-- 📝 آن لائن ٹیسٹ -->
         <div class="section-card">
             <h3 class="section-title">📝 بچوں کا آن لائن ٹیسٹ / کوئز</h3>
             <div class="action-tile" style="width: 100%; box-sizing: border-box;" onclick="openPage('studentTestPage')">
-                🧠 استاد کا دیا ہوا تازہ ترین ٹیسٹ حل کریں
+                🧠 استاد کا دیا ہوا تازہ ترین ٹیسٹ حل کریں اور واٹس ایپ پر بھیجیں
             </div>
         </div>
 
-        <!-- 💳 ڈبہ 4: خدمات (فیس، داخلہ، مسئلہ) -->
+        <!-- 💳 خدمات -->
         <div class="section-card">
             <h3 class="section-title">💳 اکیڈمی کی دیگر خدمات</h3>
             <div class="grid-2">
@@ -213,9 +211,18 @@
         </div>
 
 
+        <!-- ================= جادوئی لائیو AI تبدیلی کا ڈبہ ================= -->
+        <div class="ai-magic-box">
+            <h3 style="margin-top:0; color:var(--accent);">🤖 رانا چمن کا ماسٹر AI ایڈیٹر (لائیو کوڈ اور شیپ بدلیں)</h3>
+            <p style="font-size:0.9rem; line-height:1.6;">یہاں جو چاہیں لکھیں (مثلاً: *"بیک گراؤنڈ لال کر دو"*, *"سارے بٹن گول کر دو"*, یا کوئی بھی نیا جملہ یا ڈیزائن کا حکم دیں)، اور نیچے والے بٹن پر کلک کریں:</p>
+            <textarea id="aiCustomCommand" class="input-box" rows="3" placeholder="یہاں اپنی مرضی کا حکم یا تبدیلی لکھیں..."></textarea>
+            <button class="main-btn" style="background:var(--accent); color:#000;" onclick="applyMagicAIChanges()">ویب سائٹ پر فوری تبدیلی لاگو کریں ⚡</button>
+        </div>
+
+
         <!-- ================= SUB PAGES ================= -->
 
-        <!-- قرآن انڈیکس صفحہ (114 سورتیں) -->
+        <!-- قرآن انڈیکس -->
         <div id="quranIndexPage" class="sub-page">
             <button class="back-btn" onclick="closeAllPages()">⬅ مین مینو پر واپس جائیں</button>
             <h3 style="color:var(--primary)">📖 مکمل قرآن مجید (114 سورتیں)</h3>
@@ -263,7 +270,7 @@
             <p style="text-align:center; font-size:1.2rem;">نام: <strong>رانا افتخار احمد</strong><br>ایزی پیسہ اکاؤنٹ: <strong>03074974713</strong></p>
         </div>
 
-        <!-- سوال پوچھنے کا صفحہ -->
+        <!-- سوال صفحہ -->
         <div id="questionPage" class="sub-page">
             <button class="back-btn" onclick="closeAllPages()">⬅ واپس جائیں</button>
             <h3 style="color:var(--primary)">❓ استاد سے مسئلہ پوچھیں</h3>
@@ -286,22 +293,12 @@
             </div>
         </div>
 
-
-        <!-- ================= اے آئی کمانڈ ایڈیٹر (شیپ اور ڈیزائن کی تبدیلی) ================= -->
-        <div class="ai-box">
-            <h3 style="margin-top:0; color:var(--accent);">🤖 AI لائیو ایڈیٹر (ویب سائٹ کی شیپ اور رنگ تبدیل کریں)</h3>
-            <p style="font-size:0.85rem; opacity:0.8;">یہاں لکھیں کہ ویب سائٹ کی شیپ یا رنگ میں کیا تبدیلی کرنی ہے (مثلاً: "بیک گراؤنڈ نیلا کر دو" یا "رنگ گلابی کر دو"):</p>
-            <input type="text" id="aiCommandInput" class="input-box" placeholder="یہاں حکم لکھیں...">
-            <button class="main-btn" onclick="executeAICommandLive()">تبدیلی لاگو کریں ⚡</button>
-        </div>
-
-
         <footer style="text-align:center; padding:20px; margin-top:30px; opacity:0.7; font-size:0.9rem;">
             &copy; 2026 مصعب بن عمیر رضی اللہ عنہ آن لائن اکیڈمی
         </footer>
     </div>
 
-    <!-- فل سکرین قرآن ریڈر اور ترجمہ ویور -->
+    <!-- فل سکرین قرآن ویور -->
     <div id="quranViewerPage">
         <button class="back-btn" style="width:auto; margin:10px;" onclick="document.getElementById('quranViewerPage').style.display='none'">⬅ واپس جائیں</button>
         <h2 id="viewerSurahTitle" style="color:var(--primary); text-align:center;"></h2>
@@ -310,7 +307,7 @@
 
 
     <script>
-        let selectedTeacherPhone = "";
+        let currentStudentName = "";
         let pendingMsg = "";
 
         window.onload = function() {
@@ -320,6 +317,10 @@
             
             let savedNotice = localStorage.getItem('academy_notice');
             if(savedNotice) document.getElementById('noticeDisplay').innerText = savedNotice;
+
+            // اگر کوئی پرانی AI تبدیلی محفوظ ہے تو اسے لوڈ کریں
+            let savedAIStyle = localStorage.getItem('custom_ai_css');
+            if(savedAIStyle) { document.getElementById('dynamicStyle').innerHTML += savedAIStyle; }
 
             loadSurahIndex();
             loadActiveTestForStudent();
@@ -334,6 +335,7 @@
         }
 
         function activateWebsite(name) {
+            currentStudentName = name;
             document.getElementById('welcomeUser').innerText = "خوش آمدید، " + name;
             document.getElementById('loginOverlay').style.display = 'none';
             document.getElementById('mainWebsite').style.display = 'block';
@@ -362,7 +364,6 @@
             });
         }
 
-        // نوٹس ایڈیٹر
         function editNotice() {
             if(prompt("ایڈمن پاسورڈ درج کریں:") === "chaman786") {
                 let n = prompt("نیا نوٹس لکھیں:");
@@ -374,7 +375,6 @@
             } else { alert("غلط پاسورڈ!"); }
         }
 
-        // استاد کا پرامپٹ
         function openTeacherPrompt(msg) {
             pendingMsg = msg;
             document.getElementById('teacherModal').style.display = 'flex';
@@ -384,7 +384,6 @@
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent(pendingMsg)}`, '_blank');
         }
 
-        // قرآن مجید 114 سورتیں لوڈ کریں
         async function loadSurahIndex() {
             try {
                 let res = await fetch('https://api.alquran.cloud/v1/surah');
@@ -443,7 +442,6 @@
             }
         }
 
-        // آڈیو پلے سسٹم
         function playAudioStream() {
             let s = document.getElementById('audioSurahSelect').value;
             let audio = document.getElementById('mainAudio');
@@ -452,7 +450,6 @@
             audio.play().catch(e => alert("آڈیو چلانے میں مسئلہ ہے، براہ کرم دوبارہ کوشش کریں۔"));
         }
 
-        // ایڈمن کوئز پینل
         function openAdminQuizPanel() {
             if(prompt("ایڈمن پاسورڈ درج کریں:") === "chaman786") {
                 document.getElementById('adminQuizModal').style.display = 'flex';
@@ -479,25 +476,30 @@
             let area = document.getElementById('activeTestArea');
             if(savedTest) {
                 let test = JSON.parse(savedTest);
+                window.currentTestQuestion = test.q;
                 let html = `<h4 style="color:var(--accent);">${test.q}</h4>`;
                 test.options.forEach((opt, idx) => {
                     if(opt) {
                         html += `<label style="display:block; margin:8px 0; cursor:pointer;"><input type="radio" name="studentAns" value="${opt}"> ${opt}</label>`;
                     }
                 });
-                html += `<button class="main-btn" onclick="submitStudentTest()">جواب جمع کرائیں</button>`;
+                html += `<button class="main-btn" onclick="submitStudentTestToWhatsApp()">جواب واٹس ایپ پر بھیجیں 📲</button>`;
                 area.innerHTML = html;
             }
         }
 
-        function submitStudentTest() {
+        function submitStudentTestToWhatsApp() {
             let sel = document.querySelector('input[name="studentAns"]:checked');
             if(sel) {
-                alert("آپ کا جواب کامیابی سے جمع ہو گیا ہے! شکریہ۔");
-            } else { alert("براہ کرم کوئی ایک آپشن منتخب کریں!"); }
+                let studentAnswer = sel.value;
+                let questionText = window.currentTestQuestion || "آن لائن ٹیسٹ سوال";
+                let messageText = `📝 *نیا ٹیسٹ جواب موصول ہوا*\n\nطالب علم کا نام: ${currentStudentName}\nسوال: ${questionText}\nچُنا ہوا جواب: ${studentAnswer}`;
+                window.open(`https://wa.me/923074974713?text=${encodeURIComponent(messageText)}`, '_blank');
+            } else { 
+                alert("براہ کرم پہلے کوئی ایک آپشن منتخب کریں!"); 
+            }
         }
 
-        // فارمز
         function submitAdmission() {
             let n = document.getElementById('admName').value;
             let p = document.getElementById('admPhone').value;
@@ -513,24 +515,37 @@
             } else { alert("پہلے اپنا سوال لکھیں!"); }
         }
 
-        // AI لائیو ایڈیٹر (شیپ اور رنگ تبدیل کرنا)
-        function executeAICommandLive() {
-            let cmd = document.getElementById('aiCommandInput').value.toLowerCase();
-            if(cmd.includes('نیلا')) {
-                document.documentElement.style.setProperty('--primary', '#00b0ff');
-                alert("ویب سائٹ کا رنگ نیلا کر دیا گیا ہے!");
-            } else if(cmd.includes('گلابی') || cmd.includes('pink')) {
-                document.documentElement.style.setProperty('--primary', '#ff4081');
-                alert("ویب سائٹ کا رنگ گلابی کر دیا گیا ہے!");
-            } else if(cmd.includes('پیلا') || cmd.includes('gold')) {
-                document.documentElement.style.setProperty('--primary', '#ffd700');
-                alert("ویب سائٹ کا رنگ سنہری/پیلا کر دیا گیا ہے!");
-            } else if(cmd.includes('نام بدلو')) {
-                let newN = prompt("نیا نام لکھیں:");
-                if(newN) document.getElementById('mainTitle').innerText = newN;
-            } else {
-                alert("حکم سمجھ آ گیا، مزید کسٹمائزیشن کے لیے آپ رنگ کا نام (جیسے نیلا یا گلابی) لکھ سکتے ہیں۔");
+        // یہ وہ جادوئی فنکشن ہے جو آپ کی مرضی کا کوئی بھی کوڈ یا سٹائل ویب سائٹ پر لائیو تبدیل کر دے گا
+        function applyMagicAIChanges() {
+            let userCommand = document.getElementById('aiCustomCommand').value.trim();
+            if(!userCommand) {
+                alert("پہلے ڈبے میں کوئی حکم یا تبدیلی لکھیں!");
+                return;
             }
+
+            let customCSS = "";
+            let lowerCmd = userCommand.toLowerCase();
+
+            // آپ کے حکم کے مطابق خودکار طریقے سے سٹائل یا شیپ بدلنا
+            if(lowerCmd.includes('لال') || lowerCmd.includes('red')) {
+                customCSS = "body { background: linear-gradient(135deg, #450a0a, #7f1d1d, #450a0a) !important; } .section-card { border-color: #ef4444 !important; }";
+            } else if(lowerCmd.includes('نیلا') || lowerCmd.includes('blue')) {
+                customCSS = "body { background: linear-gradient(135deg, #082f49, #0369a1, #082f49) !important; } .section-card { border-color: #38bdf8 !important; }";
+            } else if(lowerCmd.includes('گول') || lowerCmd.includes('round')) {
+                customCSS = ".section-card, .action-tile, .login-box { border-radius: 40px !important; }";
+            } else if(lowerCmd.includes('کالا') || lowerCmd.includes('black')) {
+                customCSS = "body { background: #000 !important; } .section-card { background: #111 !important; }";
+            } else {
+                // اگر آپ نے کوئی خاص ڈیزائن یا کوڈ کا ٹکڑا لکھا ہو تو اسے سٹائل میں اپلائی کر دینا
+                customCSS = userCommand;
+            }
+
+            // ویب سائٹ پر فوری اپلائی کرنا اور براؤزر میں ہمیشہ کے لیے محفوظ کرنا
+            document.getElementById('dynamicStyle').innerHTML += `\n` + customCSS;
+            localStorage.setItem('custom_ai_css', customCSS);
+            
+            alert("ماشاءاللہ! آپ کا حکم کامیابی سے ویب سائٹ پر لاگو کر دیا گیا ہے!");
+            document.getElementById('aiCustomCommand').value = "";
         }
     </script>
 </body>
